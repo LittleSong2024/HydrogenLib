@@ -27,4 +27,4 @@ If the User violates any of the terms of this License, the Author reserves the r
 ### 8. Contact information
 If you have any questions, please contact [idesong6@outlook.com].
 
-[2024] SongzqInChina
+[2024] LittleSong2024

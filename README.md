@@ -9,7 +9,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/hydrogenlib.svg)](https://pypi.org/project/hydrogenlib)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hydrogenlib.svg)](https://pypi.org/project/hydrogenlib)
-[![Github Stars](https://img.shields.io/github/stars/SongzqInChina/HydrogenLib.svg)](https://github.com/SongzqInChina/HydrogenLib)
+[![Github Stars](https://img.shields.io/github/stars/LittleSong2024/HydrogenLib.svg)](https://github.com/LittleSong2024/HydrogenLib)
 
 </div>
 

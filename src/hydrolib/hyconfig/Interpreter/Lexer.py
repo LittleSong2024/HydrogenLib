@@ -1,11 +1,18 @@
 from collections import deque
-from typing import Any
+from typing import Any, Union
 from ...re_plus import *
+from ...data_structures import Stack
+
+# TODO: 词法分析器,Token新的参数
 
 
 class Token:
-    def __init__(self, type_: str, value: re.Match | Any):
+    def __init__(self, type_: str, value: Union[re.Match, Any], lineno: int, colno: int, offset: int):
         self.type = type_
+        self.lineno = lineno
+        self.colno = colno
+        self.offset = offset
+
         if isinstance(value, re.Match):
             self.match = value
             self.value = value.group()
@@ -45,25 +52,39 @@ ASSIGN = Literal('=')
 
 INT = Re('-?[0-9]+')
 eINT = Re(r'-?\d+e\d+')
+jINT = Re(r'[+-]?[0-9]+j')
+
+hIntStart = Literal(r'0x')
+bIntStart = Literal(r'0b')
+oIntStart = Literal(r'0o')
+
+hIntInner = Re(r'[0-9a-fA-F]+')
+bIntInner = Re(r'[0-1]+')
+oIntInner = Re(r'[0-7]+')
+
 
 STR = Re(r'"([^"\\]*(\\.[^"\\]*)*)"')
-sSTR = Re("'([^'\\\\]*(\\\\.[^'\\\\]*)*)'")
+sSTR = Re(r"'([^'\\]*(\\.[^'\\]*)*)'")
+multiSTR = Re(r'"""([^"]|"")*"""')
+
+INDENT = Re(r'[\t ]+')
+
 
 # 定义记号规则
 TOKEN_PATTERNS = [
-    ("INDENT", Re(r'\n[\t ]+')),
     ("NEWLINE", NEWLINE),
-
-    ("IMPORT", IMPORT),
-    ("FROM", FROM),
-    ("AS", AS),
+    ("INDENT", INDENT),  # 缩进记号
+    # ("DEDENT", ...)  # 退缩记号,由后期添加
+    ("KEYWORD", IMPORT),
+    ("KEYWORD", AS),
+    ("KEYWORD", FROM),
+    ("KEYWORD", PASS),
 
     ("LFILL", LFILLTOKEN),
     ("RFILL", RFILLTOKEN),
 
     ("OPER", Re(r'((//)|[\+\-\*/^&\|%]|<<|>>)')),
 
-    ("PASS", PASS),
     ("IDENT", IDENT),
     ("ASSIGN", ASSIGN),
 
@@ -107,38 +128,56 @@ def _calc_indent_length(indent):
 def _process_tokens(tokens: list[Token]):
     i = 0
     while i < len(tokens):
-        if tokens[i].type == 'INDENT':
-            indent_token = tokens[i]
-            # tokens[i] = Token('NEWLINE', '\n')
-            # tokens.insert(i + 1, Token('INDENT', _calc_indent_length(indent_token.value)))
-            tokens[i] = Token('INDENT', _calc_indent_length(indent_token.value))
-            i += 1
-        if tokens[i].type == 'NEWLINE':
-            # 删除
-            tokens.pop(i)
-            continue
+        # if tokens[i].type == 'INDENT':
+        #     indent_token = tokens[i]
+        #     # tokens[i] = Token('NEWLINE', '\n')
+        #     # tokens.insert(i + 1, Token('INDENT', _calc_indent_length(indent_token.value)))
+        #     tokens[i] = Token('INDENT', _calc_indent_length(indent_token.value))
+        #     i += 1
+
+        # if tokens[i].type == 'NEWLINE':
+        #     # 删除
+        #     tokens.pop(i)
+        #     continue
 
         i += 1
 
 
-def _process_indent(tokens: list[Token]):
-    # 将绝对缩进转成相对缩进
-    i = 0
-    last_indent = 0
-    while i < len(tokens):
-        if tokens[i].type == 'INDENT':
-            indent_length = tokens[i].value
-            add_indent_length = indent_length - last_indent
-            if add_indent_length != 0:  # 当缩进有变化时，才生成新的记号
-                if add_indent_length > 0:
-                    tokens[i] = Token('INDENT', add_indent_length)
-                else:
-                    tokens[i] = Token('DEDENT', -add_indent_length)
+def _process_indent(tokens: list[Token]) -> list[Token]:
+    processed_tokens = []
+    indent_stack = Stack()  # Use a stack to keep track of indentation levels
+
+    for i, token in enumerate(tokens):
+        if token.type == 'INDENT':
+            current_indent = token.value
+            last_indent = indent_stack.at_top
+
+            if current_indent > last_indent:
+                # Increase indentation level
+                indent_stack.push(current_indent)
+                processed_tokens.append(
+                    Token(
+                        'INDENT', current_indent - last_indent, token.lineno, token.colno, token.offset))
+            elif current_indent < last_indent:
+                # Decrease indentation level
+                while indent_stack and current_indent < indent_stack[-1]:
+                    last_indent = indent_stack.pop()
+                    processed_tokens.append(Token('DEDENT', last_indent - current_indent))
+
+                if not indent_stack or current_indent != indent_stack[-1]:
+                    raise IndentationError(f"Unexpected dedent at position {i}")
             else:
-                tokens.pop(i)
+                # No change in indentation
                 continue
-            last_indent = abs(indent_length)
-        i += 1
+        else:
+            processed_tokens.append(token)
+
+    # Handle any remaining dedents at the end of the file
+    while len(indent_stack) > 1:
+        last_indent = indent_stack.pop()
+        processed_tokens.append(Token('DEDENT', last_indent - indent_stack[-1]))
+
+    return processed_tokens
 
 
 def _delete_whitespace(tokens: list[Token]):

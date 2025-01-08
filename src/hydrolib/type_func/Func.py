@@ -5,7 +5,7 @@ import typing
 
 def get_args(func):
     for i in inspect.signature(func).parameters.values():
-        yield i.name, i.default, i.kind, i.annotation
+        yield i
 
 
 def get_name(func):

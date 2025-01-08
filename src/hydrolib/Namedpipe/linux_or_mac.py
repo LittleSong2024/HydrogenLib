@@ -6,7 +6,7 @@ import time
 from queue import Queue
 from threading import Event
 
-from ..threading_methods import run_with_timeout, start_daemon_thread
+from ..threading_methods import run_with_timeout, run_new_daemon_thread
 
 
 # module end, but test not finished
@@ -31,7 +31,7 @@ class _Reader:
         self.name = name
         self._event = Event()
         self._queue = Queue()
-        self._thread = start_daemon_thread(self._read_thread)
+        self._thread = run_new_daemon_thread(self._read_thread)
 
     def _wait(self):
         while not os.path.exists(self.name):
@@ -71,7 +71,7 @@ class _Writer:
         self._queue = Queue()
         self._event = Event()
 
-        self._thread = start_daemon_thread(self._write_thread)
+        self._thread = run_new_daemon_thread(self._write_thread)
 
     def check(self):
         if not os.path.exists(self.name):

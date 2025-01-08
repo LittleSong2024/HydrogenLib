@@ -58,7 +58,7 @@ class RPCServer:
 
     def server_start(self):
         self.lock_event = threading_methods.threading.Event()
-        self.thread = threading_methods.start_new_thread(self._post_loop, self.lock_event)
+        self.thread = threading_methods.run_new_thread(self._post_loop, self.lock_event)
 
     def server_stop(self):
         if self.thread:

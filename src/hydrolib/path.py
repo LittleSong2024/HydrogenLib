@@ -1,3 +1,6 @@
+from os import PathLike
+from pathlib import Path
+from typing import Literal, Optional, Union
 import os
 
 
@@ -87,7 +90,7 @@ def isabspath(path):
 
 
 def split(path):
-    if isinstance(path, list | tuple):
+    if isinstance(path, (list, tuple)):
         return list(path)
     else:
         path = process(path)

@@ -24,7 +24,7 @@ class _PIPEWriter:
         self._msg_queue = queue.Queue(buffer_size)
         self._event = threading_methods.threading.Event()
 
-        self._write_thread = threading_methods.start_daemon_thread(self._write_thread_func)
+        self._write_thread = threading_methods.run_new_daemon_thread(self._write_thread_func)
 
         self.buffersize = buffer_size
 
@@ -35,7 +35,7 @@ class _PIPEWriter:
         self._pipe = pipe
         self._io = os.fdopen(self._pipe, 'w', self.buffersize)
         self._event.clear()
-        self._write_thread = threading_methods.start_daemon_thread(self._write_thread_func)
+        self._write_thread = threading_methods.run_new_daemon_thread(self._write_thread_func)
 
     def write(self, data):
         if data is None or data is ...:
@@ -65,7 +65,7 @@ class _PIPEReader:
         self._msg_queue = queue.Queue()
         self._event = threading_methods.threading.Event()
 
-        self._read_thread = threading_methods.start_daemon_thread(self._read_thread_func)
+        self._read_thread = threading_methods.run_new_daemon_thread(self._read_thread_func)
         self.errors = deque()
 
     def set(self, reader):
@@ -75,7 +75,7 @@ class _PIPEReader:
         self._pipe = reader
         self._io = os.fdopen(self._pipe, 'r')
         self._event.clear()
-        self._read_thread = threading_methods.start_daemon_thread(self._read_thread_func)
+        self._read_thread = threading_methods.run_new_daemon_thread(self._read_thread_func)
 
     def read(self, timeout: Optional[int] = ...):
         if timeout is ...:

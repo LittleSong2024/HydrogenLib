@@ -9,29 +9,51 @@ class Stack:
         self.lst = deque() if lst is None else deque(lst)
 
     def push(self, data):
+        """
+        Push data to stack.
+        """
         self.lst.append(data)
 
     def pop(self):
+        """
+        Pop data from stack(delete last one).
+        if stack is empty, return None.
+        """
         return self.lst.pop() if not self.is_empty() else None
 
     def size(self):
+        """
+        Get stack size.
+        """
         return len(self.lst)
 
     def is_empty(self):
+        """
+        Check stack is empty.
+        """
         return self.size() == 0
 
     def top(self):
+        """
+        Get stack top data.
+        """
         return self.lst[-1] if not self.is_empty() else None
 
     def copy(self):
+        """
+        Copy stack.
+        """
         return self.__class__(self.lst.copy())
 
     @property
-    def front(self):
-        return self.lst[-1] if not self.is_empty() else None
+    def at_top(self):
+        """
+        Same as `.top()`.
+        """
+        return self.top()
 
-    @front.setter
-    def front(self, data):
+    @at_top.setter
+    def at_top(self, data):
         if not self.is_empty():
             self.lst[-1] = data
 

@@ -5,7 +5,7 @@ import threading
 
 from ._ConfigLoader import *
 from ..type_func import get_attr_by_path
-from ..threading_methods import start_daemon_thread
+from ..threading_methods import run_new_daemon_thread
 
 
 class TestManager:
@@ -34,7 +34,7 @@ class TestManager:
             config.func = get_attr_by_path(config.name)
 
         for config in self.configs:
-            ps = start_daemon_thread(self.run_test, config, self.queue)
+            ps = run_new_daemon_thread(self.run_test, config, self.queue)
             ps_list.append(ps)
 
         for ps in ps_list:

@@ -63,7 +63,7 @@ class HeartbeatPacketServer:
                 self.last_packet = packet
                 self.post.send(res="OK")  # 响应
 
-        self.thread = ThreadingPlus.start_daemon_thread(wrapper)
+        self.thread = ThreadingPlus.run_new_daemon_thread(wrapper)
 
     def check(self):
         time = datetime.datetime.now() - self.last_packet.top('time')

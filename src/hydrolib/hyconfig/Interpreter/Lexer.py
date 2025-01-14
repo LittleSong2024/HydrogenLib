@@ -7,7 +7,11 @@ from ...data_structures import Stack
 
 
 class Token:
-    def __init__(self, type_: str, value: Union[re.Match, Any], lineno: int, colno: int, offset: int):
+    def __init__(
+            self,
+            type_: str, value: Union[re.Match, Any],
+            lineno: int = 0, colno: int = 0, offset: int = 0
+    ):
         self.type = type_
         self.lineno = lineno
         self.colno = colno
@@ -15,25 +19,25 @@ class Token:
 
         if isinstance(value, re.Match):
             self.match = value
-            self.value = value.group()
+            self.value: Union[str, int] = value.group()
         else:
-            self.value = value
+            self.value: Union[str, int] = value
 
     def __str__(self):
-        return f"{self.type}( {self.value} )"
+        return repr(self)
 
     def __len__(self):
         return len(str(self.value))
 
     def __repr__(self):
-        return f"{self.__class__.__name__}{(self.type, self.value)}"
+        return f"{self.__class__.__name__}<{self.type},\t{repr(self.value)},\t{self.lineno}:{self.colno}-{self.offset}>"
 
 
 NEWLINE = Literal('\n')
 
 IDENT = Re('[a-zA-Z_][a-zA-Z0-9_-]*')
 
-WHITESPACE = Re(' +')
+WHITESPACE = Re(r'\s+')
 
 IMPORT = Literal('import')
 AS = Literal('as')
@@ -54,27 +58,21 @@ INT = Re('-?[0-9]+')
 eINT = Re(r'-?\d+e\d+')
 jINT = Re(r'[+-]?[0-9]+j')
 
-hIntStart = Literal(r'0x')
-bIntStart = Literal(r'0b')
-oIntStart = Literal(r'0o')
-
-hIntInner = Re(r'[0-9a-fA-F]+')
-bIntInner = Re(r'[0-1]+')
-oIntInner = Re(r'[0-7]+')
+hINT = Re(r'0x[0-9a-fA-F]+')
+bINT = Re(r'0b[01]+')
+oINT = Re(r'0o[0-7]+')
 
 
 STR = Re(r'"([^"\\]*(\\.[^"\\]*)*)"')
 sSTR = Re(r"'([^'\\]*(\\.[^'\\]*)*)'")
 multiSTR = Re(r'"""([^"]|"")*"""')
 
-INDENT = Re(r'[\t ]+')
-
 
 # 定义记号规则
 TOKEN_PATTERNS = [
     ("NEWLINE", NEWLINE),
-    ("INDENT", INDENT),  # 缩进记号
     # ("DEDENT", ...)  # 退缩记号,由后期添加
+
     ("KEYWORD", IMPORT),
     ("KEYWORD", AS),
     ("KEYWORD", FROM),
@@ -90,14 +88,20 @@ TOKEN_PATTERNS = [
 
     ("INT", INT),
     ("INT", eINT),
+    ("INT", jINT),
+    ("INT", oINT),
+    ("INT", bINT),
+    ("INT", hINT),
+
     ("STR", STR),
     ("STR", sSTR),
+    ("STR", multiSTR),
 
     ("LP", LP),
     ("RP", RP),
 
     ("SPLIT_CHAR", SPLIT_CHAR),
-    ("WHITESPACE", WHITESPACE),
+    ("WS", WHITESPACE),
     # ("UNKNOWN", ANY),
 ]  # type: list[tuple[str, BaseRe]]
 
@@ -113,11 +117,9 @@ def _lex(code):
             # print(f"{token_type} not match")
             continue
         token = Token(token_type, match)
-        if longer_match is None or len(match.group()) > len(longer_match.group()):
-            longer_match = match
-            longer_token = token
+        return token
     # print(f"Longer Token: {longer_token}")
-    return longer_token
+    # return longer_token
 
 
 def _calc_indent_length(indent):
@@ -128,17 +130,15 @@ def _calc_indent_length(indent):
 def _process_tokens(tokens: list[Token]):
     i = 0
     while i < len(tokens):
-        # if tokens[i].type == 'INDENT':
-        #     indent_token = tokens[i]
-        #     # tokens[i] = Token('NEWLINE', '\n')
-        #     # tokens.insert(i + 1, Token('INDENT', _calc_indent_length(indent_token.value)))
-        #     tokens[i] = Token('INDENT', _calc_indent_length(indent_token.value))
-        #     i += 1
-
-        # if tokens[i].type == 'NEWLINE':
-        #     # 删除
-        #     tokens.pop(i)
-        #     continue
+        if tokens[i].type == 'NEWLINE':
+            if tokens[i+1].type == 'WS':
+                ws = tokens[i+1]
+                tokens.pop(i+1)
+                tokens[i] = Token(
+                    'INDENT', _calc_indent_length(ws.value),
+                    tokens[i].lineno, tokens[i].colno, tokens[i].offset + ws.offset
+                )
+                i += 1
 
         i += 1
 
@@ -183,10 +183,27 @@ def _process_indent(tokens: list[Token]) -> list[Token]:
 def _delete_whitespace(tokens: list[Token]):
     i = 0
     while i < len(tokens):
-        if tokens[i].type == 'WHITESPACE':
+        if tokens[i].type == 'WS':
             tokens.pop(i)
         else:
             i += 1
+
+
+def _token_strip(tokens: list[Token]):
+    i = 0
+    while i < len(tokens):
+        if tokens[i].type == 'NEWLINE':
+            tokens.pop(i)
+        else:
+            break
+        i += 1
+    i = len(tokens)-1
+    while i >= 0:
+        if tokens[i].type == 'NEWLINE':
+            tokens.pop(i)
+        else:
+            break
+        i -= 1
 
 
 # 词法分析器
@@ -195,12 +212,14 @@ def lex(source_code):
     while source_code:
         token = _lex(source_code)
         if token is None:
-            raise SyntaxError(f"Invalid syntax: {source_code.split('\n')[0]}")
+            current_code = source_code.split('\n')[0]
+            raise SyntaxError(f"Invalid syntax: {current_code}")
         tokens.append(token)
         source_code = source_code[len(token):]
     tokens_lst = list(tokens)
-    _process_tokens(tokens_lst)
-    _process_indent(tokens_lst)
-    # _delete_whitespace(tokens)
+    # _process_tokens(tokens_lst)
+    # _process_indent(tokens_lst)
+    _delete_whitespace(tokens_lst)
+    _token_strip(tokens_lst)
 
     return tokens_lst

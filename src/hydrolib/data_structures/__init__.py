@@ -5,27 +5,35 @@ from . import Tree, HuffmanTree, Graph, BplusTree
 
 
 class Stack:
+    @property
+    def ls(self):
+        return tuple(self._ls)
+
+    @ls.setter
+    def ls(self, ls):
+        self._ls = deque(ls)
+
     def __init__(self, lst: Iterable = None):
-        self.lst = deque() if lst is None else deque(lst)
+        self._ls = deque() if lst is None else deque(lst)
 
     def push(self, data):
         """
         Push data to stack.
         """
-        self.lst.append(data)
+        self._ls.append(data)
 
     def pop(self):
         """
         Pop data from stack(delete last one).
         if stack is empty, return None.
         """
-        return self.lst.pop() if not self.is_empty() else None
+        return self._ls.pop() if not self.is_empty() else None
 
     def size(self):
         """
         Get stack size.
         """
-        return len(self.lst)
+        return len(self._ls)
 
     def is_empty(self):
         """
@@ -37,13 +45,13 @@ class Stack:
         """
         Get stack top data.
         """
-        return self.lst[-1] if not self.is_empty() else None
+        return self._ls[-1] if not self.is_empty() else None
 
     def copy(self):
         """
         Copy stack.
         """
-        return self.__class__(self.lst.copy())
+        return self.__class__(self._ls.copy())
 
     @property
     def at_top(self):
@@ -55,22 +63,22 @@ class Stack:
     @at_top.setter
     def at_top(self, data):
         if not self.is_empty():
-            self.lst[-1] = data
+            self._ls[-1] = data
 
     def __str__(self):
-        return str(self.lst)
+        return str(self._ls)
 
     def __iter__(self):
-        return iter(self.lst)
+        return iter(self._ls)
 
     def __getitem__(self, item):
-        return self.lst[item]
+        return self._ls[item]
 
     def __len__(self):
-        return len(self.lst)
+        return len(self._ls)
 
     def __setitem__(self, key, value):
-        self.lst[key] = value
+        self._ls[key] = value
 
     def __repr__(self):
         return "Stack({self.lst})".format(self=self)

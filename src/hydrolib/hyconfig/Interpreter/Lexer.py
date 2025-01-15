@@ -1,7 +1,9 @@
 from collections import deque
 from typing import Any, Union
-from ...re_plus import *
+
 from ...data_structures import Stack
+from ...re_plus import *
+
 
 # TODO: 词法分析器,Token新的参数
 
@@ -22,6 +24,19 @@ class Token:
             self.value: Union[str, int] = value.group()
         else:
             self.value: Union[str, int] = value
+
+    def __eq__(self, other):
+        if isinstance(other, Token):
+            return self.type == other.type and self.value == other.value
+        elif isinstance(other, str):
+            return self.value == other
+        elif isinstance(other, tuple):
+            return self.type == other[0] and self.value == other[1]
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self == other
 
     def __str__(self):
         return repr(self)
@@ -62,11 +77,9 @@ hINT = Re(r'0x[0-9a-fA-F]+')
 bINT = Re(r'0b[01]+')
 oINT = Re(r'0o[0-7]+')
 
-
 STR = Re(r'"([^"\\]*(\\.[^"\\]*)*)"')
 sSTR = Re(r"'([^'\\]*(\\.[^'\\]*)*)'")
 multiSTR = Re(r'"""([^"]|"")*"""')
-
 
 # 定义记号规则
 TOKEN_PATTERNS = [
@@ -93,9 +106,9 @@ TOKEN_PATTERNS = [
     ("INT", bINT),
     ("INT", hINT),
 
+    ("STR", multiSTR),
     ("STR", STR),
     ("STR", sSTR),
-    ("STR", multiSTR),
 
     ("LP", LP),
     ("RP", RP),
@@ -129,12 +142,24 @@ def _calc_indent_length(indent):
 
 def _process_tokens(tokens: list[Token]):
     i = 0
-    while i < len(tokens):
+    length = len(tokens)
+    while i < length:
+        length = len(tokens)
         if tokens[i].type == 'NEWLINE':
-            if tokens[i+1].type == 'WS':
-                ws = tokens[i+1]
-                tokens.pop(i+1)
-                tokens[i] = Token(
+            if i + 1 < length and tokens[i + 1].type == 'NEWLINE':
+                tokens.insert(i + 1, Token(
+                    'WS', ''
+                ))
+                # i += 1
+            if i + 1 < length and tokens[i + 1].type == 'WS':
+                # if i+2 < length and tokens[i+2].type == 'NEWLINE':
+                #     tokens.pop(i)
+                #     tokens.pop(i+1)
+                #     tokens.pop(i+2)
+                #     i += 2
+                #     continue
+                ws = tokens[i + 1]
+                tokens[i + 1] = Token(
                     'INDENT', _calc_indent_length(ws.value),
                     tokens[i].lineno, tokens[i].colno, tokens[i].offset + ws.offset
                 )
@@ -145,7 +170,7 @@ def _process_tokens(tokens: list[Token]):
 
 def _process_indent(tokens: list[Token]) -> list[Token]:
     processed_tokens = []
-    indent_stack = Stack()  # Use a stack to keep track of indentation levels
+    indent_stack = Stack([0])  # Use a stack to keep track of indentation levels
 
     for i, token in enumerate(tokens):
         if token.type == 'INDENT':
@@ -197,7 +222,7 @@ def _token_strip(tokens: list[Token]):
         else:
             break
         i += 1
-    i = len(tokens)-1
+    i = len(tokens) - 1
     while i >= 0:
         if tokens[i].type == 'NEWLINE':
             tokens.pop(i)
@@ -207,19 +232,21 @@ def _token_strip(tokens: list[Token]):
 
 
 # 词法分析器
-def lex(source_code):
-    tokens = deque()
-    while source_code:
-        token = _lex(source_code)
-        if token is None:
-            current_code = source_code.split('\n')[0]
-            raise SyntaxError(f"Invalid syntax: {current_code}")
-        tokens.append(token)
-        source_code = source_code[len(token):]
-    tokens_lst = list(tokens)
-    # _process_tokens(tokens_lst)
-    # _process_indent(tokens_lst)
-    _delete_whitespace(tokens_lst)
-    _token_strip(tokens_lst)
+class Lexer:
+    @staticmethod
+    def lex(source_code):
+        tokens = deque()
+        while source_code:
+            token = _lex(source_code)
+            if token is None:
+                current_code = source_code.split('\n')[0]
+                raise SyntaxError(f"Invalid syntax: {current_code}")
+            tokens.append(token)
+            source_code = source_code[len(token):]
+        tokens_lst = list(tokens)
+        _token_strip(tokens_lst)
+        _process_tokens(tokens_lst)
+        tokens_lst = _process_indent(tokens_lst)
+        _delete_whitespace(tokens_lst)
 
-    return tokens_lst
+        return tokens_lst

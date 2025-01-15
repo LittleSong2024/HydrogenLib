@@ -1,337 +1,184 @@
-import re
-from collections import deque
-from fnmatch import fnmatch
-from typing import Optional
+from typing import Union
 
-import rich.table
-
-from .Lexer import Token
+from .Lexer import Token, Lexer
 from ...data_structures import Stack
 
-
-class Node:
-    def __init__(self, _type, value=None, children=None):
-        self.type = _type
-        self.value = value
-        self.children = children or []
-
-    def __repr__(self):
-        return f"{self.type}: {self.value} {self.children}"
+q_map = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+}
 
 
-class Table:
+class Block:
+    def __init__(self, tokens: list[Union[Token, 'Block']] = None):
+        self.children = tokens if tokens is not None else []
+
+    def addChild(self, node):
+        self.children.append(node)
+
+    def sort(self):
+        i = 0
+        while i < len(self.children):
+            if isinstance(self.children[i], Block):
+                self.children[i].sort()
+            else:
+                if self.children[i].type in {'WS', 'NEWLINE', 'INDENT', 'DEDENT'}:
+                    self.children.pop(i)
+                    i -= 1
+            i += 1
+
+    def __getitem__(self, item):
+        return self.children[item]
+
+    def __len__(self):
+        return len(self.children)
+
+    def __setitem__(self, key, value):
+        self.children[key] = value
+
+
+class BlockParser:
     def __init__(self):
-        self.data = ''
-        self.subtables = []
-
-
-class Phrase(Token):
-    ...
-
-
-TPANY = '*'
-MODE_GREEDY = 'GREEDY'
-MODE_CONDITIONAL_GREEDY = 'CONGREEDY'
-MODE_EXACT = 'EXACT'
-
-
-class MatchRule:
-    re = re.compile(
-        r'([*+-])?(\d+)?\s*:?\s*(\?)?([^\s=:]+)\s*=?\s*(.+)?'
-    )
-    _mapping = {
-        '*': MODE_GREEDY,
-        '-': MODE_CONDITIONAL_GREEDY,
-        '+': MODE_EXACT,
-        None: MODE_EXACT,
-    }
-
-    skips = ['WHITESPACE']
-
-    def __init__(self, rule_str, skips=None):
-        if rule_str.strip() == '':
-            self.mode, self.t_p__name_pat, self.value, self.cnt, self.include = MODE_EXACT, TPANY, TPANY, 1, False
-        else:
-            self.mode, self.t_p__name_pat, self.value, self.cnt, self.include = self.__split_rule(rule_str)
-
-        if skips is not None:
-            self.skips = skips  # type: list[str]
-
-    def __error(self, rule, *args):
-        raise ValueError(f"Invalid match rule: {rule}", *args)
-
-    def __split_rule(self, rule_str):
-        match = self.re.match(rule_str)
-        if not match:
-            self.__error(rule_str)
-        print(match.groups())
-        (
-            mode, cnt, include, ident,
-            value,
-            *args
-        ) = match.groups()
-
-        assert len(args) == 0
-
-        cnt = int(cnt) if cnt else 1
-
-        if mode not in self._mapping:
-            self.__error(rule_str, f'Mode={mode} not found')
-
-        mode = self._mapping.get(mode, None)
-        return mode, ident, value, cnt, (include is None)
-
-    def __check_type(self, tk):
-        return fnmatch(tk.type, self.t_p__name_pat)
-
-    def __eq(self, tk):
-        """
-        检查Token和Rule是否匹配
-        """
-        res = self.__check_type(tk)
-        if not res:
-            return False
-        if self.value != TPANY:  # 检查是否为精确匹配
-            res &= tk.value == self.value  # 值匹配
-
-        return res  # 返回结果
-
-    def __move_no_skip(self, tokens):
-        tk_length = len(tokens)
-        while self.pos < tk_length and tokens[self.pos] in self.skips:
-            self.pos += 1
-        return self.pos
-
-    def __greedy_match(self, tokens, results: deque):  # 尽可能多匹配
-        consumption = 0
+        self.lexer = None
+        self.tokens = None
         self.pos = 0
-        while True:
-            self.__move_no_skip(tokens)
-            tk = tokens[self.pos]
 
-            if self.__eq(tk):
-                results.append(tk)
-                consumption += 1
+        self.result = None
+
+    def setLexer(self, lexer):
+        self.lexer = lexer
+
+    def setTokens(self, tokens):
+        self.tokens = tokens
+
+    def __parse_to_blocks(self):
+        stack = Stack([Block()])
+        qstack = Stack()
+        for token in self.tokens:
+            if token.type == 'LP':
+                qstack.push(token)
+            elif token.type == 'RP':
+                if qstack.at_top:
+                    data = qstack.pop()
+                    if q_map[data.value] != token.value:
+                        raise SyntaxError(f"Unexpected '{token.value}' at position {self.pos}")
+                else:
+                    raise SyntaxError(f"Unexpected ')' at position {self.pos}")
+            if token.type == 'INDENT' and not qstack.at_top:
+                new_block = Block()
+                if stack.at_top:
+                    stack.at_top.addChild(new_block)
+                stack.push(new_block)
+            elif token.type == 'DEDENT' and not qstack.at_top:
+                stack.pop()
             else:
-                break
+                if stack.at_top:
+                    stack.at_top.addChild(token)
+                else:
+                    stack.push(Block([token]))
+        self.result = stack.at_top
 
-            self.pos += 1
+    def parse(self, source_code):
+        if self.tokens is None:
+            self.tokens = self.lexer.lex(source_code)
+        self.__parse_to_blocks()
+        return self.result
 
-    def __exact_match(self, tokens, results: deque):  # 要么匹配成功，要么不匹配
-        self.pos = 0
-        n = 0
+
+class SyntaxParser:
+    class Pos:
+        def __init__(self, index_ls):
+            self._index_ls = index_ls
+
+        def __iter__(self):
+            for i in self._index_ls:
+                yield i
+
+    def __init__(self, _block_parser):
+        Pos = self.Pos
+
+        self.pos: Pos = None
+
+        self.end = None
+        self._block_parser = _block_parser
+        self._pos_generator = self._pos_generator_func()
+
+    def _pos_generator_func(self):
+        stack = Stack([self._block_parser.result])
+        index = Stack([0])
         while True:
-            self.__move_no_skip(tokens)
-            tk = tokens[self.pos]
-
-            if self.__eq(tk):
-                results.append(tk)
-                n += 1
+            cr = stack.at_top
+            i = index.at_top
+            if isinstance(cr[i], Block):
+                stack.push(cr[i])
+                index.push(0)
             else:
-                results.clear()
-                break
+                index.at_top += 1
+                if index.at_top >= len(cr):
+                    stack.pop()
+                    index.pop()
+                    if not stack.at_top:
+                        break
+                    continue
+                yield self.Pos(index)
 
-            if n >= self.cnt:
-                break
+    def __getitem__(self, item: 'Pos'):
+        current = self._block_parser.result
+        for index in item:
+            current = current.children[index]
+        return current
 
-        if n < self.cnt:
-            results.clear()
-            return
-        return
+    def next(self):
+        try:
+            self.pos = next(self._pos_generator)
+            return self[self.pos]
+        except StopIteration:
+            self.end = True
+            return None
 
-    def __congreedy_match(self, tokens, results: deque):  # 至少匹配cnt个
-        self.__greedy_match(tokens, results)
-        if len(results) < self.cnt:  # 匹配失败
-            results.clear()
-        return
+    def current(self):
+        return self[self.pos]
 
-    def match(self, tokens):
-        results = deque()
-        func = None
-        if self.mode == MODE_GREEDY:
-            func = self.__greedy_match
-        elif self.mode == MODE_EXACT:
-            func = self.__exact_match
-        elif self.mode == MODE_CONDITIONAL_GREEDY:
-            func = self.__congreedy_match
+    def __p__template(self):
+        start = ...
+        yield start == ...  # 判断开头是否符合语法
+        # 如果符合语法，则返回True,对于返回False的语法判断生成器,判断器会停止它
 
-        func(tokens, results)
+        # 语法判断主逻辑
+        yield ...
+        yield ...
+        yield ...
+        # 同样,如果返回False,则判断器会停止它
+        # 当有一个生成器正常退出,判断器将会将它作为匹配语法输出
+        # 判断器会运行直到有一个生成器正常退出,判断器将会将它作为匹配语法输出
+        # 如果没有生成器正常退出,判断器将会返回None
+        yield ...  # 最后返回语法匹配结果(AST节点)
 
-        return list(results)
+    def _p_import(self):
+        i = 0
+        mode = 0
+        start = self.current()
+        # mode
+        # 0: import `module`
+        # 1: import `module` as `alias`
+        yield start == 'import'
 
-    def __repr__(self):
-        return \
-            (
-                f'{self.__class__.__name__}'
-                f'<name={repr(self.t_p__name_pat)}, value={repr(self.value)}, cnt={self.cnt}, mode={self.mode}>'
-            )
+    def _p_from_import(self):
+        i = 0
 
 
-class SyntaxMatcher:
-    def __init__(self, *rules: str):
-        self.rules = []  # type: list[MatchRule]
-        self.__process_rules(rules)
-
-    def __process_rules(self, rules):
-        for rule in rules:
-            self.rules.append(MatchRule(rule))
-
-    def match(self, tokens) -> tuple[Optional[list[Token]], int]:
-        consumption = 0
-        results = deque()
-        for rule in self.rules:
-            result = rule.match(tokens[consumption:])
-            if result is None:
-                return None, 0
-            consumption += len(result)
-            if rule.include:
-                results.append(result)
-        return list(results), consumption
 
 
 class Parser:
-    """
-    对原始标记列表的第一次处理
-    """
-    types = [
-        ('indent', SyntaxMatcher('INDENT')),
-        ('dedent', SyntaxMatcher('DEDENT')),
 
-        ('table_def', SyntaxMatcher('LP=[', 'IDENT', 'RP=]')),
+    def __init__(self):
+        self._lexer = Lexer()
+        self._block_parser = BlockParser()
+        self.result = None
 
-        ('import', SyntaxMatcher('?FROM', 'IDENT', '?IMPORT', 'IDENT', '?AS', 'IDENT')),
-        ('import', SyntaxMatcher('?FROM', 'IDENT', '?IMPORT', 'IDENT')),
-        ('import', SyntaxMatcher('?IMPORT', 'IDENT', '?AS', 'IDENT')),
-        ('import', SyntaxMatcher('?IMPORT', 'IDENT')),
+    def parse(self, source_code):
+        self._block_parser.setLexer(self._lexer)
+        self._block_parser.parse(source_code)
 
-        ('fill_item', SyntaxMatcher('?LFILL', 'IDENT', '?RFILL')),
-
-        ('oper', SyntaxMatcher('OPER', '*')),
-
-        ('assign', SyntaxMatcher('IDENT', '?ASSIGN')),
-        ('oper_assign', SyntaxMatcher('IDENT', 'OPER', '?ASSIGN')),
-
-        ('start_seq', SyntaxMatcher('?LP', '*', '?SPLIT_CHAR=,')),
-        ('elem', SyntaxMatcher('*', '?SPLIT_CHAR=,')),
-        ('end_seq', SyntaxMatcher('*', '?RP')),
-        ('end_seq', SyntaxMatcher('*', '?SPLIT_CHAR=,', '?RP')),
-
-        ('get_attr', SyntaxMatcher('?SPLIT_CHAR=.', 'IDENT')),
-
-        ('one_expr', SyntaxMatcher('STR')),
-        ('one_expr', SyntaxMatcher('INT')),
-        ('one_expr', SyntaxMatcher('IDENT')),
-
-        ('lp', SyntaxMatcher('LP')),
-        ('rp', SyntaxMatcher('RP')),
-    ]  # type: list[tuple[SyntaxMatcher, ...]]
-
-    phrase_matchers = [
-        ('expr', SyntaxMatcher('oper', 'expr')),
-    ]
-
-    def __init__(self, tokens):
-        self._tokens = tokens  # type: list[Token]
-        self.tokens = tokens  # type: list[Token]
-        self.phrases = []
-        self.pos = 0
-
-    def check(self):
-        self._check_parenthesis()
-
-    def _get_type(self, pos, tokens):
-        """
-        分析当前标记和后续标记，判断语法类型（语句，表达式，赋值...）
-        """
-        trys = deque()
-        for type_, matcher in self.types:
-            x, length = matcher.match(tokens[pos:])
-            if length:
-                return type_, length, trys
-            trys.append((type_, length > 0))
-        return None, 0, trys
-
-    def _error(self, tokens=None, trys=None):
-        token_msg = rich.table.Table('*', 'Token', title='Token')
-        for idx in range(max(0, self.pos - 5), min(len(tokens), self.pos + 5)):
-            tk = tokens[idx]
-            if idx == self.pos:
-                token_msg.add_row('=>', str(tk))
-            else:
-                token_msg.add_row('', str(tk))
-        try_msg = rich.table.Table('Type', 'Matched', title='Try')
-        for try_res in trys:
-            type_, matched = try_res
-            try_msg.add_row(type_, 'Yes' if matched else 'No')
-        phrase_msg = rich.table.Table('Phrase', title='Phrases')
-        for phrase in self.phrases:
-            phrase_msg.add_row(phrase)
-        console = rich.get_console()
-        console.print(token_msg, try_msg, phrase_msg)
-        raise SyntaxError()
-
-    def _first_parse(self):
-        tokens = self.tokens
-        self.pos = 0
-
-        def consume(count):
-            for i in range(count):
-                self.pos += 1
-                move_no_whitespace()
-
-        def move_no_whitespace():
-            while self.pos < len(self.tokens) and tokens[self.pos].type == 'WHITESPACE':
-                self.pos += 1
-
-        while self.pos < len(tokens):
-            move_no_whitespace()
-            type_, length, trys = self._get_type(self.pos, tokens)
-            if type_ is None:  # Error
-                self._error(tokens, trys)
-            matches = []
-            for i in range(length):
-                move_no_whitespace()
-                matches.append(tokens[self.pos])
-                consume(1)
-            p = Phrase(type_, matches)
-            self.phrases.append(p)
-
-    def _second_parse(self):
-        self.pos = 0
-        while self.pos < len(self.phrases):
-            p = self.phrases[self.pos]
-
-    def parse(self):
-        self._first_parse()
-        return self.phrases
-
-    def _check_parenthesis(self):
-        s = Stack()
-        parenthesis_map = {
-            '{': '}',
-            '[': ']',
-            '(': ')',
-            ']': '[',
-            '}': '{',
-            ')': '(',
-        }
-        for token in self.tokens:
-            if token.type == 'LP':
-                s.push(token)
-            if token.type == 'RP':
-                if s.is_empty():
-                    raise SyntaxError('Unexpected right parenthesis(except {}, but get {})'.format(
-                        None, token.value
-                    ))
-                t = s.pop()
-                if parenthesis_map[t.value] != token.value:
-                    raise SyntaxError('Unexpected right parenthesis(except {}, but get {})'.format(
-                        t.value, token.value
-                    ))
-
-        if not s.is_empty():
-            raise SyntaxError('Unexpected left parenthesis')
-        return True
-
-    def __repr__(self):
-        return f'{self.pos}'
+        self.result = self._block_parser.result

@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="至2025.1.15的积累更改">
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/utils/OnceMessage.py" afterDir="false" />
+    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="至2025.1.15的积累更改-2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/__about__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/__about__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +124,7 @@
       <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_10">
+  <component name="RunManager" selected="Python.Upload HydrogenLib">
     <configuration name="Start Test" type="PythonConfigurationType" factoryName="Python">
       <module name="hydrogenlib" />
       <option name="ENV_FILES" value="" />
@@ -166,7 +163,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="upload.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="-k" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -319,14 +316,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726057836699</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Sept. 15 2024 01&#10;更新许可证&#10;Update LICENSE, LICENSE.md">
-      <option name="closed" value="true" />
-      <created>1726401601967</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1726401601967</updated>
     </task>
     <task id="LOCAL-00008" summary="Sept. 19 2024 01">
       <option name="closed" value="true" />
@@ -712,7 +701,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736940880606</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="至2025.1.15的积累更改-2">
+      <option name="closed" value="true" />
+      <created>1736943842573</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1736943842573</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -730,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update workflows" />
     <MESSAGE value="改进HyConfigLanguage解析器和词法分析器&#10;&#10;- 更新Token类的__repr__方法，使用类名代替硬编码的字符串&#10;- 在词法分析器中添加新的关键字：FROM、AS和新的运算符：MULTIPLY&#10;-重构解析器：&#10;  - 重命名某些语法规则以提高清晰度（如fill_elem改为fill_item）&#10;  - 添加支持算术运算符的语法规则（如multiply、div、floordiv） - 改进赋值语句的解析（通过_assign和assign规则）&#10;  - 添加对表达式的解析支持（expr规则）&#10;  -优化括号序列的解析（start_seq、end_seq规则）&#10;  - 改进属性访问的解析（get_attr规则）&#10;  - 统一常量值的解析（constant规则）&#10;- 优化解析流程，分离首次解析和中间解析步骤- 添加__repr__方法以方便调试" />
     <MESSAGE value="- 修改了Lexer.py中的WHITESPACE处理&#10;- 更新了list.py中的ReplaceList类&#10;- 重构了Parser.py中的解析逻辑，增加了二次解析支持&#10;- 修正了README.md中的描述信息" />
     <MESSAGE value="添加异步socket类以支持异步操作&#10;&#10;实现了asyncsocket类，作为socket.socket的异步版本。该类封装了socket操作的异步版本，包括读写、连接、接受连接等，并提供了同步方法的异步实现。此外，还实现了部分重要的同步方法，如settimeout、listen、bind和close等。这一实现使得在异步环境中使用socket变得更加方便和高效。" />
@@ -755,7 +751,8 @@
     <MESSAGE value="refactor(HyDownloader): 重构下载模块&#10;&#10;- 移除旧的下载相关代码(未完成)&#10;- 新增动态模型和静态下载模型(未完成)&#10;- 更新导入和文件结构&#10;-优化命名和代码组织&#10;&#10;以及至2025.1.8的积累更新" />
     <MESSAGE value="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息" />
     <MESSAGE value="至2025.1.15的积累更改" />
-    <option name="LAST_COMMIT_MESSAGE" value="至2025.1.15的积累更改" />
+    <MESSAGE value="至2025.1.15的积累更改-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="至2025.1.15的积累更改-2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

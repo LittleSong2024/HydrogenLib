@@ -31,7 +31,7 @@
 ## 安装
 
 ```shell
-  pip install HydrogenLib
+  pip install HydrogenLib-Next
 ```
 
 ## 注意事项

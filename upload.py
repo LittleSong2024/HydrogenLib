@@ -122,5 +122,5 @@ if __name__ == '__main__':
 
     print(
         "[green]All steps are success, "
-        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib[/blue] [dim]-U[/dim]` "
+        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib-Next[/blue] [dim]-U[/dim]` "
         "[green]to update HydrogenLib.")

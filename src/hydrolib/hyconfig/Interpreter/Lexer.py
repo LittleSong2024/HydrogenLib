@@ -35,6 +35,20 @@ class Token:
         else:
             return False
 
+    @property
+    def t(self):
+        """
+        获取Token的类型
+        """
+        return self.type
+
+    @property
+    def v(self):
+        """
+        获取Token的值
+        """
+        return self.value
+
     def __ne__(self, other):
         return not self == other
 
@@ -65,7 +79,8 @@ RP = Re(r'[)\]}]')
 LFILLTOKEN = Literal('{<')
 RFILLTOKEN = Literal('>}')
 
-SPLIT_CHAR = Re(r'[,.]')
+COMMA = Literal(',')
+PERIOD = Literal('.')
 
 ASSIGN = Literal('=')
 
@@ -113,7 +128,9 @@ TOKEN_PATTERNS = [
     ("LP", LP),
     ("RP", RP),
 
-    ("SPLIT_CHAR", SPLIT_CHAR),
+    ("COMMA", COMMA),
+    ("PERIOD", PERIOD),
+
     ("WS", WHITESPACE),
     # ("UNKNOWN", ANY),
 ]  # type: list[tuple[str, BaseRe]]

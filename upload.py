@@ -120,4 +120,7 @@ if __name__ == '__main__':
             sys.exit(rt_code)
         print("[bold green]success!")
 
-    print("[bold green]all steps are success, you can run `pip install HydrogenLib -U` to update HydrogenLib")
+    print(
+        "[green]All steps are success, "
+        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib[/blue] [dim]-U[/dim]` "
+        "[green]to update HydrogenLib.")

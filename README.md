@@ -13,13 +13,13 @@
 
 </div>
 
-[//]: # ([![Action Status]&#40;https://github.com/SongzqInChina/HydrogenLib/actions/workflows/python-publish.yml/badge.svg&#41;]&#40;)
+[//]: # ([![Action Status]&#40;https://github.com/LittleSong2024/HydrogenLib/actions/workflows/python-publish.yml/badge.svg&#41;]&#40;)
 
 [//]: # (    https://github.com/SongzqInChina/HydrogenLib/actions&#41;)
 
 ---
 
-当前为测试(`<= 2.0.0`)版本,功能可能有**缺失,不完整或错误**,详细请见[注意事项](#注意事项)
+当前为测试版本,功能可能有**缺失,不完整或错误**,详细请见[注意事项](#注意事项)
 
 
 ## 目录

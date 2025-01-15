@@ -23,7 +23,7 @@ class Block:
             if isinstance(self.children[i], Block):
                 self.children[i].sort()
             else:
-                if self.children[i].type in {'WS', 'NEWLINE', 'INDENT', 'DEDENT'}:
+                if self.children[i].type in {'WS', 'INDENT', 'DEDENT'}:
                     self.children.pop(i)
                     i -= 1
             i += 1
@@ -103,6 +103,7 @@ class SyntaxParser:
         self.end = None
         self._block_parser = _block_parser
         self._pos_generator = self._pos_generator_func()
+        self._pos_generator_message
 
     def _pos_generator_func(self):
         stack = Stack([self._block_parser.result])
@@ -137,35 +138,43 @@ class SyntaxParser:
             self.end = True
             return None
 
-    def current(self):
+    def current(self) -> Token:
         return self[self.pos]
 
     def __p__template(self):
-        start = ...
-        yield start == ...  # 判断开头是否符合语法
-        # 如果符合语法，则返回True,对于返回False的语法判断生成器,判断器会停止它
-
-        # 语法判断主逻辑
-        yield ...
-        yield ...
-        yield ...
-        # 同样,如果返回False,则判断器会停止它
+        # 如果符合语法，则返回True,对于返回False的语法判断生成器,判断器会停止该生成器
+        # 语法判断主逻辑,对于每一次返回,pos都会更新
+        # 比如:
+        yield self.current() == ...
+        yield self.current().t == ...
+        yield self.current().v == ...
+        # 如果返回False,判断器会停止它
         # 当有一个生成器正常退出,判断器将会将它作为匹配语法输出
         # 判断器会运行直到有一个生成器正常退出,判断器将会将它作为匹配语法输出
         # 如果没有生成器正常退出,判断器将会返回None
         yield ...  # 最后返回语法匹配结果(AST节点)
 
     def _p_import(self):
-        i = 0
-        mode = 0
-        start = self.current()
-        # mode
-        # 0: import `module`
-        # 1: import `module` as `alias`
-        yield start == 'import'
+        """
+        import ::= 'import' IDENT ('.' IDENT)* ('as' IDENT)?
+        """
+        yield self.current() == 'import'
+        yield self.current().t == 'IDENT'
+        while True:
+            if self.current() == 'as':
+                yield True  # 处理当前标记
+                yield self.current().t == 'IDENT'  # 判断下一个标记是否为正确的标识符
+                yield self.current() == '\n'  # 保证语句结束
+                break  # 跳出循环,使生成器正常退出
+            yield self.current() == '.'
+            yield self.current().t == 'IDENT'
 
     def _p_from_import(self):
-        i = 0
+        """
+        import ::= 'from' IDENT ('.' IDENT)* 'import' IDENT ('as' IDENT)?
+        """
+        yield self.current() == 'from'
+        yield self.current().t == 'IDENT'
 
 
 

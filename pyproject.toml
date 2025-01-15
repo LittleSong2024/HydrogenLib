@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.7.0"
 keywords = []
 authors = [
-    { name = "SongzqInChina", email = "idesong6@qq.com" },
+    { name = "LittleSong2024", email = "idesong6@qq.com" },
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -19,6 +19,7 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
+
 dependencies = [
     "jsonpickle >= 3.3.0",
     "pywin32 >= 306",
@@ -30,9 +31,9 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/SongzqInChina/HydrogenLib#readme"
-Issues = "https://github.com/SongzqInChina/HydrogenLib/issues"
-Source = "https://github.com/SongzqInChina/HydrogenLib"
+Documentation = "https://github.com/LittleSong2024/HydrogenLib#readme"
+Issues = "https://github.com/LittleSong2024/HydrogenLib/issues"
+Source = "https://github.com/LittleSong2024/HydrogenLib"
 
 
 [tool.hatch.version]

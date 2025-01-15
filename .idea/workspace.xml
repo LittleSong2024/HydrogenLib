@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息">
+    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="至2025.1.15的积累更改">
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/utils/OnceMessage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/data_structures/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/data_structures/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/__about__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/__about__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/_funs.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/_funs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +127,7 @@
       <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_2">
+  <component name="RunManager" selected="Python.test_10">
     <configuration name="Start Test" type="PythonConfigurationType" factoryName="Python">
       <module name="hydrogenlib" />
       <option name="ENV_FILES" value="" />
@@ -286,16 +288,16 @@
     <list>
       <item itemvalue="Python.Start Test" />
       <item itemvalue="Python.Upload HydrogenLib" />
-      <item itemvalue="Python.scratch" />
       <item itemvalue="Python.test_10" />
       <item itemvalue="Python.test_2" />
       <item itemvalue="Python.test_3 (1)" />
       <item itemvalue="Python.test_8 (1)" />
+      <item itemvalue="Python.scratch" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_2" />
         <item itemvalue="Python.test_10" />
+        <item itemvalue="Python.test_2" />
         <item itemvalue="Python.scratch" />
         <item itemvalue="Python.test_3 (1)" />
         <item itemvalue="Python.test_8 (1)" />
@@ -317,14 +319,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726057836699</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Sept. 15 2024 01&#10;更新许可证&#10;Update LICENSE, LICENSE.md">
-      <option name="closed" value="true" />
-      <created>1726401547135</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1726401547135</updated>
     </task>
     <task id="LOCAL-00007" summary="Sept. 15 2024 01&#10;更新许可证&#10;Update LICENSE, LICENSE.md">
       <option name="closed" value="true" />
@@ -710,7 +704,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736852543529</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="至2025.1.15的积累更改">
+      <option name="closed" value="true" />
+      <created>1736940880605</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1736940880606</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -728,7 +730,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="```配置版本控制以使用Git并调整文档依赖项&#10;&#10;- 在[tool.hatch.version]部分添加source = &quot;git&quot;，以使用Git进行版本控制&#10;- 移除多余的[tool.hatch.version]部分，清理配置以避免重复- 保持其他配置项不变，以确保项目依赖项和构建设置不受影响&#10;```" />
     <MESSAGE value="update workflows" />
     <MESSAGE value="改进HyConfigLanguage解析器和词法分析器&#10;&#10;- 更新Token类的__repr__方法，使用类名代替硬编码的字符串&#10;- 在词法分析器中添加新的关键字：FROM、AS和新的运算符：MULTIPLY&#10;-重构解析器：&#10;  - 重命名某些语法规则以提高清晰度（如fill_elem改为fill_item）&#10;  - 添加支持算术运算符的语法规则（如multiply、div、floordiv） - 改进赋值语句的解析（通过_assign和assign规则）&#10;  - 添加对表达式的解析支持（expr规则）&#10;  -优化括号序列的解析（start_seq、end_seq规则）&#10;  - 改进属性访问的解析（get_attr规则）&#10;  - 统一常量值的解析（constant规则）&#10;- 优化解析流程，分离首次解析和中间解析步骤- 添加__repr__方法以方便调试" />
     <MESSAGE value="- 修改了Lexer.py中的WHITESPACE处理&#10;- 更新了list.py中的ReplaceList类&#10;- 重构了Parser.py中的解析逻辑，增加了二次解析支持&#10;- 修正了README.md中的描述信息" />
@@ -753,7 +754,8 @@
     <MESSAGE value="feat(utils): 添加 Clock 类用于控制任务执行间隔&#10;&#10;- 新增 Clock 类，用于确保任务以指定的间隔时间执行&#10;- 实现了 strike 方法，可以传入刷新间隔时间参数&#10;- 添加了必要的注释，说明了类和方法的用途" />
     <MESSAGE value="refactor(HyDownloader): 重构下载模块&#10;&#10;- 移除旧的下载相关代码(未完成)&#10;- 新增动态模型和静态下载模型(未完成)&#10;- 更新导入和文件结构&#10;-优化命名和代码组织&#10;&#10;以及至2025.1.8的积累更新" />
     <MESSAGE value="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息" />
+    <MESSAGE value="至2025.1.15的积累更改" />
+    <option name="LAST_COMMIT_MESSAGE" value="至2025.1.15的积累更改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

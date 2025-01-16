@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="至2025.1.15的积累更改-2">
+    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/patterns.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/process.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/token.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_block_parser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_syntax_parser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_types.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/__about__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/__about__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/type_func/Dict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/type_func/Dict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,58 +64,58 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Abc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ConstStruct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Json.executor&quot;: &quot;Run&quot;,
-    &quot;Python.LiteralEval.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Parser.executor&quot;: &quot;Run&quot;,
-    &quot;Python.PermissionManager.executor&quot;: &quot;Run&quot;,
-    &quot;Python.REConcatenater.executor&quot;: &quot;Run&quot;,
-    &quot;Python.S_BinStruct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SocketPlus.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Start Test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Struct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TaskManager.executor&quot;: &quot;Run&quot;,
-    &quot;Python.UnitConversion.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Upload HydrogenLib.executor&quot;: &quot;Run&quot;,
-    &quot;Python._Base.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python._error_hook.executor&quot;: &quot;Run&quot;,
-    &quot;Python._expression_parser.executor&quot;: &quot;Run&quot;,
-    &quot;Python._literal_eval.executor&quot;: &quot;Run&quot;,
-    &quot;Python._parser.executor&quot;: &quot;Run&quot;,
-    &quot;Python.get-req.executor&quot;: &quot;Run&quot;,
-    &quot;Python.scratch.executor&quot;: &quot;Run&quot;,
-    &quot;Python.scratch_1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_10.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_3 (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_4.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_5.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_6.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_7.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_8 (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_8.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_9.executor&quot;: &quot;Run&quot;,
-    &quot;Python.upload.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/@PythonProjects/HydrogenLib/src/hydrolib/hydownloader&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Abc.executor": "Run",
+    "Python.ConstStruct.executor": "Run",
+    "Python.Json.executor": "Run",
+    "Python.LiteralEval.executor": "Run",
+    "Python.Parser.executor": "Run",
+    "Python.PermissionManager.executor": "Run",
+    "Python.REConcatenater.executor": "Run",
+    "Python.S_BinStruct.executor": "Run",
+    "Python.SocketPlus.executor": "Run",
+    "Python.Start Test.executor": "Run",
+    "Python.Struct.executor": "Run",
+    "Python.TaskManager.executor": "Run",
+    "Python.UnitConversion.executor": "Run",
+    "Python.Upload HydrogenLib.executor": "Run",
+    "Python._Base.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python._error_hook.executor": "Run",
+    "Python._expression_parser.executor": "Run",
+    "Python._literal_eval.executor": "Run",
+    "Python._parser.executor": "Run",
+    "Python.get-req.executor": "Run",
+    "Python.scratch.executor": "Run",
+    "Python.scratch_1.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_10.executor": "Run",
+    "Python.test_2.executor": "Run",
+    "Python.test_3 (1).executor": "Run",
+    "Python.test_3.executor": "Run",
+    "Python.test_4.executor": "Run",
+    "Python.test_5.executor": "Run",
+    "Python.test_6.executor": "Run",
+    "Python.test_7.executor": "Run",
+    "Python.test_8 (1).executor": "Run",
+    "Python.test_8.executor": "Run",
+    "Python.test_9.executor": "Run",
+    "Python.upload.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/@PythonProjects/HydrogenLib/src/hydrolib/hyconfig/Interpreter/Parser/_types.py",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件&quot;: [
-      &quot;Python&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\@PythonProjects\HydrogenLib\src\hydrolib\hydownloader" />
@@ -124,7 +132,29 @@
       <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Upload HydrogenLib">
+  <component name="RunManager" selected="Python.test_2">
+    <configuration name="Parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hydrogenlib" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Test" type="PythonConfigurationType" factoryName="Python">
       <module name="hydrogenlib" />
       <option name="ENV_FILES" value="" />
@@ -260,44 +290,22 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_8 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.temp" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/test_8.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.Start Test" />
       <item itemvalue="Python.Upload HydrogenLib" />
+      <item itemvalue="Python.Parser" />
       <item itemvalue="Python.test_10" />
       <item itemvalue="Python.test_2" />
       <item itemvalue="Python.test_3 (1)" />
-      <item itemvalue="Python.test_8 (1)" />
       <item itemvalue="Python.scratch" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_10" />
         <item itemvalue="Python.test_2" />
+        <item itemvalue="Python.test_10" />
+        <item itemvalue="Python.Parser" />
         <item itemvalue="Python.scratch" />
         <item itemvalue="Python.test_3 (1)" />
-        <item itemvalue="Python.test_8 (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -316,14 +324,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726057836699</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Sept. 19 2024 01">
-      <option name="closed" value="true" />
-      <created>1726746819018</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1726746819019</updated>
     </task>
     <task id="LOCAL-00009" summary="Sept. 19 2024 02">
       <option name="closed" value="true" />
@@ -709,7 +709,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736943842573</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="feat(utils): 重构 OnceMessage 类并添加新功能&#10;&#10;- 使用 threading.Event 代替 time.sleep 实现更高效的等待机制&#10;- 添加 set 方法的 timeout 参数，支持设置消息时的超时&#10;- 新增 is_set 方法，用于判断消息是否已被设置&#10;- 新增 clear 方法，用于清除已设置的消息&#10;- 新增 close 方法，用于关闭 OnceMessage 实例&#10;- 添加 closed 属性，用于判断 OnceMessage 是否已关闭&#10;- 优化类文档字符串，详细说明各个方法的使用">
+      <option name="closed" value="true" />
+      <created>1737025226260</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1737025226260</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -727,7 +735,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="改进HyConfigLanguage解析器和词法分析器&#10;&#10;- 更新Token类的__repr__方法，使用类名代替硬编码的字符串&#10;- 在词法分析器中添加新的关键字：FROM、AS和新的运算符：MULTIPLY&#10;-重构解析器：&#10;  - 重命名某些语法规则以提高清晰度（如fill_elem改为fill_item）&#10;  - 添加支持算术运算符的语法规则（如multiply、div、floordiv） - 改进赋值语句的解析（通过_assign和assign规则）&#10;  - 添加对表达式的解析支持（expr规则）&#10;  -优化括号序列的解析（start_seq、end_seq规则）&#10;  - 改进属性访问的解析（get_attr规则）&#10;  - 统一常量值的解析（constant规则）&#10;- 优化解析流程，分离首次解析和中间解析步骤- 添加__repr__方法以方便调试" />
     <MESSAGE value="- 修改了Lexer.py中的WHITESPACE处理&#10;- 更新了list.py中的ReplaceList类&#10;- 重构了Parser.py中的解析逻辑，增加了二次解析支持&#10;- 修正了README.md中的描述信息" />
     <MESSAGE value="添加异步socket类以支持异步操作&#10;&#10;实现了asyncsocket类，作为socket.socket的异步版本。该类封装了socket操作的异步版本，包括读写、连接、接受连接等，并提供了同步方法的异步实现。此外，还实现了部分重要的同步方法，如settimeout、listen、bind和close等。这一实现使得在异步环境中使用socket变得更加方便和高效。" />
     <MESSAGE value="将Json相关功能独立成新模块JsonFile.py&#10;&#10;从File.py中移除所有与Json操作相关的类和函数，包括JsonDict、JsonList、JsonBaseType等，以及相关的辅助函数如json_open、pickle_open等。这些内容将在新的JsonFile.py模块中重新组织。&#10;&#10;新增JsonFile.py模块，专注于Json数据的读写操作，包含以下主要变更：&#10;- 新增JsonPickleTypes类，用于处理JsonPickle对象的读写。&#10;- 更新json_open和pickle_open函数，以适应新的数据类型处理。&#10;- 保持json_safe_open、pickle_safe_open等函数的基本功能，优化错误处理。- 重新定义json_read、json_write、pickle_read和pickle_write函数，以适配新模块结构。" />
@@ -752,7 +759,8 @@
     <MESSAGE value="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息" />
     <MESSAGE value="至2025.1.15的积累更改" />
     <MESSAGE value="至2025.1.15的积累更改-2" />
-    <option name="LAST_COMMIT_MESSAGE" value="至2025.1.15的积累更改-2" />
+    <MESSAGE value="feat(utils): 重构 OnceMessage 类并添加新功能&#10;&#10;- 使用 threading.Event 代替 time.sleep 实现更高效的等待机制&#10;- 添加 set 方法的 timeout 参数，支持设置消息时的超时&#10;- 新增 is_set 方法，用于判断消息是否已被设置&#10;- 新增 clear 方法，用于清除已设置的消息&#10;- 新增 close 方法，用于关闭 OnceMessage 实例&#10;- 添加 closed 属性，用于判断 OnceMessage 是否已关闭&#10;- 优化类文档字符串，详细说明各个方法的使用" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(utils): 重构 OnceMessage 类并添加新功能&#10;&#10;- 使用 threading.Event 代替 time.sleep 实现更高效的等待机制&#10;- 添加 set 方法的 timeout 参数，支持设置消息时的超时&#10;- 新增 is_set 方法，用于判断消息是否已被设置&#10;- 新增 clear 方法，用于清除已设置的消息&#10;- 新增 close 方法，用于关闭 OnceMessage 实例&#10;- 添加 closed 属性，用于判断 OnceMessage 是否已关闭&#10;- 优化类文档字符串，详细说明各个方法的使用" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -761,6 +769,11 @@
           <url>file://$PROJECT_DIR$/src/hydrolib/hystruct/Serializers/S_Json.py</url>
           <line>59</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_syntax_parser.py</url>
+          <line>65</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -771,10 +784,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="offset.start" language="Python" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

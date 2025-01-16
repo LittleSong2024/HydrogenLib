@@ -59,11 +59,11 @@ if __name__ == '__main__':
     init_parser(parser)
     args = parser.parse_args(args)
     if args.version != "None":
-        with console.status("Setting HydrogenLib version...", spinner=spinner):
+        with console.status("Setting version...", spinner=spinner):
             rt_code, ps = run_command(["hatch", "version", args.version])
         time.sleep(0.1)
         if rt_code != 0:
-            console.print("[bold red]Setting HydrogenLib version failed!")
+            console.print("[bold red]Setting version failed!")
             console.print(ps.stderr.decode())
             console.print(ps.stdout.decode())
             sys.exit(rt_code)
@@ -77,11 +77,11 @@ if __name__ == '__main__':
             console.print(f"[bold red]Unsupported OS({os.name})!")
             sys.exit(1)
 
-        with console.status("Cleaning HydrogenLib wheel...", spinner=spinner):
+        with console.status("Cleaning old files...", spinner=spinner):
             rt_code, ps = run_command(command)
         time.sleep(0.1)
         if rt_code != 0:
-            console.print("[bold red]Cleaning HydrogenLib wheel failed!")
+            console.print("[bold red]Cleaning old files failed!")
             console.print(ps.stderr.decode('gbk'))
             console.print(ps.stdout.decode())
             sys.exit(rt_code)
@@ -89,21 +89,21 @@ if __name__ == '__main__':
 
     if not args.skip_build:
         # 播放工作动画
-        with console.status("Building HydrogenLib wheel...", spinner=spinner):
+        with console.status("Building wheel...", spinner=spinner):
             rt_code, ps = run_command(["hatch", "build"])
         time.sleep(0.1)
         if rt_code != 0:
-            console.print("[bold red]Building HydrogenLib wheel failed!")
+            console.print("[bold red]Building wheel failed!")
             console.print(ps.stderr.decode())
             sys.exit(rt_code)
         print("[bold green]success!")
     # console.console.print('\n')
     if not args.skip_check:
-        with console.status("Checking HydrogenLib wheel...", spinner=spinner):
+        with console.status("Checking wheel...", spinner=spinner):
             rt_code, ps = run_command(["twine", "check", "dist/*"])
         time.sleep(0.1)
         if rt_code != 0:
-            console.print("[bold red]Checking HydrogenLib wheel failed!")
+            console.print("[bold red]Checkin wheel failed!")
             console.print(ps.stderr)
             sys.exit(rt_code)
         print("[bold green]success!")
@@ -122,5 +122,5 @@ if __name__ == '__main__':
 
     print(
         "[green]All steps are success, "
-        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib-Next[/blue] [dim]-U[/dim]` "
+        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib[white]-[/white]Next[/blue] [dim]-U[/dim]` "
         "[green]to update HydrogenLib.")

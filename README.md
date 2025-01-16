@@ -1,8 +1,8 @@
-<h1 align="center">HydrogenLib</h1>
-
 <div align="center">
     <img src="HydroLib-LOGO-SVG.svg" alt="HydrogenLib Logo" height="300">
 </div>
+
+<h1 align="center">HydrogenLib</h1>
 
 <div align="center">
 

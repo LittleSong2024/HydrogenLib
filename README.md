@@ -1,5 +1,5 @@
 
-<div style="text-align: center">
+<div align="center">
     <h1>HydrogenLib</h1>
     <img src="HydroLib-LOGO-SVG.svg" alt="HydrogenLib Logo" height="300">
 </div>

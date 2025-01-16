@@ -1,23 +1,18 @@
 
 <div style="text-align: center">
     <h1>HydrogenLib</h1>
-</div>
-
-![LOGO](HydroLib-LOGO-SVG.svg)
-
-<div style="text-align: center">
-
-[![PyPI - Version](https://img.shields.io/pypi/v/hydrogenlib.svg)](https://pypi.org/project/hydrogenlib)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hydrogenlib.svg)](https://pypi.org/project/hydrogenlib)
-[![Github Stars](https://img.shields.io/github/stars/SongzqInChina/HydrogenLib.svg)](https://github.com/SongzqInChina/HydrogenLib)
-
+    <img src="HydroLib-LOGO-SVG.svg" alt="HydrogenLib Logo" height="300">
 </div>
 
 [//]: # ([![Action Status]&#40;https://github.com/LittleSong2024/HydrogenLib/actions/workflows/python-publish.yml/badge.svg&#41;]&#40;)
 
-[//]: # (    https://github.com/SongzqInChina/HydrogenLib/actions&#41;)
+[//]: # (    https://github.com/LittleSong2024/HydrogenLib/actions&#41;)
 
 ---
+
+[![PyPI - Version](https://img.shields.io/pypi/v/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib)
+[![Github Stars](https://img.shields.io/github/stars/LittleSong2024/HydrogenLib.svg)](https://github.com/LittleSong2024/HydrogenLib)
 
 当前为测试版本,功能可能有**缺失,不完整或错误**,详细请见[注意事项](#注意事项)
 

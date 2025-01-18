@@ -1,5 +1,17 @@
+from abc import ABC, abstractmethod
+
 from ._types import *
 from ..Lexer import Token
+
+# TODO: 完成递归语法解析
+
+
+class ASTNode(ABC):
+    children: list
+
+    @abstractmethod
+    def __init__(self, children: list, **kwargs):
+        ...
 
 
 class GeneratorManager:
@@ -11,24 +23,24 @@ class GeneratorManager:
         while True:
             i = 0
             res = False
+            if self._next_hook:
+                self._next_hook()
             while i < len(self._generators):
                 try:
                     res = next(self._generators[i])
                 except StopIteration:
-                    res = False
+                    if isinstance(res, ASTNode):
+                        return res
+                    else:
+                        raise RuntimeError("Unexpected error")
                 finally:
                     if res is False:
                         self._generators.pop(i)
                         i -= 1
                 i += 1
 
-            if len(self._generators) == 1:
-                return self._generators[0]
             if len(self._generators) == 0:
                 return None
-
-            if self._next_hook:
-                self._next_hook()
 
 
 def _pos_generator_wrap_func(block, index_ls):
@@ -83,6 +95,7 @@ class SyntaxParser:
         # 当有一个生成器正常退出,判断器将会将它作为匹配语法输出
         # 判断器会运行直到有一个生成器正常退出,判断器将会将它作为匹配语法输出
         # 如果没有生成器正常退出,判断器将会返回None
+        yield ...  # 返回AST节点
 
     def _p_import(self):
         """
@@ -137,14 +150,15 @@ class SyntaxParser:
             for fc in dir(self)
             if fc.startswith('_p_')
         ]
-        print(syntax_match_funcs)
-        self.next()
+        # print(syntax_match_funcs)
+        # self.next()
         while True:
             gm = GeneratorManager([
                 fc()
                 for fc in syntax_match_funcs
             ], next_hook=self.next)
             res = gm.result()
-            print(res)
+            if res:
+                print(res)
             if res is None and not self.end:
                 raise SyntaxError(f"Cannot match any syntax.")

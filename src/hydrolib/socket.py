@@ -15,26 +15,26 @@ class Asyncsocket:
         else:
             self.sock = s
 
-        self.event_loop = event_loop if event_loop else asyncio.get_running_loop()
+        self.loop = event_loop if event_loop else asyncio.get_running_loop()
 
     async def sendall(self, data):
-        return await self.event_loop.sock_sendall(
+        return await self.loop.sock_sendall(
             self.sock, data
         )
 
     async def recv(self, size: int):
-        return await self.event_loop.sock_recv(
+        return await self.loop.sock_recv(
             self.sock, size
         )
 
     async def accept(self):
-        return await self.event_loop.sock_accept(self.sock)
+        return await self.loop.sock_accept(self.sock)
 
     async def connect(self, addr, timeout=None):
         if timeout is None:
-            return await self.event_loop.sock_connect(self.sock, addr)
+            return await self.loop.sock_connect(self.sock, addr)
         else:
-            return await asyncio.wait_for(self.event_loop.sock_connect(self.sock, addr), timeout)
+            return await asyncio.wait_for(self.loop.sock_connect(self.sock, addr), timeout)
 
     async def connect_ex(self, addr):
         return self.sock.connect_ex(addr)

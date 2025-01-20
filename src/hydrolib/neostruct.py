@@ -1,5 +1,5 @@
 import struct
-from typing import Tuple
+from typing import Tuple, Iterable, Union
 
 from . import type_func
 
@@ -79,9 +79,10 @@ def pack_variable_length_int(x: int):
     return bytes(res)
 
 
-def unpack_variable_length_int(data: bytes) -> Tuple[int, int]:
+def unpack_variable_length_int(data: Union[bytes, bytearray, Iterable[int]]) -> Tuple[int, int]:
     """
     将可变长格式的整数字节串解包
+    返回: 解包后的整数, 解包使用的字节数
     """
     result = 0
     shift = 0

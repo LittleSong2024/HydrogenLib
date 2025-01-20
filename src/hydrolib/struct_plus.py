@@ -1,7 +1,7 @@
 from typing import Any
 
 from . import type_func
-from . import auto_struct as ostruct
+from . import neostruct as ostruct
 from .json import Pickle
 
 

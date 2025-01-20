@@ -1,9 +1,16 @@
 from abc import ABC, abstractmethod
-from typing import final
-from typing import Any
+from typing import Any, final
 
 
 class Serializer(ABC):
+    _Instance = None
+
+    @final
+    def __new__(cls, *args, **kwargs):  # 序列器一定是单例的
+        if cls._Instance is None:
+            cls._Instance = super().__new__(cls, *args, **kwargs)
+        return cls._Instance
+
     @abstractmethod
     def dumps(self, data) -> bytes:
         ...
@@ -11,12 +18,3 @@ class Serializer(ABC):
     @abstractmethod
     def loads(self, data) -> Any:
         ...
-
-    def load_from_sock(self, sock):
-        ...
-
-    @final
-    def socket_support(self) -> bool:
-        return (
-                Serializer.load_from_sock is not self.load_from_sock
-        )

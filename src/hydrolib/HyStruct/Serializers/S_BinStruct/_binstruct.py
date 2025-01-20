@@ -1,13 +1,13 @@
 import builtins
-import sys
 import typing
 from collections import deque
 from threading import Lock
 from types import NoneType
 from typing import Sequence, Optional, Union, final
 
+from .methods import get_class, get_attr_bitmap_length, length_to_bytes, connect_length, get_part
 from .. import abc
-from .... import type_func, auto_struct
+from .... import type_func, neostruct
 from ....type_func import get_qualname, get_subclasses
 
 
@@ -19,45 +19,12 @@ class UnpackError(Exception):
     ...
 
 
-def get_class(equal_name: str):
-    cls = type_func.get_attr_by_path(equal_name, {'builtins': builtins, **sys.modules})
-    return cls
-
-
-def get_attr_bitmap_length(number_of_attrs: int):
-    return (number_of_attrs + 7) // 8
-
-
 SimpleTypes = typing.Union[int, str, bytes, float]
-
-
-def length_to_bytes(length_or_obj):
-    length = length_or_obj if isinstance(length_or_obj, int) else len(length_or_obj)
-    return auto_struct.pack_variable_length_int(length)
-
-
-def connect_length(bytes_data: Union[bytes, NoneType], no_none=True):
-    if not no_none and bytes_data is None:  # NoneType
-        return b''
-    return b''.join([
-        length_to_bytes(bytes_data), bytes_data
-    ])
-
-
-def _get_length_offset(offset):
-    length, con = auto_struct.unpack_variable_length_int(offset.surplus(bytes))
-    offset += con
-    return length
-
-
-def get_part(offset) -> bytes:
-    length = _get_length_offset(offset)
-    return offset >> length
 
 
 def pack_attr(attr_value):
     if isinstance(attr_value, SimpleTypes):
-        data = auto_struct.pack(attr_value)
+        data = neostruct.pack(attr_value)
         type_name = type_func.get_type_name(attr_value)
     elif isinstance(attr_value, BinStructBase):
         type_name = get_qualname(attr_value)
@@ -87,7 +54,7 @@ def unpack_attr(offset):
     elif hasattr(builtins, type_name):
         type_ = getattr(builtins, type_name)
         if issubclass(type_, SimpleTypes):
-            origin_data = auto_struct.unpack(type_, packed_data)
+            origin_data = neostruct.loads(type_, packed_data)
         elif issubclass(type_, list):
             origin_data = _unpack_sequence(packed_data)
         elif issubclass(type_, dict):

@@ -2,7 +2,7 @@ import hashlib
 import struct
 
 from . import hash as shash
-from . import auto_struct as ostruct
+from . import neostruct as ostruct
 from . import hytime
 from . import type_func
 

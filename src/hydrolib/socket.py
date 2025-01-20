@@ -15,6 +15,9 @@ class Asyncsocket:
         else:
             self.sock = s
 
+        if self.sock.getblocking() is True:
+            self.sock.setblocking(False)  # 异步IO采用非阻塞
+
         self.loop = event_loop if event_loop else asyncio.get_running_loop()
 
     async def sendall(self, data):
@@ -27,6 +30,11 @@ class Asyncsocket:
             self.sock, size
         )
 
+    async def recv_into(self, buffer):
+        return await self.loop.sock_recv_into(
+            self.sock, buffer
+        )
+
     async def accept(self):
         return await self.loop.sock_accept(self.sock)
 
@@ -34,7 +42,7 @@ class Asyncsocket:
         if timeout is None:
             return await self.loop.sock_connect(self.sock, addr)
         else:
-            return await asyncio.wait_for(self.loop.sock_connect(self.sock, addr), timeout)
+            return await self.loop.sock_connect(self.sock, addr), timeout
 
     async def connect_ex(self, addr):
         return self.sock.connect_ex(addr)

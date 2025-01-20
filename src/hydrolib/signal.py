@@ -7,3 +7,6 @@ class Signal:
 
     def connect(self, func):
         self._func = func
+    
+    def emit(self, *args, **kwargs):
+        return self._func(*args, **kwargs)

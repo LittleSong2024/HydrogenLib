@@ -1,13 +1,13 @@
 import asyncio
 import socket
-from typing import Any
+from typing import Any, Union
 
 
 class Asyncsocket:
     """
     socket.socket的异步版本
     """
-    def __init__(self, s: socket.socket | Any = None, event_loop: asyncio.AbstractEventLoop = None):
+    def __init__(self, s: Union[socket.socket, Any] = None, event_loop: asyncio.AbstractEventLoop = None):
         if s is None:
             self.sock = socket.socket()
         elif isinstance(s, self.__class__):
@@ -15,7 +15,7 @@ class Asyncsocket:
         else:
             self.sock = s
 
-        self.event_loop = event_loop
+        self.event_loop = event_loop if event_loop else asyncio.get_running_loop()
 
     async def sendall(self, data):
         return await self.event_loop.sock_sendall(
@@ -54,7 +54,7 @@ class Asyncsocket:
     def fileno(self):
         return self.sock.fileno()
 
-    async def get_inheriteable(self):
+    def get_inheriteable(self):
         return self.sock.get_inheritable()
 
     def getblocking(self):

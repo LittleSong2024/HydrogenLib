@@ -1,8 +1,18 @@
-from .Abc import Serializer
+# from . import connect_length
+from .abc import Serializer
+from .S_BinStruct._binstruct import connect_length as _connect_length
+
+# ---
+
 from .S_BinStruct import *
 from .S_Json import *
 from .S_JsonPickle import *
-from ...struct_plus import simple_pack, simple_unpack, simple_unpacks
+from .S_Wrapping import *
+from .S_Combination import *
+
+# ---
+
+from ...struct_plus import simple_unpack, simple_unpacks
 from ...type_func import get_subclasses
 
 
@@ -10,11 +20,11 @@ def pack(obj, serializer: Serializer = None):
     if serializer is None:
         serialier = Json()
 
-    return connect_length(
-        connect_length(
+    return _connect_length(
+        _connect_length(
             serializer.dumps(obj)
         ) +
-        connect_length(
+        _connect_length(
             serializer.__class__.__name__.encode()
         )
     )

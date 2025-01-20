@@ -1,11 +1,11 @@
 import json
 import socket
 
-from . import Abc
+from . import abc
 from ... import data_structures
 
 
-class Json(Abc.Serializer):
+class Json(abc.Serializer):
     left_delimiter = b"{["
     right_delimiter = b"}]"
 

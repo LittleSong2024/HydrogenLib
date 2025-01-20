@@ -1,24 +1,21 @@
 import time
+from typing import Optional
 
 from .process import CProcess as _CProcess
 
 
-class Xfunc:
-    ...
-
-
-class ProcessPlus(Xfunc, _CProcess):
+class Process(_CProcess):
     def pause(self):
         self.suspend()
 
     def recover(self):
         self.resume()
 
-    def exitcode(self) -> int | None:
+    def exitcode(self) -> Optional[int]:
         return self.wait()
 
 
-class Timer(Xfunc):
+class Timer:
     def __init__(self):
         self._time = 0
         self._res = 0

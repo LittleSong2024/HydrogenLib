@@ -54,7 +54,7 @@ def unpack_attr(offset):
     elif hasattr(builtins, type_name):
         type_ = getattr(builtins, type_name)
         if issubclass(type_, SimpleTypes):
-            origin_data = neostruct.loads(type_, packed_data)
+            origin_data = neostruct.unpack(type_, packed_data)
         elif issubclass(type_, list):
             origin_data = _unpack_sequence(packed_data)
         elif issubclass(type_, dict):

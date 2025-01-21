@@ -1,9 +1,11 @@
 import base64
+import hashlib
 import hmac
 import json
 import logging
 import os
 from abc import ABC, abstractmethod
+from typing import Union, Optional
 
 from . import database, type_func, hash
 
@@ -14,10 +16,10 @@ class SimpleUserPasswdManager:
     def __init__(self, db_file, salt_lenght=64):
         self._salt_lenght = salt_lenght
         try:
-            self._db = Database.DB(db_file)
+            self._db = database.DB(db_file)
         except KeyError:
-            self._db = Database.mkget(db_file)
-        self._template = type_func.template.Template(
+            self._db = database.mkget(db_file)
+        self._template = type_func.Template(
             username="Unknown",
             hash_type="sha256",
             hash_lenght=64,  # set this param if you use shake_128 or shake_256
@@ -31,11 +33,11 @@ class SimpleUserPasswdManager:
 
     def add(self, username: str, passwd: str, hash_type="sha256", hash_lenght=64):
         if self._mrofunc.exist(username=username):
-            raise Database.ExistItemError(username)
+            raise database.ExistItemError(username)
 
         salt = os.urandom(self._salt_lenght)
         passwd_salt = passwd.encode() + salt
-        passwd_hash = Hash.getHashValueByName(passwd_salt, hash_type, hash_lenght)
+        passwd_hash = hash.getHashValueByName(passwd_salt, hash_type, hash_lenght)
 
         self._mrofunc.add(
             username=username,
@@ -65,12 +67,12 @@ class SimpleUserPasswdManager:
 
             user_passwd_salt = user_passwd_bytes + salt
 
-            if Hash.getHashValueByName(user_passwd_salt, usr["hash_type"], usr["hash_lenght"]) == true_passwd_hash:
+            if hash.getHashValueByName(user_passwd_salt, usr["hash_type"], usr["hash_lenght"]) == true_passwd_hash:
                 return True
             else:
                 return False
 
-        except Database.errors:
+        except database.errors:
             return
 
 
@@ -109,7 +111,7 @@ class JsonWebToken(TokenBase):
         message = f"{self._head}.{self._payload}".encode()
 
         # 计算 HMAC-SHA256 签名
-        signature = hmac.new(self.secret.encode(), msg=message, digestmod=Hash.hashlib.sha256).digest()
+        signature = hmac.new(self.secret.encode(), msg=message, digestmod=hash.hashlib.sha256).digest()
 
         # 对签名进行 base64url 编码
         return base64.urlsafe_b64encode(signature).decode().rstrip('=')
@@ -141,7 +143,7 @@ class JsonWebToken(TokenBase):
             secret.encode(),
             msg=f"{base64.urlsafe_b64encode(json.dumps(head).encode()).decode()}."
                 f"{base64.urlsafe_b64encode(json.dumps(payload).encode()).decode()}".encode(),
-            digestmod=Hash.hashlib.sha256).digest()
+            digestmod=hashlib.sha256).digest()
         if not hmac.compare_digest(signature, expected_signature):
             raise ValueError("Invalid signature")
 
@@ -204,7 +206,7 @@ class SessionToken(TokenBase):
 
 
 class HashToken(TokenBase):
-    def __init__(self, original_token: bytes | None = None, salt: bytes | None = None):
+    def __init__(self, original_token: Optional[bytes] = None, salt: Optional[bytes] = None):
         if original_token is None:
             original_token = os.urandom(32)
 
@@ -216,7 +218,7 @@ class HashToken(TokenBase):
         self.token = None
 
     def serialize(self):
-        return Hash.getHashValueByName(self.original_token + self.salt, "sha256")
+        return hash.getHashValueByName(self.original_token + self.salt, "sha256")
 
     @classmethod
     def deserialize(cls, *args, **kwargs):
@@ -255,7 +257,7 @@ class HashTokenManager:
             self._tokens.add(token)
             return True
 
-    def add_token(self, original_token: bytes | None = None, salt: bytes | None = None):
+    def add_token(self, original_token: Optional[bytes] = None, salt: Optional[bytes] = None):
         """
         创建一个令牌对象，并添加进内部数据库中
         :param original_token: 原始令牌数据
@@ -265,7 +267,7 @@ class HashTokenManager:
         self.add(obj)
         return obj
 
-    TokenValueType = bytes | HashToken | _HashTokenComparator
+    TokenValueType = Union[bytes, HashToken, _HashTokenComparator]
 
     def query(self, token: 'TokenValueType'):
         """

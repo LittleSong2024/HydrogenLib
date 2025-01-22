@@ -1,4 +1,5 @@
 import struct
+from decimal import Decimal
 from typing import Tuple, Iterable, Union
 
 from . import type_func
@@ -35,9 +36,16 @@ def pack(data):
     """
     data_type = type(data)
     if data_type == int:
-        return type_func.int_to_bytes_nonelength(data)
-    elif data_type == float:
-        return struct.pack("<d", data)
+        return pack_variable_length_int(data)
+    elif data_type in [float, Decimal]:
+        # 0.00001
+        count = 0
+        while data-int(data) != 0:
+            data *= 10
+            count += 1
+        part1 = pack_variable_length_int(count)
+        part2 = pack_variable_length_int(int(data))
+        return part1 + part2
     elif data_type == str:
         return data.encode()
     elif data_type == bytes:
@@ -51,8 +59,11 @@ def pack(data):
 def unpack(data_type, data):
     if data_type == int:
         return type_func.bytes_to_int(data)
-    elif data_type == float:
-        return struct.unpack("<d", data)[0]
+    elif data_type in [float, Decimal]:
+        offset, length = unpack_variable_length_int(data)
+        bytes_, _ = unpack_variable_length_int(data[length:])
+        print(bytes_)
+        return Decimal(bytes_) / (10 ** offset)
     elif data_type == str:
         return data.decode()
     elif data_type == bytes:

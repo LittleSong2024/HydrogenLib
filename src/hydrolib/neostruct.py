@@ -63,7 +63,7 @@ def unpack(data_type, data):
         offset, length = unpack_variable_length_int(data)
         bytes_, _ = unpack_variable_length_int(data[length:])
         print(bytes_)
-        return Decimal(bytes_) / (10 ** offset)
+        return data_type(bytes_) / (10 ** offset)
     elif data_type == str:
         return data.decode()
     elif data_type == bytes:

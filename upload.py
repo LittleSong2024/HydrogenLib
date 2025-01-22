@@ -82,7 +82,7 @@ if __name__ == '__main__':
         time.sleep(0.1)
         if rt_code != 0:
             console.print("[bold red]Cleaning old files failed!")
-            console.print(ps.stderr.decode('gbk'))
+            console.print(ps.stderr.decode())
             console.print(ps.stdout.decode())
             sys.exit(rt_code)
         print("[bold green]success!")
@@ -122,5 +122,7 @@ if __name__ == '__main__':
 
     print(
         "[green]All steps are success, "
-        "you can run [/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib[white]-[/white]Next[/blue] [dim]-U[/dim]` "
+        "you can run "
+        "[/green]`[#FFA500]pip[/#FFA500] install [blue]HydrogenLib[#FFA500]-[/#FFA500]Next[/blue] "
+        "[dim]-U[/dim]` "
         "[green]to update HydrogenLib.")

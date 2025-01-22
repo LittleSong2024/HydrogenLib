@@ -1,6 +1,6 @@
 from typing import Union
 
-from src.hydrolib.hyconfig.Interpreter.Lexer import Token
+from src.hydrolib.hycl.Interpreter.Lexer import Token
 
 
 class Pos:

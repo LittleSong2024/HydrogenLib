@@ -1,11 +1,9 @@
 import struct
 from decimal import Decimal
-from typing import Tuple, Iterable, Union
-
-from . import type_func
+from .type_func import pack_variable_length_int, unpack_variable_length_int
 
 
-def pack(data):
+def neopack(data):
     """
     对基本Struct模块的功能进行一定的改进的方法
     **Format Mro**
@@ -56,9 +54,9 @@ def pack(data):
         raise TypeError("unsupported data type: {}".format(data_type))
 
 
-def unpack(data_type, data):
+def neounpack(data_type, data):
     if data_type == int:
-        return type_func.bytes_to_int(data)
+        return unpack_variable_length_int(data)[0]
     elif data_type in [float, Decimal]:
         offset, length = unpack_variable_length_int(data)
         bytes_, _ = unpack_variable_length_int(data[length:])
@@ -72,37 +70,3 @@ def unpack(data_type, data):
         return struct.unpack("<?", data)[0]
     else:
         raise TypeError("Unsupported data type: {}".format(data_type))
-
-
-def pack_variable_length_int(x: int):
-    """
-    将整数打包为可变长格式
-    """
-    res = bytearray()
-    while True:
-        byte = x & 0x7F
-        x >>= 7
-        if x:
-            byte |= 0x80
-        res.append(byte)
-        if not x:
-            break
-    return bytes(res)
-
-
-def unpack_variable_length_int(data: Union[bytes, bytearray, Iterable[int]]) -> Tuple[int, int]:
-    """
-    将可变长格式的整数字节串解包
-    返回: 解包后的整数, 解包使用的字节数
-    """
-    result = 0
-    shift = 0
-    count = 0
-    for byte in data:
-        result |= (byte & 0x7F) << shift
-        shift += 7
-        if byte & 0x80 == 0:
-            break
-        count += 1
-    return result, count + 1
-

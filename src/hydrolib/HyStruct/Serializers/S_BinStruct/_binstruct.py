@@ -8,7 +8,7 @@ from typing import Sequence, Optional, Union, final
 from .methods import get_class, get_attr_bitmap_length, length_to_bytes, connect_length, get_part
 from .. import abc
 from .... import type_func, neostruct
-from ....type_func import get_qualname, get_subclasses
+from ....type_func import get_qualname, get_subclasses, pack_variable_length_int, unpack_variable_length_int
 
 
 class GeneraterError(Exception):
@@ -24,7 +24,7 @@ SimpleTypes = typing.Union[int, str, bytes, float]
 
 def pack_attr(attr_value):
     if isinstance(attr_value, SimpleTypes):
-        data = neostruct.pack(attr_value)
+        data = neostruct.neopack(attr_value)
         type_name = type_func.get_type_name(attr_value)
     elif isinstance(attr_value, BinStructBase):
         type_name = get_qualname(attr_value)
@@ -55,10 +55,8 @@ def unpack_attr(offset):
         origin_data = BinStructBase.unpack(packed_data)
     elif hasattr(builtins, type_name):
         type_ = getattr(builtins, type_name)
-        if issubclass(type_, int):
-            origin_data = neostruct.unpack_variable_length_int(packed_data)
-        elif issubclass(type_, SimpleTypes):
-            origin_data = neostruct.unpack(type_, packed_data)
+        if issubclass(type_, SimpleTypes):
+            origin_data = neostruct.neounpack(type_, packed_data)
         elif issubclass(type_, list):
             origin_data = _unpack_sequence(packed_data)
         elif issubclass(type_, dict):

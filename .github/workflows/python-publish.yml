@@ -1,9 +1,9 @@
 name: Publish Python Package
 
 on:
-    release:
-        types:
-            - released
+    push:
+        tags:
+            - "v*.*.*-upload"
 
 jobs:
     build-and-publish:
@@ -32,15 +32,6 @@ jobs:
                 env:
                     TWINE_USERNAME: __token__
                     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-                    TWINE_REPOSITORY: pypi
+                    TWINE_REPOSITORY: https://upload.pypi.org/legacy/
                 run: |
                     twine upload dist/*
-
-            -   name: Save changes
-                run: |
-                    git add .
-                    git commit -m "Bump version $(hatch version)"
-
-            -   name: Push changes
-                run: |
-                    git push origin main

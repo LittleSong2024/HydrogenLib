@@ -45,7 +45,9 @@ def rename(old, new):
 
 def mkfile(file, clear=True):
     if not isfile(file):
-        mkdirs(os.path.dirname(file))
+        directory = os.path.dirname(file)
+        if directory:
+            mkdirs(directory)
         open(file, "w").close()
     elif clear:
         open(file, "w").close()

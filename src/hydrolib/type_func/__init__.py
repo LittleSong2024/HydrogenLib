@@ -1,4 +1,5 @@
-from typing import Literal
+from types import NoneType
+from typing import Literal, Union
 
 from .BinaryTree import *
 from .Bitmap import *
@@ -11,8 +12,10 @@ from .Number import *
 from .Template import *
 from .Type import *
 
+builtin_types = Union[int, float, str, bool, NoneType, list, tuple, dict, set, bytes, bytearray]
 
-def int_to_bytes(num: int, lenght, byteorder='little'):
+
+def int_to_bytes(num: int, lenght, byteorder: Literal["little", "big"] = 'little'):
     try:
         byte = num.to_bytes(lenght, byteorder)
     except OverflowError as e:
@@ -27,7 +30,7 @@ def int_to_bytes_nonelength(num: int):
 
 
 def bytes_to_int(data: bytes, byteorder: Literal["little", "big"] = 'little'):
-    if len(data) == 0 or not any(data):
+    if len(data) == 0:
         return
     return int.from_bytes(data, byteorder)
 

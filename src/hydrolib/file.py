@@ -1,11 +1,7 @@
-import os
 from io import BytesIO
-from typing import *
-from typing import Union
-
-import aiofiles
 
 from .data_structures import Stack
+from .path import *
 
 
 def read(file, mode='r'):
@@ -138,6 +134,7 @@ class NeoIo:
 
     def __init__(self):
         self._fd_ls = Stack()
+        self.create = False
 
     def __push_fd(self, fd):
         self._fd_ls.push(fd)
@@ -167,10 +164,12 @@ class NeoIo:
         ins = cls.from_fd(fd)
         return ins
 
-    def open(self, file, mode='r', encoding=None, *args, **kwargs):
+    def open(self, file, mode='r', encoding=None, create=None, *args, **kwargs):
         """
         打开一个新的文件,并压入栈中
         """
+        if not exists(file) and (self.create if (create is None) else create):
+            mkfile(file)
         self.__push_fd(
             open(file, mode, encoding=encoding, *args, **kwargs))
         return self
@@ -231,7 +230,7 @@ class NeoIo:
         return self._top_fd.fileno()
 
     @property
-    def fstat(self):
+    def osfstat(self):
         """
         文件状态
         """
@@ -241,18 +240,18 @@ class NeoIo:
             return None
 
     @property
-    def neo_fstat(self):
+    def neofstat(self):
         """
         文件状态
         """
-        return NeoIo.FState(self.fstat)
+        return NeoIo.FState(self.osfstat)
 
     @property
     def size(self):
         """
         文件大小
         """
-        return self.fstat.st_size
+        return self.osfstat.st_size
 
     def write(self, data: Union[bytes, str]):
         """

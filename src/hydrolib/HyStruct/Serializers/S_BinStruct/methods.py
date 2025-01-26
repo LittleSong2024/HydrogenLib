@@ -3,6 +3,7 @@ import sys
 from types import NoneType
 from typing import Union
 
+import src.hydrolib.type_func.Number
 from .... import type_func, neostruct
 
 
@@ -17,7 +18,7 @@ def get_attr_bitmap_length(number_of_attrs: int):
 
 def length_to_bytes(length_or_obj):
     length = length_or_obj if isinstance(length_or_obj, int) else len(length_or_obj)
-    return neostruct.pack_variable_length_int(length)
+    return src.hydrolib.type_func.Number.pack_variable_length_int(length)
 
 
 def connect_length(bytes_data: Union[bytes, NoneType], no_none=True):
@@ -29,7 +30,7 @@ def connect_length(bytes_data: Union[bytes, NoneType], no_none=True):
 
 
 def get_length_offset(offset):
-    length, con = neostruct.unpack_variable_length_int(offset.surplus(bytes))
+    length, con = src.hydrolib.type_func.Number.unpack_variable_length_int(offset.surplus(bytes))
     offset += con
     return length
 

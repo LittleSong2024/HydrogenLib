@@ -42,6 +42,9 @@ def isspace(file):
     return d.isspace()
 
 
+fileDataType = Union[str, bytes, bytearray]
+
+
 class NeoIo:
     """
     新文件读写
@@ -64,7 +67,7 @@ class NeoIo:
             创建时间
             可用情况视平台而定，如Windows不可用。
             """
-            # 注意：st_birthtime在某些平台上可能不可用，如Windows
+            # 注意：st_birthtime在某些平台上可能不可用
             try:
                 return self.fstat.st_birthtime
             except AttributeError:
@@ -152,7 +155,7 @@ class NeoIo:
         从文件描述符创建实例
         """
         ins = cls()
-        ins.__push_fd(fd)
+        ins.push_new_fd(fd)
         return ins
 
     @classmethod

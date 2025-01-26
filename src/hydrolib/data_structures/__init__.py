@@ -85,6 +85,9 @@ class Stack:
 
 
 class Heap:
+    """
+    默认大顶堆
+    """
     def __init__(self, lst=None, reversed=False):
         self.heap = lst or []
         self.iter_reversed = reversed

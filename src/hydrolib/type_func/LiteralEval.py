@@ -185,15 +185,15 @@ def _literal_eval(node, globals_: Optional[dict], locals_: Optional[dict], built
         raise ValueError("Unsupported type: " + str(type(node)))
 
 
-def literal_eval(string, globals_: Optional[dict] = None, locals_: Optional[dict] = None,
+def literal_eval(string, globals: Optional[dict] = None, locals: Optional[dict] = None,
                  builtins: bool = False, no_eval: bool = True):
     builtins_dict = {}
-    if globals_ is None: globals_ = {}
-    if locals_ is None: locals_ = {}
+    if globals is None: globals = {}
+    if locals is None: locals = {}
     if builtins is True: builtins_dict = vars(_builtins)
 
     if no_eval and 'eval' in builtins_dict:
         del builtins_dict['eval']
 
     tree = ast.parse(string, mode='eval')
-    return _literal_eval(tree.body, globals_, locals_, builtins_dict)
+    return _literal_eval(tree.body, globals, locals, builtins_dict)

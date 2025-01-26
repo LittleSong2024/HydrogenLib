@@ -5,6 +5,6 @@ dist/
 
 # Files in Dev
 upload.py
-src/hydrolib/hyconfig/.old.source
+src/hydrolib/hycl/.old.source
 out
 .temp

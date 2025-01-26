@@ -30,7 +30,9 @@ def pack_attr(attr_value):
         type_name = get_qualname(attr_value)
         data = attr_value.pack()
     elif isinstance(attr_value, Sequence):
-        type_name = 'list'
+        type_name = type_func.get_type_name(attr_value)
+        if type_name not in ['list', 'tuple', 'set']:
+            raise NotImplementedError(f'Unsupported type: {type(type_name)}')
         data = _pack_sequence(attr_value)
     elif isinstance(attr_value, dict):
         type_name = 'dict'
@@ -53,7 +55,9 @@ def unpack_attr(offset):
         origin_data = BinStructBase.unpack(packed_data)
     elif hasattr(builtins, type_name):
         type_ = getattr(builtins, type_name)
-        if issubclass(type_, SimpleTypes):
+        if issubclass(type_, int):
+            origin_data = neostruct.unpack_variable_length_int(packed_data)
+        elif issubclass(type_, SimpleTypes):
             origin_data = neostruct.unpack(type_, packed_data)
         elif issubclass(type_, list):
             origin_data = _unpack_sequence(packed_data)

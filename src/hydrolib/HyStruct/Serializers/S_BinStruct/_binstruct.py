@@ -203,10 +203,11 @@ class BinStructBase:
 
     @staticmethod
     @final
-    def unpack(data, *args, **kwargs):
+    def unpack(data, __data__=None, *args, **kwargs):
         """
         解包结构体.
         :param data: 原始数据
+        :param __data__: 构造函数参数
         :param args: 传递给unpack_event函数的参数
         :param kwargs: 传递给unpack_event函数的参数
         """
@@ -214,14 +215,18 @@ class BinStructBase:
         offset = type_func.IndexOffset.Offset(data)
         this_name = get_part(offset).decode()
 
+
         # print(this_name)
         typ = get_class(this_name)
+        # print(typ)
 
-        bitmap_length = get_attr_bitmap_length(len(typ.__data__))
+        __data__ = __data__ or typ.__data__
+
+        bitmap_length = get_attr_bitmap_length(len(__data__))
         bitmap = type_func.Bitmap.unpack(offset >> bitmap_length)
 
         # 获取已设置的属性
-        set_attrs = [attr_name for attr_name, on in zip(typ.__data__, bitmap) if on]
+        set_attrs = [attr_name for attr_name, on in zip(__data__, bitmap) if on]
         # print(set_attrs)
         temp_dct = {}
 
@@ -256,13 +261,14 @@ class BinStructBase:
             else:
                 raise GeneraterError('无法确定结构体需要包含的属性')
         if __data__ is None:
-            if hasattr(obj, '_data_'):
-                __data__ = getattr(obj, '_data_')
+            if hasattr(obj, '__data__'):
+                __data__ = getattr(obj, '__data__')
 
         if __data__ is None:
             raise GeneraterError('无法确定结构体需要包含的属性')
 
         ins = cls(**{name: getattr(obj, name) for name in __data__})
+        ins.__data__ = __data__
         return ins
 
     @classmethod
@@ -303,8 +309,8 @@ class Struct(abc.Serializer):
     def dumps(self, data: BinStructBase):
         return data.pack()
 
-    def loads(self, data):
-        return self.struct.unpack(data)
+    def loads(self, data, __data__=None):
+        return self.struct.unpack(data, __data__=__data__)
 
 
 bin_types = {

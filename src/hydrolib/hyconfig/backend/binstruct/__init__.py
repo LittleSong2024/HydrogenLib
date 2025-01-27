@@ -8,15 +8,18 @@ class Binstruct_Backend(BackendABC):
         self.serializer = Struct()
 
     def save(self):
-        binstruct = BinStructBase.to_struct(self, ['dic', 'defaults'])
-        with self.fd.open(self.file, 'b') as f:
-                f.write(self.serializer.dumps(binstruct))
+        binstruct = BinStructBase.to_struct(self, ['dic'])
+        with self.fd.open(self.file, 'wb') as f:
+            f.write(self.serializer.dumps(binstruct))
 
     def load(self):
-        with self.fd.open(self.file, 'b') as f:
-            if f.size:
-                self.is_first_loading = False
-                struct = self.serializer.loads(f.read())
-                self.init(**struct.dic)
-                self.set_defaults(**struct.defaults)
+        with self.fd.open(self.file, 'rb') as f:
+            try:
+                if f.size:
+                    struct = self.serializer.loads(f.read(), __data__=['dic'])
+                    # print("aaa", struct)
+                    self.init(**struct.dic)
 
+                    self.is_first_loading = False
+            except RuntimeError as e:
+                return

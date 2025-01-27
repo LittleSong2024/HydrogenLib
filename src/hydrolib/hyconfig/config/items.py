@@ -32,5 +32,5 @@ class ConfigItem:
         self.item.data.set(value)
         from .container import ConfigContainer
         if isinstance(instance, ConfigContainer):
-            instance.changeEvent(self.key)
+            instance.on_change(self.key)
 

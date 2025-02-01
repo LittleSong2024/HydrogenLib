@@ -4,3 +4,5 @@
 
 20250201(11:07) --> v-patch-upload-for-test
 20250201(11:18) --> v-patch-upload-for-test-2
+                    Retry v-patch-upload-for-test-3
+                    Retry v-patch-upload-for-test-4 (手动发布无pywin32依赖的版本)

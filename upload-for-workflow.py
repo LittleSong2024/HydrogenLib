@@ -20,7 +20,7 @@ class MyParser(ArgumentParser):
 
     def get_tag_name(self, args=None):
         if args is None:
-            args = sys.argv
+            args = sys.argv[1:]
 
         nsp = self.parse_args(args)
         tag = nsp.tag.removeprefix('refs/tags/')

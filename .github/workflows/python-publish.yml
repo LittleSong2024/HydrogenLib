@@ -4,6 +4,9 @@ on:
     push:
         tags:
             - "v*.*.*-upload*"
+            - "v-patch-upload*"
+            - "v-major-upload*"
+            - "v-minor-upload*"
 
 jobs:
     build-and-publish:
@@ -22,15 +25,13 @@ jobs:
             -   name: Install dependencies
                 run: |
                     python -m pip install --upgrade pip
-                    pip install hatch twine
+                    pip install hatch twine HydrogenLib-Next semantic-version
 
-            -   name: Build package
-                run: |
-                    hatch build
+            -   name: Build and publish
 
-            -   name: Publish package
                 env:
                     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
                     TWINE_USERNAME: __token__
                 run: |
-                    twine upload ./dist/*
+                    python ./upload-for-workflow.py ${{ github.event.ref }}
+                    echo 请在本地重新更新版本号

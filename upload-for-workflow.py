@@ -3,7 +3,6 @@ import platform
 import re
 import sys
 
-from semantic_version import compare
 from subprocess import run, PIPE
 from argparse import ArgumentParser
 
@@ -76,7 +75,7 @@ class Main:
             curv = self.checker.match(tag)
             libv = self.version
             # 如果传入的标签版本号小于当前版本号，则不执行上传
-            if curv not in {'patch', 'major', 'minor'} and compare(curv, libv) < 0:
+            if curv not in {'patch', 'major', 'minor'} and tuple(curv.split('.')) < tuple(libv.split('.')):
                 print('当前版本号大于传入的版本号，不执行上传')
                 sys.exit(1)  # 阻止工作流继续执行
 

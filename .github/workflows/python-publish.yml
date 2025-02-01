@@ -33,5 +33,5 @@ jobs:
                     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
                     TWINE_USERNAME: __token__
                 run: |
-                    python ./upload-for-workflow.py -t ${{ github.event.ref }}
+                    python ./upload-for-workflow.py --tag ${{ github.event.ref }}
                     echo 请在本地重新更新版本号

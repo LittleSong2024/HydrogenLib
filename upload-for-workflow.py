@@ -23,7 +23,8 @@ class MyParser(ArgumentParser):
 
         nsp = self.parse_args(args)
         tag = nsp.tag.removeprefix('refs/tags/')
-        tag = tag.removeprefix('v')
+        if not tag.startswith('v-'):  # 保证 v-patch-... 等标签不被误伤
+            tag = tag.removeprefix('v')
         return tag
 
 
@@ -36,10 +37,10 @@ class TagChecker:
     #             - "v-major-upload*"
     #             - "v-minor-upload*"
     def __init__(self):
-        self.re_v_vvv = re.compile(r'^(\d+\.\d+\.\d+)-upload.*')
-        self.re_v_patch = re.compile(r'^v-(patch)-upload.*')
-        self.re_v_major = re.compile(r'^v-(major)-upload.*')
-        self.re_v_minor = re.compile(r'^v-(minor)-upload.*')
+        self.re_v_vvv = re.compile(r'v(\d+\.\d+\.\d+)-upload.*')
+        self.re_v_patch = re.compile(r'v-(patch)-upload.*')
+        self.re_v_major = re.compile(r'v-(major)-upload.*')
+        self.re_v_minor = re.compile(r'v-(minor)-upload.*')
 
         self.re_ls = [
             self.re_v_vvv,

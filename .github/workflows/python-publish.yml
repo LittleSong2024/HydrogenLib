@@ -3,6 +3,7 @@ name: Publish Python Package
 on:
     push:
         tags:
+            - "v-current-upload*"
             - "v*.*.*-upload*"
             - "v-patch-upload*"
             - "v-major-upload*"

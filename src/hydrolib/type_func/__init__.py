@@ -11,6 +11,7 @@ from .LiteralEval import *
 from .Number import *
 from .Template import *
 from .Type import *
+from .Overload import overload, get_func_overloads
 
 builtin_types = Union[int, float, str, bool, NoneType, list, tuple, dict, set, bytes, bytearray]
 

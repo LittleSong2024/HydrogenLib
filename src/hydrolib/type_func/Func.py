@@ -24,7 +24,7 @@ def get_source(func):
     return inspect.getsource(func)
 
 
-def get_module(func):
+def get_module(func) -> str:
     return func.__module__
 
 

@@ -29,8 +29,6 @@ class MyParser(ArgumentParser):
 
         nsp = self.parse_args(args)
         tag = nsp.tag.removeprefix('refs/tags/')
-        if not tag.startswith('v-'):  # 保证 v-patch-... 等标签不被误伤
-            tag = tag.removeprefix('v')
         return tag
 
 
@@ -84,6 +82,8 @@ class Main:
         if tag:
             # 解析标签
             curv = self.checker.match(tag)
+            if not curv:
+                raise ValueError(f'无法解析标签版本号: {tag}')
             libv = self.version
             # 如果传入的标签版本号小于当前版本号，则不执行上传
             if curv not in {'patch', 'major', 'minor', 'current'} and tuple(curv.split('.')) < tuple(libv.split('.')):
@@ -107,15 +107,15 @@ class Main:
     def exec(self):
 
         self.load_version()
-        self.check_tag()
 
         print(f'Upload script runs on {platform.platform()}')
         print(f'PID: {os.getpid()}')
         print(f'Args: {sys.argv}')
         print(f'Env: {os.environ}')
-        print(f'Activity tag: {self.tag}')
+        print(f'Activity tag: {self.parser.get_tag_name()}')
         print(f'Get-Version: {self.version}')
 
+        self.check_tag()
         self.build()
         self.upload()
 

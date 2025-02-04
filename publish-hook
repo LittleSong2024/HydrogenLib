@@ -2,6 +2,16 @@
 # 同时编写者会在其中留下发布标签
 # 你可以忽略有关这个文件的任何更改
 
+# on:
+#     push:
+#         tags:
+#             - "v-current-upload*"
+#             - "v*.*.*-upload*"
+#             - "v-patch-upload*"
+#             - "v-major-upload*"
+#             - "v-minor-upload*"
+# 注释是给自己看的
+
 20250201(11:07) --> v-patch-upload-for-test
 20250201(11:18) --> v-patch-upload-for-test-2
                     Retry v-patch-upload-for-test-3
@@ -9,3 +19,4 @@
                     Retry v-patch-upload-for-test-5 (为什么命令行加的Tag不上传?)
 
 20250203(17:41) --> v-current-upload-0.1.7
+20250204(20:29) --> v0.1.8-upload

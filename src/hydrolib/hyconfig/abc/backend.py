@@ -13,13 +13,11 @@ class ChangeEvent:
 class BackendABC(ABC):
     serializer = None
 
-    def __init__(self, parent=None):
-        self.defaults = {}
+    def __init__(self):
         self.dic = {}
         self.file = None
         self.fd = NeoIo()
         self.fd.create = True
-        self.parent = parent
 
         self._first_loading = True
 
@@ -34,18 +32,15 @@ class BackendABC(ABC):
     def set_file(self, file):
         self.file = file
 
-    def set_defaults(self, **kwargs) -> None:
-        self.defaults = kwargs
-
     def init(self, **kwargs):
         self.dic = kwargs
 
     def get(self, key):
-        return self.dic.get(key, self.defaults.get(key))
+        return self.dic.get(key)
 
     def set(self, key, value):
         self.dic[key] = value
-        self.changeEvent(ChangeEvent(key, value))
+        self.on_change(ChangeEvent(key, value))
 
     def keys(self) -> Iterable[str]:
         return self.dic.keys()
@@ -56,7 +51,7 @@ class BackendABC(ABC):
     def items(self) -> Iterable[Tuple[str, Any]]:
         return self.dic.items()
 
-    def changeEvent(self, event: ChangeEvent): ...
+    def on_change(self, event: ChangeEvent): ...
 
     @abstractmethod
     def save(self): ...

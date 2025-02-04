@@ -8,7 +8,7 @@ from typing import Sequence, Optional, Union, final
 from .methods import get_class, get_attr_bitmap_length, length_to_bytes, connect_length, get_part
 from .. import abc
 from .... import type_func, neostruct
-from ....type_func import get_qualname, get_subclasses, pack_variable_length_int, unpack_variable_length_int
+from ....type_func import get_qualname, get_subclasses_recursion, pack_variable_length_int, unpack_variable_length_int
 
 
 class GeneraterError(Exception):
@@ -326,7 +326,7 @@ def flush_bin_types():
     """
     with _flush_lock:
         global bin_types
-        bin_types |= set((get_qualname(cls) for cls in get_subclasses(BinStructBase)))
+        bin_types |= set((get_qualname(cls) for cls in get_subclasses_recursion(BinStructBase)))
 
 
 def get_bin_types():

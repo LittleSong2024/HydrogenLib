@@ -3,7 +3,7 @@ from .abc import Serializer
 from .S_BinStruct.methods import connect_length as _connect_length, get_part
 from ...type_func import Offset
 
-from ...type_func import get_subclasses, get_type_name
+from ...type_func import get_subclasses_recursion, get_type_name
 from . import Json
 
 
@@ -50,7 +50,7 @@ def loads(data: bytes, serializer: Serializer = None, ignore=False, use_my_seria
 
     subclasses = {
         t.__name__ : t
-        for t in get_subclasses(Serializer)
+        for t in get_subclasses_recursion(Serializer)
     }
 
     if serializer_name not in subclasses:

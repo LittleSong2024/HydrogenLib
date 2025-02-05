@@ -25,7 +25,9 @@ dependencies = [
     "rsa >= 4.9",
     "psutil >= 6.0.0",
     "rich >= 13.6.0",
-    "ping3 >= 4.0.0"
+    "ping3 >= 4.0.0",
+
+    "natsort",
 ]
 
 [project.urls]
@@ -68,3 +70,6 @@ target = "wheel"
 
 [tool.hatch.build.targets.wheel]
 packages = ['src/hydrolib']
+
+[project.scripts]
+hydrogen-tools = "hydrolib.enter:main"

@@ -72,4 +72,4 @@ target = "wheel"
 packages = ['src/hydrolib']
 
 [project.scripts]
-hydrogen-tools = "hydrolib.enter:main"
+hydrogen-tools = "hydrolib.scripts.enter:main"

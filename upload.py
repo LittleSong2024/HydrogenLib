@@ -109,7 +109,7 @@ if __name__ == '__main__':
         print("[bold green]success!")
     # console.console.print('\n')
     if not args.skip_upload:
-        print('UpLoad...')
+        print('Upload...')
         # ps = subprocess.run(["twine", "upload", r".\dist\*", '--disable-progress-bar'])
         ps = subprocess.run(["twine", "upload", r".\dist\*"])
         rt_code = ps.returncode

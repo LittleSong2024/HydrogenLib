@@ -2,7 +2,7 @@ import asyncio
 from typing import AsyncGenerator
 
 from ..socket import Asyncsocket
-from ..neostruct import pack_variable_length_int, unpack_variable_length_int
+from ..type_func import pack_variable_length_int, unpack_variable_length_int
 
 
 async def sock_to_iterable(s: Asyncsocket):

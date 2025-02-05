@@ -1,10 +1,9 @@
 # Dist and build files
-**/__pycache__/
-dist/
-.idea
+/**/__pycache__/
+/dist/
+/.idea/
+/.vscode/
 
 # Files in Dev
-upload.py
-src/hydrolib/hycl/.old.source
-out
-.temp
+/src/hydrolib/hycl/.old.source/
+/.temp/

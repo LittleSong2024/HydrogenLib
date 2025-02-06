@@ -144,7 +144,12 @@ class BinStructBase:
                 raise ValueError(f'Duplicate name: {name}')
             setattr(self, name, value)
 
-    @final
+        self.serializer_funcs = {
+            'pack': pack_attr,
+            'unpack': unpack_attr
+        }
+
+    # @final
     def pack(self, *args, **kwargs):
         """
         打包结构体
@@ -159,6 +164,10 @@ class BinStructBase:
             raise GeneraterError('Pack event failed', pack_event)
 
         __data__ = self.__data__
+
+        pack_attr, unpack_attr = self.serializer_funcs.get('pack'), self.serializer_funcs.get('unpack')
+        if not (pack_attr and unpack_attr):
+            raise NotImplementedError('Pack attr or unpack attr is not defined')
 
         this_name = get_qualname(self)
         this_length_head = length_to_bytes(this_name)
@@ -202,7 +211,7 @@ class BinStructBase:
         return packed_data
 
     @staticmethod
-    @final
+    # @final
     def unpack(data, __data__=None, *args, **kwargs):
         """
         解包结构体.
@@ -247,6 +256,13 @@ class BinStructBase:
             if type_func.is_errortype(Res):
                 raise UnpackError('An error occurred during unpacking') from Res
         return ins
+
+    def mini_pack(self, data):
+        return self.serializer_funcs['pack'](data)
+
+    def mini_unpack(self, data):
+        offset = type_func.IndexOffset.Offset(data)
+        return self.serializer_funcs['unpack'](offset)  # Unpack 的参数是一个索引偏移对象
 
     @classmethod
     def to_struct(cls, obj, __data__=None):
@@ -306,8 +322,11 @@ class BinStructBase:
 class Struct(abc.Serializer):
     struct = BinStructBase
 
-    def dumps(self, data: BinStructBase):
-        return data.pack()
+    def dumps(self, data: Union[BinStructBase, typing.Any]):
+        if isinstance(data, self.struct):
+            return data.pack()
+        else:
+            return self.struct.mini_unpack(data)
 
     def loads(self, data, __data__=None):
         return self.struct.unpack(data, __data__=__data__)

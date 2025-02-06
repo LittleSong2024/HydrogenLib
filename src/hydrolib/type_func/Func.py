@@ -88,3 +88,41 @@ class Function:
 
     def __call__(self, *args, **kwargs):
         return self._func(*args, **kwargs)
+
+
+class FunctionGroup:
+    def __init__(self, funcs: typing.Iterable):
+        self._funcs = funcs
+
+    def __iter__(self):
+        return iter(self._funcs)
+
+    def __len__(self):
+        return len(self._funcs)
+
+    def __getitem__(self, item):
+        return self._funcs[item]
+
+    def __setitem__(self, key, value):
+        self._funcs[key] = value
+
+    def __delitem__(self, key):
+        del self._funcs[key]
+
+    def __contains__(self, item):
+        return item in self._funcs
+
+    def __call__(self, *args, **kwargs):
+        for func in self._funcs:
+            func(*args, **kwargs)
+
+    def __add__(self, other):
+        if isinstance(other, type(self)):
+            return type(self)(self._funcs + other._funcs)
+        elif isinstance(other, typing.Callable):
+            return type(self)(self._funcs + [other])
+
+    def __iadd__(self, other):
+        if isinstance(other, type(self)):
+            self._funcs += other._funcs
+            return self

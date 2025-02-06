@@ -328,8 +328,16 @@ class Struct(abc.Serializer):
         else:
             return self.struct.mini_unpack(data)
 
-    def loads(self, data, __data__=None):
-        return self.struct.unpack(data, __data__=__data__)
+    def loads(self, data, __data__=None, mini=None):
+        if mini is True:
+            return self.struct.mini_unpack(data)
+        elif mini is False:
+            return self.struct.unpack(data, __data__=__data__)
+        else:
+            try:
+                return self.struct.unpack(data, __data__=__data__)
+            except:
+                return self.struct.mini_unpack(data)
 
 
 bin_types = {

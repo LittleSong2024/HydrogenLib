@@ -6,6 +6,7 @@ class ConfigType(ABC):
     value: Any
 
     def dump(self):  # 将配置项的数据导出到后端
+        # 大多数时候不需要重写
         return self.value
 
     @abstractmethod
@@ -17,9 +18,10 @@ class ConfigType(ABC):
     def type_check(cls, init_value):
         ...
 
-    @staticmethod
-    def error(type, msg):
-        raise Exception(f"{type}: {msg}")
+    @classmethod
+    def check_exit(cls, expr, msg):  # 给 .type_check() 用的
+        if not expr:
+            raise Exception(f"{cls.__name__}: {msg}")
 
     def __init__(self, value, parent=None):
         self.set(value)
@@ -28,6 +30,9 @@ class ConfigType(ABC):
     def set(self, value):
         self.type_check(value)
         self.value = value
+
+    def get(self):
+        return self.value
 
 
 

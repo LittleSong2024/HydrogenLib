@@ -7,8 +7,7 @@ from ...type_func import literal_eval
 class IntType(ConfigType):
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, int):
-            cls.error("IntItem", "init_value is not a int")
+        cls.check_exit(isinstance(init_value, int), "init_value is not a int")
 
     def load(self, data):
         self.set(int(data))
@@ -21,8 +20,7 @@ class StringType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, str):
-            cls.error("StringItem", "init_value is not a str")
+        cls.check_exit(isinstance(init_value, str), "init_value is not a str")
 
 
 class FloatType(ConfigType):
@@ -32,8 +30,7 @@ class FloatType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, float):
-            cls.error("FloatItem", "init_value is not a float")
+        cls.check_exit(isinstance(init_value, float), "init_value is not a float")
 
 
 class BooleanType(ConfigType):
@@ -43,8 +40,7 @@ class BooleanType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, bool):
-            cls.error("BooleanItem", "init_value is not a bool")
+        cls.check_exit(isinstance(init_value, bool), "init_value is not a bool")
 
 
 class ListType(ConfigType):
@@ -54,8 +50,7 @@ class ListType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, Sequence):
-            cls.error("ListItem", "init_value is not a sequence")
+        cls.check_exit(isinstance(init_value, Sequence), "init_value is not a sequence")
 
 
 class TupleType(ConfigType):
@@ -65,8 +60,7 @@ class TupleType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, tuple):
-            cls.error("TupleItem", "init_value is not a tuple")
+        cls.check_exit(isinstance(init_value, tuple), "init_value is not a tuple")
 
 
 class DictType(ConfigType):
@@ -76,8 +70,7 @@ class DictType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, dict):
-            cls.error("DictItem", "init_value is not a dict")
+        cls.check_exit(isinstance(init_value, dict), "init_value is not a dict")
 
 
 class SetType(ConfigType):
@@ -87,8 +80,7 @@ class SetType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, set):
-            cls.error("SetItem", "init_value is not a set")
+        cls.check_exit(isinstance(init_value, set), "init_value is not a set")
 
 
 class BytesType(ConfigType):
@@ -101,5 +93,4 @@ class BytesType(ConfigType):
 
     @classmethod
     def type_check(cls, init_value):
-        if not isinstance(init_value, bytes):
-            cls.error("BytesItem", "init_value is not a bytes")
+        cls.check_exit(isinstance(init_value, bytes), "init_value is not a bytes")

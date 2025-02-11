@@ -34,9 +34,10 @@ class ConfigContainer:
         return cls._instance
 
     backend: BackendABC = None
+    file = None  # Config file
 
-    def __init__(self, file):
-        self.backend.set_file(file)
+    def __init__(self):
+        self.backend.set_file(self.file)
 
         self._config_attrs: set = None
         self.changes: set = set()

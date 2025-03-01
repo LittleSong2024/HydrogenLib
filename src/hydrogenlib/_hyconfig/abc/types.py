@@ -3,25 +3,31 @@ from typing import Any
 
 
 class ConfigType(ABC):
-    value: Any
+    value: Any  # 配置项的值
+    types: Any  # 配置项值的类型
 
-    def dump(self):  # 将配置项的数据导出到后端
-        # 大多数时候不需要重写
-        return self.value
+    parent: Any
+    backend: 'BackendABC'
+
+    def __init_subclass__(cls, *, types=None):
+        cls.types = types
+
+    def __init__(self, value, parent=None, backend=None):
+        self.set(value)
+        self.parent = parent
+        self.backend = backend
+
+    def transform(self):  # 将配置项的值转换为后端可识别的配置数据
+        ...
 
     @abstractmethod
-    def transform(self, data):  # 将后端返回的配置数据加载到配置项中
-        ...  # 应该解决数据类型转换的问题
+    def load(self, value):  # 将后端返回的配置数据加载到配置项中
+        return value
 
     @classmethod
     @abstractmethod
     def validate(cls, value) -> bool:  # 检查类型是否符合
         ...
-
-
-    def __init__(self, value, parent=None):
-        self.set(value)
-        self.parent = parent
 
     def set(self, value):
         self.validate(value)
@@ -31,6 +37,6 @@ class ConfigType(ABC):
         return self.value
 
 
-
+from .backend import BackendABC
 
 

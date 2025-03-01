@@ -16,7 +16,7 @@ class ConfigData:
         return self.type.validate(value)
 
     def tp_transform(self):
-        return self.type.transform(self.value)
+        return self.type.transform()
 
     def tm_validate(self, value):
         return self.parent.validate(value)

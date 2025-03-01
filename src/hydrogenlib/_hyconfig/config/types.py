@@ -1,95 +1,89 @@
 from typing import Sequence
 
 from ..abc.types import ConfigType
-from ..._hycore.type_func import literal_eval
 
 
-class IntType(ConfigType):
+class IntType(ConfigType, types=int):
+    def load(self, value):
+        self.set(int(value))
+
     @classmethod
     def validate(cls, value):
         return isinstance(value, int)
 
-    def transform(self, data):
-        self.set(int(data))
 
-
-class StringType(ConfigType):
-
-    def transform(self, data):
-        self.set(str(data))
+class StringType(ConfigType, types=str):
+    def load(self, value):
+        self.set(str(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, str)
 
 
-class FloatType(ConfigType):
-
-    def transform(self, data):
-        self.set(float(data))
+class FloatType(ConfigType, types=float):
+    def load(self, value):
+        self.set(float(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, float),
 
 
-class BooleanType(ConfigType):
-
-    def transform(self, data):
-        self.set(bool(data))
+class BooleanType(ConfigType, types=bool):
+    def load(self, value):
+        self.set(bool(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, bool)
 
 
-class ListType(ConfigType):
-
-    def transform(self, data):
-        self.set(list(data))
+class ListType(ConfigType, types=list):
+    def load(self, value):
+        self.set(list(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, Sequence)
 
 
-class TupleType(ConfigType):
-
-    def transform(self, data):
-        self.set(tuple(data))
+class TupleType(ConfigType, types=tuple):
+    def load(self, value):
+        self.set(tuple(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, tuple)
 
 
-class DictType(ConfigType):
-
-    def transform(self, data):
-        self.set(data)
+class DictType(ConfigType, types=dict):
+    def load(self, value):
+        self.set(dict(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, dict)
 
 
-class SetType(ConfigType):
-
-    def transform(self, data):
-        self.set(set(data))
+class SetType(ConfigType, types=set):
+    def load(self, value):
+        self.set(set(value))
 
     @classmethod
     def validate(cls, value):
         return isinstance(value, set)
 
 
-class BytesType(ConfigType):
+class BytesType(ConfigType, types=bytes):
+    def load(self, value):
+        self.set(bytes(value))
 
-    def transform(self, data):
-        self.set(literal_eval(data))
-
-    def dump(self):
-        return str(self.value)  # 有些后端不支持bytes
+    def transform(self):
+        if self.backend.support(bytes):
+            return self.value
+        else:
+            return list(self.value)
 
     @classmethod
     def validate(cls, value):

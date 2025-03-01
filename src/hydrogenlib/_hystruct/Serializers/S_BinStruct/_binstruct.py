@@ -325,9 +325,9 @@ class Struct(abc.Serializer):
         if isinstance(data, self.struct):
             return data.pack()
         else:
-            return self.struct.mini_unpack(data)
+            return self.struct.mini_pack(data)
 
-    def loads(self, data, __data__=None, mini=None):
+    def loads(self, data, __data__=None, mini=False):
         if mini is True:
             return self.struct.mini_unpack(data)
         elif mini is False:

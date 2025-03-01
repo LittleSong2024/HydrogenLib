@@ -153,7 +153,7 @@ class ConfigContainer:
         """
         加载时配置文件是否存在
         """
-        return not self.__cfgbackend__.is_first_loading
+        return not self.__cfgbackend__.existing
 
     def exists(self, key_or_attr):
         """

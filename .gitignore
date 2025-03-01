@@ -7,3 +7,4 @@
 # Files in Dev
 /src/hydrolib/hycl/.old.source/
 /.temp/
+/src/hydrogenlib/_hyshm/

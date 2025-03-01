@@ -2,9 +2,7 @@
 #
 # SPDX-License-Identifier: GPL
 
-from src.hydrolib.test_manager import *
 from . import test_funcs
-from rich import print
 
 
 

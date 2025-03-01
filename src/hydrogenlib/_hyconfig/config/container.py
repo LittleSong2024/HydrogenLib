@@ -135,7 +135,7 @@ class ConfigContainer:
             self.load(self.cfg_file)
 
     def load(self, file=None):
-        self.cfg_backend.set_file(file)
+        self.cfg_backend.file = file
         self._load()
 
     def validate(self, key_or_attr, value, error=False):

@@ -2,7 +2,7 @@ class DoubleDict(dict):
     def __init__(self, dct=None):
         super().__init__()
         if dct:
-            for k, v in dct._items():
+            for k, v in dct._instances():
                 self[k] = v
 
         self._same_values = set()

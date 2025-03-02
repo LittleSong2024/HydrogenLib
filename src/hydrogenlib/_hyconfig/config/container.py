@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import Union
+from typing import Union, Type
 
 from .const import *
-from .items import ConfigItem, ConfigData
+from .items import ConfigItem, ConfigItemInstance
 from ..abc.backend import BackendABC
 from ..._hycore.utils import DoubleDict
 
@@ -90,11 +90,14 @@ class ConfigContainer:
     ```
     """
 
+    # 内部属性
     __cfgitems__: set = None
     __cfgmapping__: DoubleDict = None
-    __cfgbackend__: BackendABC = None
-    __cfgfile__: Union[Path, str] = None
+    __cfgbackend_instance__: BackendABC = None
 
+    # 可重写配置属性
+    __cfgfile__: Union[Path, str] = None
+    __cfgbackend__: Type[BackendABC] = None
     __cfgautoload__ = False
 
     @property
@@ -102,8 +105,12 @@ class ConfigContainer:
         return self.__cfgitems__
 
     @property
-    def cfg_backend(self):
+    def cfg_backend_type(self):
         return self.__cfgbackend__
+
+    @property
+    def cfg_backend(self):
+        return self.__cfgbackend_instance__
 
     @property
     def cfg_mapping(self):
@@ -118,7 +125,7 @@ class ConfigContainer:
         return self.__cfgautoload__
 
     @classmethod
-    def get_cfgitem(cls, name, instance) -> 'ConfigData':
+    def get_cfgitem(cls, name, instance) -> 'ConfigItemInstance':
         return getattr(cls, name).from_instance(instance)
 
     def __init_subclass__(cls, **kwargs):  # 对于每一个子类,都会执行一次映射构建
@@ -131,6 +138,8 @@ class ConfigContainer:
     def __init__(self):
         self.changes: set = set()
 
+        self.__cfgbackend_instance__ = self.__cfgbackend__()  # 创建后端实例
+
         if self.cfg_autoload:
             self.load(self.cfg_file)
 
@@ -141,19 +150,14 @@ class ConfigContainer:
     def validate(self, key_or_attr, value, error=False):
         if not self.exists(key_or_attr):
             raise KeyError(f'{key_or_attr} is not a valid config item or key')
-        item = self.get_cfgitem(key_or_attr, self)
-        if error:
-            item.tm_validate(value)
-            return True
-        else:
-            return item.tp_validate(value)
+        return self.get_cfgitem(key_or_attr, self).validate(value, error)
 
     @property
     def existing(self):
         """
         加载时配置文件是否存在
         """
-        return not self.__cfgbackend__.existing
+        return self.cfg_backend.existing
 
     def exists(self, key_or_attr):
         """
@@ -217,7 +221,7 @@ class ConfigContainer:
             attr = self.to_attr(key)
             data = self.get_cfgitem(attr, self)
 
-            if data.tp_validate(value):
+            if data.validate(value):
                 setattr(self, attr, value)
             else:
                 setattr(self, attr, data.default)

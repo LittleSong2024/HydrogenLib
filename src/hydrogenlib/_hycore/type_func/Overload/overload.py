@@ -148,7 +148,7 @@ class OverloadError(Exception):
     def to_call_format(args, kwargs):
         string = ', '.join(
             list(map(lambda x: type(x).__name__, args)) +
-            list(map(lambda x: f'{x[0]}={type(x[1]).__name__}', kwargs._items()))
+            list(map(lambda x: f'{x[0]}={type(x[1]).__name__}', kwargs._instances()))
         )
         return string
 

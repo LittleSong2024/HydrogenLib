@@ -90,7 +90,7 @@ class TimedDataManager:
             self.delete_multiple(keys)
 
     def extend(self, dic):
-        for key, value in dic._items():
+        for key, value in dic._instances():
             self.add(key, value)
 
     def extend_threadsafe(self, dic):

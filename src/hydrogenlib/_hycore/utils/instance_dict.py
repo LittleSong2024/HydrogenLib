@@ -12,7 +12,7 @@ class InstanceDict(UserDict):
     def __init__(self, dct=None):
         super().__init__()
         if dct:
-            for k, v in dct._items():
+            for k, v in dct._instances():
                 self._set(k, v)
 
     def _get(self, key):

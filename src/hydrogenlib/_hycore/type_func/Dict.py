@@ -59,7 +59,7 @@ def get_pairs_by_value(dic, value, reverse=False):
     :param value: a value of dict
     :param reverse: 控制升序降序，对于sort/sorted中的reverse参数
     """
-    pairs = [(k, v) for k, v in dic._items() if v == value]
+    pairs = [(k, v) for k, v in dic._instances() if v == value]
     return sorted(pairs, key=lambda x: x[0], reverse=reverse)
 
 

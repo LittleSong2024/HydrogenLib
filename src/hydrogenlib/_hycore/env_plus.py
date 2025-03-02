@@ -109,7 +109,7 @@ class Environment:
 
     def __to_env_dict(self, env):
         result = {}
-        for key, value in env._items():
+        for key, value in env._instances():
             if isinstance(value, EnvironmentVarieble):
                 result[key] = value
             else:
@@ -212,7 +212,7 @@ class EnvironmentManager:
     def __init__(self, env_mapping=None):
         if env_mapping is not None:
             self._env: dict[str, _ManagerEnvironmentItem] = {
-                k: _ManagerEnvironmentItem(k, v) for k, v in env_mapping._items()}
+                k: _ManagerEnvironmentItem(k, v) for k, v in env_mapping._instances()}
         else:
             self._env = {}
 

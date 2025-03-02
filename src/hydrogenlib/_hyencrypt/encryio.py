@@ -50,7 +50,7 @@ class _EncryptJsonFile:
         return self.iostream.values()
 
     def items(self):
-        return self.iostream._items()
+        return self.iostream._instances()
 
     def __iter__(self):
         return self.iostream.__iter__()

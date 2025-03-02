@@ -37,7 +37,7 @@ Source = "https://github.com/LittleSong2024/HydrogenLib"
 
 
 [tool.hatch.version]
-path = "src/hydrolib/__about__.py"
+path = "src/hydrogenlib/__about__.py"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
@@ -51,12 +51,12 @@ source_pkgs = ["hydrolib", "tests"]
 branch = true
 parallel = true
 omit = [
-    "src/hydrolib/__about__.py",
+    "src/hydrogenlib/__about__.py",
 ]
 
 [tool.coverage.paths]
-hydrolib = ["src/hydrolib", "*/hydrolib/src/hydrolib"]
-tests = ["tests", "*/hydrolib/tests"]
+hydrolib = ["src/hydrogenlib", "*/hydrogenlib/src/hydrogenlib"]
+tests = ["tests", "*/hydrogenlib/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -69,7 +69,7 @@ exclude_lines = [
 target = "wheel"
 
 [tool.hatch.build.targets.wheel]
-packages = ['src/hydrolib']
+packages = ['src/hydrogenlib']
 
 [project.scripts]
 hydrogen-tools = "hydrolib.scripts.enter:main"

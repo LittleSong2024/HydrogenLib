@@ -72,7 +72,7 @@ class Hook:
     def __call__(self, *args, **kwargs):
         for func in self._pre:
             func(*args, **kwargs)
-        self._fc(*args, **kwargs)
+        res = self._fc(*args, **kwargs)
         for func in self._post:
-            func(*args, **kwargs)
+            func(res, *args, **kwargs)  # 添加返回值
 

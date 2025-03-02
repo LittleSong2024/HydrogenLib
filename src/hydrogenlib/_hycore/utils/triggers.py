@@ -8,23 +8,21 @@ class SignalInstance:
         self._lck = Lock()
 
     def connect(self, func):
-        with self._lck:
+        # with self._lck:
             self.hooks.append(func)
 
     def disconnect(self, func):
-        with self._lck:
+        # with self._lck:
             self.hooks.remove(func)
 
     def clear(self):
-        with self._lck:
+        # with self._lck:
             self.hooks.clear()
 
     def emit(self, *args, **kwargs):
-        for hook in self.hooks.copy():  # Copy保证线程安全
-            hook(*args, **kwargs)
-
-    def __call__(self, *args, **kwargs):
-        self.emit(*args, **kwargs)
+        with self._lck:
+            for hook in self.hooks.copy():  # Copy保证线程安全
+                hook(*args, **kwargs)
 
 
 class Signal:

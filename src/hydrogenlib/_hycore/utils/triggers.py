@@ -1,3 +1,4 @@
+import asyncio
 from typing import Callable
 from threading import Lock
 
@@ -73,4 +74,26 @@ class Hook:
         res = self._fc(*args, **kwargs)
         for func in self._post:
             func(res, *args, **kwargs)  # 添加返回值
+
+
+class AsyncHook:
+    def __init__(self, func, loop=None):
+        self._fc = func
+        self.loop = loop or asyncio.get_running_loop()
+
+        self._pre = []
+        self._post = []
+
+    async def __call__(self, *args, **kwargs):
+        for func in self._pre:
+            await func(*args, **kwargs)
+        res = await self._fc(*args, **kwargs)
+        for func in self._post:
+            await func(res, *args, **kwargs)  # 添加返回值
+
+    def pre(self, func):
+        self._pre.append(func)
+
+    def post(self, func):
+        self._post.append(func)
 

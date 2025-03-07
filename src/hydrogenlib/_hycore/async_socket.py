@@ -7,7 +7,7 @@ class Asyncsocket:
     """
     socket.socket的异步版本
     """
-    def __init__(self, s: Union[socket.socket, Any] = None, event_loop: asyncio.AbstractEventLoop = None):
+    def __init__(self, s: Union[socket.socket, Any] = None, loop: asyncio.AbstractEventLoop = None):
         if s is None:
             self.sock = socket.socket()
         elif isinstance(s, self.__class__):
@@ -18,7 +18,7 @@ class Asyncsocket:
         if self.sock.getblocking() is True:
             self.sock.setblocking(False)  # 异步IO采用非阻塞
 
-        self.loop = event_loop if event_loop else asyncio.get_running_loop()
+        self.loop = loop if loop else asyncio.get_running_loop()
 
     async def sendall(self, data):
         return await self.loop.sock_sendall(

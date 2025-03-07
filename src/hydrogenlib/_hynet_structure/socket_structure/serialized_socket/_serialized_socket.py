@@ -3,7 +3,7 @@ import socket
 from typing import *
 
 from .._methods import get_part_from_sock, build_part_into_sock
-from ...._hycore.socket import Asyncsocket
+from ...._hycore.async_socket import Asyncsocket
 from ....hystruct.Serializers import Serializer, dumps, loads
 
 

@@ -6,9 +6,9 @@ from typing import *
 
 import rich.traceback
 
-from ..Func import *
-from ...data_structures import Heap
-from ..LiteralEval import literal_eval
+from src.hydrogenlib._hycore.type_func.function import *
+from src.hydrogenlib._hycore.data_structures import Heap
+from src.hydrogenlib._hycore.type_func.safe_eval import literal_eval
 
 overloads = {}  # type: dict[str, Heap]
 overload_temp = {}  # type: dict[str, dict[tuple[type, ...], OverloadFunctionCallable]]

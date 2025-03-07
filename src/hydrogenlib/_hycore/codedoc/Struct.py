@@ -1,7 +1,7 @@
 from collections import deque
 from inspect import stack as call_stack
 
-from ..type_func.List import hasindex
+from ..type_func.list_func import hasindex
 
 
 class _TreeHead:

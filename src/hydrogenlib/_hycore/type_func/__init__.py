@@ -1,17 +1,16 @@
 from types import NoneType
 from typing import Literal
 
-from .BinaryTree import *
-from .Bitmap import *
-from .Dict import *
-from .Func import *
-from .IndexOffset import *
-from .List import *
-from .LiteralEval import *
-from .Number import *
-from .Overload import overload, get_func_overloads
-from .Template import *
-from .Type import *
+from .binary_tree import *
+from .bitmap import *
+from .dict_func import *
+from .function import *
+from .index_offset import *
+from .list_func import *
+from .safe_eval import *
+from .number import *
+from .tempalte_type import *
+from .type_func import *
 
 builtin_types = Union[int, float, str, bool, NoneType, list, tuple, dict, set, bytes, bytearray]
 

@@ -15,7 +15,7 @@ from ._hycore.output_methods import *
 from ._hycore.path import *
 from ._hycore.process import *
 from ._hycore.process_addons import *
-from ._hycore.socket import *
+from ._hycore.async_socket import *
 from ._hycore.sys_plus import *
 from ._hycore.threading_methods import *
 

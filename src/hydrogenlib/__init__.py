@@ -1,4 +1,4 @@
-from ..hydrogenlib import __about__
+from . import __about__
 
 __version__ = __about__.__version__
 

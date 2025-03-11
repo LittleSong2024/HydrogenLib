@@ -20,6 +20,10 @@ class Server:
         self._running = True
         self.loop.create_task(self.run())
 
+    def stop(self):
+        self._running = False
+        self._loop.call_soon_threadsafe(self._loop.stop)
+
     async def run(self):
         server = Asyncsocket()
         while self._running:

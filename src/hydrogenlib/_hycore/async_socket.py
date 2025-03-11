@@ -38,7 +38,8 @@ class Asyncsocket:
         )
 
     async def accept(self):
-        return await self.loop.sock_accept(self.sock)
+        conn, addr = await self.loop.sock_accept(self.sock)
+        return Asyncsocket(conn), addr
 
     async def connect(self, addr, timeout=None):
         if timeout is None:
@@ -96,15 +97,17 @@ class Asyncsocket:
 
 
 class AsyncItemsocket(Asyncsocket):
-    def _recv_item(self):
+    async def _recv_item(self):
         io = self.sock.makefile('rb')
         head = unpack_variable_length_int_from_readable(io)
         return io.read(head)
-    def send(self, data):
+
+    async def send(self, data):
         length = len(data)
         head = pack_variable_length_int(length)
-        return self.sendall(head + data)
-
+        return await self.sendall(head + data)
 
     async def recv(self, size: int):
+        for i in range(size):
+            yield await self._recv_item()
 

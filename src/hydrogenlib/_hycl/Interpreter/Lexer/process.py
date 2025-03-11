@@ -1,4 +1,4 @@
-from ...._hycore.data_structures import Stack
+from ...._hycore.data_structures.stack import Stack
 from .token import Token
 
 

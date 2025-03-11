@@ -2,6 +2,8 @@ import asyncio
 import socket
 from typing import Any, Union
 
+from .._hycore.neostruct import pack_variable_length_int, unpack_variable_length_int_from_readable
+
 
 class Asyncsocket:
     """
@@ -91,3 +93,18 @@ class Asyncsocket:
 
     async def close(self):
         self.sock.close()
+
+
+class AsyncItemsocket(Asyncsocket):
+    def _recv_item(self):
+        io = self.sock.makefile('rb')
+        head = unpack_variable_length_int_from_readable(io)
+        return io.read(head)
+    def send(self, data):
+        length = len(data)
+        head = pack_variable_length_int(length)
+        return self.sendall(head + data)
+
+
+    async def recv(self, size: int):
+

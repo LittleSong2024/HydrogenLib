@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from .data_structures import Stack
+from .data_structures.stack import Stack
 from .path import *
 
 

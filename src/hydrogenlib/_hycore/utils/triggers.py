@@ -71,9 +71,9 @@ class Hook:
     def __call__(self, *args, **kwargs):
         for func in self._pre:
             func(*args, **kwargs)
-        res = self._fc(*args, **kwargs)
+        Res = self._fc(*args, **kwargs)
         for func in self._post:
-            func(res, *args, **kwargs)  # 添加返回值
+            func(Res, *args, **kwargs)  # 添加返回值
 
 
 class AsyncHook:

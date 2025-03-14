@@ -43,6 +43,10 @@ def is_function(obj):
     return isinstance(obj, Func_Callable_Types)
 
 
+def get_signature(func):
+    return inspect.signature(func)
+
+
 class Function:
     def __init__(self, func):
         self._func = func

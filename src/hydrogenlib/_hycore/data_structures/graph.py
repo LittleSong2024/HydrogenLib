@@ -59,7 +59,8 @@ class GraphBase:
                     edges.append([vertex, neighbour])
         return edges
 
-    def scan_circles(self):
+    @property
+    def circles(self):
         sck = Stack()
         vis = Visited()
         circle_vis = Visited()
@@ -136,7 +137,8 @@ class UndirectedGraph(GraphBase):
         self.add_vertex(left, right)
         self.add_vertex(right, left)
 
-    def scan_circles(self):
+    @property
+    def circles(self):
         raise NotImplementedError("UndirectedGraph can't scan circles")
 
 
@@ -148,7 +150,8 @@ class WeightedGraph(GraphBase):
         def __hash__(self):
             return hash(self.value)
 
-    def scan_circles(self):
+    @property
+    def circles(self):
         raise NotImplementedError("WeightedGraph can't scan circles")
 
     def __init__(self, graph_dict=None):

@@ -42,7 +42,7 @@ def _process_indent(tokens: list[Token]) -> list[Token]:
     for i, token in enumerate(tokens):
         if token.type == 'INDENT':
             current_indent = token.value
-            last_indent = indent_stack.at_top
+            last_indent = indent_stack.top
 
             if current_indent > last_indent:
                 # Increase indentation level

@@ -10,15 +10,15 @@ class SignalInstance:
 
     def connect(self, func):
         # with self._lck:
-            self.hooks.append(func)
+        self.hooks.append(func)
 
     def disconnect(self, func):
         # with self._lck:
-            self.hooks.remove(func)
+        self.hooks.remove(func)
 
     def clear(self):
         # with self._lck:
-            self.hooks.clear()
+        self.hooks.clear()
 
     def emit(self, *args, **kwargs):
         with self._lck:

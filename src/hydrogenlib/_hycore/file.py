@@ -144,7 +144,7 @@ class NeoIo:
         """
         获取当前栈顶的文件
         """
-        return self._fd_ls.at_top
+        return self._fd_ls.top
 
     @classmethod
     def from_fd(cls, fd):
@@ -185,7 +185,7 @@ class NeoIo:
         """
         是否存在打开的文件
         """
-        return self._top_fd.at_top is not None and not self._top_fd.closed
+        return self._top_fd.top is not None and not self._top_fd.closed
 
     @property
     def can_write(self):

@@ -4,12 +4,12 @@ from typing import Iterable
 
 class Stack:
     @property
-    def ls(self):
+    def stack(self):
         return tuple(self._stack)
 
-    @ls.setter
-    def ls(self, ls):
-        self._stack = deque(ls)
+    @stack.setter
+    def stack(self, stack):
+        self._stack = deque(stack)
 
     def __init__(self, stack: Iterable = None):
         self._stack = deque() if stack is None else deque(stack)
@@ -39,7 +39,7 @@ class Stack:
         """
         return self.size() == 0
 
-    def top(self):
+    def peek(self):
         """
         Get stack top data.
         """
@@ -52,16 +52,16 @@ class Stack:
         return self.__class__(self._stack.copy())
 
     @property
-    def at_top(self):
+    def top(self):
         """
         Same as `.top()`.
         """
-        return self.top()
+        return self.peek()
 
-    @at_top.setter
-    def at_top(self, data):
+    @top.setter
+    def top(self, new):
         if not self.is_empty():
-            self._stack[-1] = data
+            self._stack[-1] = new
 
     def __str__(self):
         return str(self._stack)

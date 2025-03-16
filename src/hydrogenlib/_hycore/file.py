@@ -41,19 +41,20 @@ def isspace(file):
 fileDataType = Union[str, bytes, bytearray]
 
 
-class NeoIo:
+class NeoIO:
     """
     新文件读写
+
     特点:
         1. 可复用
-        2. 灵活,完全支持内置的IOAPI
+        2. 灵活,完全支持内置的IO-API
         3. 快速获取文件信息
-        4. 堆栈文件
+        4. 堆栈管理文件
 
     适用于普通文件操作，在常见桌面和服务器操作系统上表现良好。
     """
 
-    class FState:
+    class FileState:
         def __init__(self, fstat: os.stat_result):
             self.fstat = fstat
 
@@ -61,7 +62,6 @@ class NeoIo:
         def birthday(self):
             """
             创建时间
-            可用情况视平台而定，如Windows不可用。
             """
             # 注意：st_birthtime在某些平台上可能不可用
             try:
@@ -140,7 +140,7 @@ class NeoIo:
         self._fd_ls.push(fd)
 
     @property
-    def _top_fd(self):
+    def __fd_on_top(self):
         """
         获取当前栈顶的文件
         """
@@ -152,7 +152,7 @@ class NeoIo:
         从文件描述符创建实例
         """
         ins = cls()
-        ins.push_new_fd(fd)
+        ins.push_fd(fd)
         return ins
 
     @classmethod
@@ -168,13 +168,18 @@ class NeoIo:
         """
         打开一个新的文件,并压入栈中
         """
-        if not exists(file) and (self.create if (create is None) else create):
+        if create is None:
+            create = self.create
+
+        if not exists(file) and not create:
             mkfile(file)
+
         self.__push_fd(
             open(file, mode, encoding=encoding, *args, **kwargs))
+
         return self
 
-    def push_new_fd(self, fd):
+    def push_fd(self, fd):
         """
         压入一个新的文件描述符
         """
@@ -185,49 +190,49 @@ class NeoIo:
         """
         是否存在打开的文件
         """
-        return self._top_fd.top is not None and not self._top_fd.closed
+        return self.__fd_on_top.top is not None and not self.__fd_on_top.closed
 
     @property
     def can_write(self):
         """
         是否可写
         """
-        return self._top_fd.writable()
+        return self.__fd_on_top.writable()
 
     @property
     def can_read(self):
         """
         是否可读
         """
-        return self._top_fd.readable()
+        return self.__fd_on_top.readable()
 
     @property
     def can_seek(self):
         """
         是否可定位
         """
-        return self._top_fd.seekable()
+        return self.__fd_on_top.seekable()
 
     @property
     def is_bytes_io(self):
         """
         是否为BytesIO
         """
-        return isinstance(self._top_fd, BytesIO)
+        return isinstance(self.__fd_on_top, BytesIO)
 
     @property
     def pos(self):
         """
         当前位置
         """
-        return self._top_fd.tell()
+        return self.__fd_on_top.tell()
 
     @property
     def fileno(self):
         """
         文件描述符
         """
-        return self._top_fd.fileno()
+        return self.__fd_on_top.fileno()
 
     @property
     def osfstat(self):
@@ -244,7 +249,7 @@ class NeoIo:
         """
         文件状态
         """
-        return NeoIo.FState(self.osfstat)
+        return NeoIO.FileState(self.osfstat)
 
     @property
     def size(self):
@@ -258,7 +263,7 @@ class NeoIo:
         写入数据
         """
         if self.can_write:
-            self._top_fd.write(data)
+            self.__fd_on_top.write(data)
         else:
             raise IOError("文件无法写入")
 
@@ -266,14 +271,14 @@ class NeoIo:
         """
         定位文件
         """
-        self._top_fd.seek(offset, whence)
+        self.__fd_on_top.seek(offset, whence)
 
     def read(self, size=-1):
         """
         读取数据
         """
         if self.can_read:
-            return self._top_fd.read(size)
+            return self.__fd_on_top.read(size)
         else:
             raise IOError("文件无法读取")
 
@@ -282,7 +287,7 @@ class NeoIo:
         读取一行
         """
         if self.can_read:
-            return self._top_fd.readline(size)
+            return self.__fd_on_top.readline(size)
         else:
             raise IOError("文件无法读取")
 
@@ -291,7 +296,7 @@ class NeoIo:
         读取所有行
         """
         if self.can_read:
-            return self._top_fd.readlines(hint)
+            return self.__fd_on_top.readlines(hint)
         else:
             raise IOError("文件无法读取")
 
@@ -299,20 +304,20 @@ class NeoIo:
         """
         清除文件内容
         """
-        self._top_fd.truncate(0)
+        self.__fd_on_top.truncate(0)
 
     def flush(self):
         """
         刷新文件
         """
-        self._top_fd.flush()
+        self.__fd_on_top.flush()
 
     def close(self):
         """
         关闭位于栈顶的文件
         """
-        if self._top_fd:
-            self._top_fd.close()
+        if self.__fd_on_top:
+            self.__fd_on_top.close()
             self._fd_ls.pop()
         else:
             raise IOError('未打开任何文件')

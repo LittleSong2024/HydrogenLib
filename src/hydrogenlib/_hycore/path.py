@@ -1,7 +1,7 @@
+import os
 from os import PathLike
 from pathlib import Path
 from typing import Literal, Optional, Union
-import os
 
 
 def path_to(*path):
@@ -126,8 +126,6 @@ def _tree(folder) -> dict:
 def tree(folder):
     t = _tree(folder)
     return t
-
-
 
 
 class StringPath(str):
@@ -259,6 +257,13 @@ class StringPath(str):
             mode=mode, buffering=buffering,
             encoding=encoding, errors=errors, newline=newline,
         )
+
+    def open_with_neoio(self, io_instance = None, mode: str= 'r', encoding: str= None, create: bool = None, *args, **kwargs):
+        if io_instance is None:
+            from .file import NeoIO
+            io_instance = NeoIO()
+
+        return io_instance.open(self, mode, encoding, create=create, *args, **kwargs)
 
     def owner(self):
         return self._path.owner()

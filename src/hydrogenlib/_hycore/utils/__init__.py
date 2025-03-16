@@ -1,6 +1,7 @@
 from .auto import *
 from .base import *
 from .clock import *
+from .dotpath import *
 from .double_dict import *
 from .instance_dict import *
 from .multi_set import *

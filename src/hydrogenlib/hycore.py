@@ -19,7 +19,7 @@ from ._hycore.async_socket import *
 from ._hycore.sys_plus import *
 from ._hycore.threading_methods import *
 
-from ._hycore.codedoc.Struct import *
+from ._hycore.codedoc.code_struct import *
 from ._hycore.data_structures import *
 from ._hycore.json import *
 from ._hycore.type_func import *

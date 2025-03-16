@@ -1,7 +1,6 @@
 from collections import deque
-from inspect import stack as call_stack
 
-from ..type_func.list_func import hasindex
+from ..type_func import get_called_func
 
 
 class _TreeHead:
@@ -10,13 +9,6 @@ class _TreeHead:
 
 stack = deque([_TreeHead()])  # type: deque[_TreeHead|CodeStruct]
 namespace = {}
-
-
-def get_called_func(depth=1):
-    call_stck = call_stack()
-    if not hasindex(call_stck, depth):
-        return None
-    return call_stck[depth].frame.f_code.co_qualname
 
 
 class CodeStructMain:

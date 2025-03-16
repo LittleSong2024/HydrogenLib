@@ -4,7 +4,7 @@ from typing import Iterable
 
 import pyaes
 
-from .func import split, pad, unpad
+from .methods import split, pad, unpad
 
 zencrypt_logger = logging.getLogger("SzQlib.zencrypt")
 

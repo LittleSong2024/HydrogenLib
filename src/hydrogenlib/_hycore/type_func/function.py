@@ -1,6 +1,9 @@
 import inspect
 import types
 import typing
+from inspect import stack as call_stack
+
+from src.hydrogenlib._hycore.type_func import hasindex
 
 
 def get_args(func):
@@ -130,3 +133,10 @@ class FunctionGroup:
         if isinstance(other, type(self)):
             self._funcs += other._funcs
             return self
+
+
+def get_called_func(depth=1):
+    call_stck = call_stack()
+    if not hasindex(call_stck, depth):
+        return None
+    return call_stck[depth].frame.f_code.co_qualname

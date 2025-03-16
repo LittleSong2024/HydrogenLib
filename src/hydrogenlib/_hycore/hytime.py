@@ -2,7 +2,7 @@ import time
 from typing import Union
 
 
-class Vtime:
+class Time:
     def __init__(self, sec):
         self._sec = sec
         self._hor = 0
@@ -75,7 +75,7 @@ class Vtime:
         return self.day, self.hor, self.min, self.sec
 
     @time.setter
-    def time(self, v: Union[tuple[int | float, ...], list[int | float, ...]]):
+    def time(self, v: Union[tuple[Union[int, float], ...], list[Union[int, float], ...]]):
         lenght = len(v)
         if lenght >= 1:
             self.day = v[0]
@@ -99,15 +99,21 @@ class Timer:
     def __init__(self):
         self.start_time = None
         self.end_time = None
-        self.res = None
+        self.elapsed_time = None
+
+        self.running = False
 
     def start(self):
         self.start_time = time.time()
+        self.running = True
 
-    def end(self):
-        if self.start_time is None:
-            return None
+    def stop(self):
+        if not self.running:
+            raise RuntimeError("Timer not running")
+
+        self.running = False
+
         self.end_time = time.time()
-        res = Vtime(self.end_time - self.start_time)
-        self.res = res
-        return res
+        self.elapsed_time = Time(self.end_time - self.start_time)
+
+        return self.elapsed_time

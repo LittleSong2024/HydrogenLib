@@ -1,2 +1,2 @@
-from . import aes, rsa, func
+from . import aes, rsa, methods
 # module end

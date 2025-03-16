@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, Any, Tuple
 
-from ...hycore import NeoIo
+from ...hycore import NeoIO
 
 
 class ChangeEvent:
@@ -25,7 +25,7 @@ class BackendABC(ABC):
         self.existing = False
 
         self._data = {}
-        self._fd = NeoIo()
+        self._fd = NeoIO()
         self._fd.create = True
 
     def _support_1(self, type):

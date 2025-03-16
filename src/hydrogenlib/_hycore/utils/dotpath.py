@@ -1,5 +1,5 @@
 class Dotpath:
-    def __init__(self, path: str):
+    def __init__(self, path: str = ''):
         self._path = path
         self._splited = self._path.split('.')
         self._length = len(self._splited)
@@ -63,5 +63,10 @@ class Dotpath:
     def __iter__(self):
         return iter(self._splited)
 
-    def __repr__(self):
+    def __len__(self):
+        return self._length
+
+    def __str__(self):
         return f'Dotpath({self._path})'
+
+    __repr__ = __str__

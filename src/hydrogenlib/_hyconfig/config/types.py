@@ -1,90 +1,47 @@
-from typing import Sequence
 
-from ..abc.types import ConfigType
+from base64 import b64encode, b64decode
 
-
-class IntType(ConfigType, types=int):
-    def load(self, value):
-        self.set(int(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, int)
+from ..abc.types import ConfigTypeBase, ConfigTypeMapping
 
 
-class StringType(ConfigType, types=str):
-    def load(self, value):
-        self.set(str(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, str)
+class IntType(ConfigTypeBase, type=int): ...
 
 
-class FloatType(ConfigType, types=float):
-    def load(self, value):
-        self.set(float(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, float),
+class StringType(ConfigTypeBase, type=str): ...
 
 
-class BooleanType(ConfigType, types=bool):
-    def load(self, value):
-        self.set(bool(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, bool)
+class FloatType(ConfigTypeBase, type=float): ...
 
 
-class ListType(ConfigType, types=list):
-    def load(self, value):
-        self.set(list(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, Sequence)
+class BooleanType(ConfigTypeBase, type=bool): ...
 
 
-class TupleType(ConfigType, types=tuple):
-    def load(self, value):
-        self.set(tuple(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, tuple)
+class ListType(ConfigTypeBase, type=list): ...
 
 
-class DictType(ConfigType, types=dict):
-    def load(self, value):
-        self.set(dict(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, dict)
+class TupleType(ConfigTypeBase, type=tuple): ...
 
 
-class SetType(ConfigType, types=set):
-    def load(self, value):
-        self.set(set(value))
-
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, set)
+class DictType(ConfigTypeBase, type=dict): ...
 
 
-class BytesType(ConfigType, types=bytes):
-    def load(self, value):
-        self.set(bytes(value))
+class SetType(ConfigTypeBase, type=set): ...
 
-    def transform(self):
+
+class BytesType(ConfigTypeBase, types=bytes):
+    def transform(self, value):
         if self.backend.support(bytes):
-            return self.value
+            return value
         else:
-            return list(self.value)
+            return b64encode(value).decode()
 
-    @classmethod
-    def validate(cls, value):
-        return isinstance(value, bytes)
+    def load(self, value):
+        if isinstance(value, str):
+            return b64decode(value.encode())
+        else:
+            return value
+
+
+builtin_type_mapping = m = ConfigTypeMapping()
+m.add_types(IntType, StringType, FloatType, BooleanType, ListType, TupleType, DictType, SetType, BytesType)
+

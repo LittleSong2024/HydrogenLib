@@ -10,7 +10,7 @@ class ChangeEvent:
         self.value = value
 
 
-class BackendABC(ABC):
+class AbstractBackend(ABC):
     serializer = None
     support_types = None
 
@@ -25,8 +25,8 @@ class BackendABC(ABC):
         self.existing = False
 
         self._data = {}
-        self._fd = NeoIO()
-        self._fd.create = True
+        self._io = NeoIO()
+        self._io.create = True
 
     def _support_1(self, type):
         return type in self.support_types

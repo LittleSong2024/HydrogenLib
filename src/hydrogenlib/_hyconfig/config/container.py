@@ -3,7 +3,7 @@ from typing import Union, Type
 
 from .const import *
 from .items import ConfigItem, ConfigItemInstance
-from ..abc.backend import BackendABC
+from ..abc.backend import AbstractBackend
 from ..._hycore.utils import DoubleDict
 
 
@@ -93,11 +93,10 @@ class ConfigContainer:
     # 内部属性
     __cfgitems__: set = None
     __cfgmapping__: DoubleDict = None
-    __cfgbackend_instance__: BackendABC = None
 
     # 可重写配置属性
     __cfgfile__: Union[Path, str] = None
-    __cfgbackend__: Type[BackendABC] = None
+    __cfgbackend__: AbstractBackend = None
     __cfgautoload__ = False
 
     @property
@@ -105,12 +104,8 @@ class ConfigContainer:
         return self.__cfgitems__
 
     @property
-    def cfg_backend_type(self):
-        return self.__cfgbackend__
-
-    @property
     def cfg_backend(self):
-        return self.__cfgbackend_instance__
+        return self.__cfgbackend__
 
     @property
     def cfg_mapping(self):
@@ -137,8 +132,6 @@ class ConfigContainer:
 
     def __init__(self):
         self.changes: set = set()
-
-        self.__cfgbackend_instance__ = self.__cfgbackend__()  # 创建后端实例
 
         if self.cfg_autoload:
             self.load(self.cfg_file)
@@ -215,6 +208,9 @@ class ConfigContainer:
     def on_change(self, key, old, new):
         self.changes.add(key)
 
+    def add_to_changes(self, key):
+        self.changes.add(key)
+
     def _load(self):
         self.cfg_backend.load()
         for key, value in self.cfg_backend.items():
@@ -246,11 +242,11 @@ class ConfigContainer:
     def _get_item(cls, item_attr) -> ConfigItem:
         return getattr(cls, item_attr)
 
-    def _save(self, keys_or_attrs):
-        for name in keys_or_attrs:
+    def _save(self, keys):
+        for name in keys:
             attr = self.to_attr(name)
-            value = self.get_cfgitem(name, self)
-            self.cfg_backend.set(name, value.tp_transform())
+            cfgitem_instance = self.get_cfgitem(attr, self)
+            self.cfg_backend.set(name, cfgitem_instance.type.transform(cfgitem_instance.value))
 
         self.cfg_backend.save()
 

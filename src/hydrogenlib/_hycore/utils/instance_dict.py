@@ -1,31 +1,23 @@
-from typing import Any, Union
-from collections import UserDict
 import weakref
+from collections import UserDict
+from typing import Any, Union
 
 
-class IDict_Item:
-    def __init__(self, ins, value, parent: 'InstanceDict' = None):
-        self.ins = ins
-        self._value = weakref.proxy(value, self.delete)
+class InstanceDictItem:
+    def __init__(self, key_instance, value, parent: 'InstanceDict' = None):
+        self.key_instance = weakref.proxy(key_instance, self.delete_callback)
+        self.value = value
         self.parent = parent
 
-    def delete(self, object):
+    def delete_callback(self, object):
         self.parent.delete(object)
-
-    @property
-    def value(self):
-        return self._value
-
-    @value.setter
-    def value(self, value):
-        self._value = weakref.proxy(value, self.delete)
 
 
 class InstanceDict(UserDict):
     def __init__(self, dct=None):
         super().__init__()
-        if dct:
-            for k, v in dct._instances():
+        if isinstance(dct, InstanceDict):
+            for k, v in dct.items():
                 self._set(k, v)
 
     def _to_key(self, value):
@@ -35,9 +27,9 @@ class InstanceDict(UserDict):
         return super().__getitem__(key)
 
     def _set(self, key, value):
-        super().__setitem__(id(key), IDict_Item(key, value))
+        super().__setitem__(id(key), InstanceDictItem(key, value, self))
 
-    def get(self, k, id_key=False, default=None, item=False) -> Union[IDict_Item, Any]:
+    def get(self, k, id_key=False, default=None, item=False) -> Union[InstanceDictItem, Any]:
         if not id_key:  # 如果 k 不作为 id 传入
             k = self._to_key(k)
 
@@ -69,6 +61,6 @@ class InstanceDict(UserDict):
 
     def __delitem__(self, key):
         super().__delitem__(self._to_key(key))
-        
+
     def __contains__(self, item):
         return super().__contains__(self._to_key(item))

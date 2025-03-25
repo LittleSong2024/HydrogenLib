@@ -1,25 +1,31 @@
 import time
-from typing import Any
+from typing import Any, Optional, Union
 
 import psutil
 
 
-class CProcess(psutil.Process):
+class Process(psutil.Process):
     def runtime(self):
         return time.time() - self.create_time()
 
-    def as_dict(self, attrs: list[str] |
-                             tuple[str, ...] |
-                             set[str] |
-                             frozenset[str] | None = (),
-                ad_value: Any | None = ...):
-        o = psutil.Process.as_dict(self, attrs, ad_value)
-        o["runtime"] = self.runtime()
-        return o
+    def as_dict(self, attrs: Union[list[str], tuple[str, ...], set[str], frozenset[str], None] = (),
+                ad_value: Any = None):
+        dct = super(Process, self).as_dict(attrs, ad_value=ad_value)
+        dct["runtime"] = self.runtime()
+        return dct
+
+    def pause(self):
+        self.suspend()
+
+    def recover(self):
+        self.resume()
+
+    def exitcode(self) -> Optional[int]:
+        return self.wait()
 
 
 class ProcessInfo:
-    def __init__(self, ps: CProcess):
+    def __init__(self, ps: Process):
         self._dict = ps.as_dict()
 
     def name(self):
@@ -85,28 +91,28 @@ class ProcessInfo:
                f"status:{self.status()}\n"
 
 
-def sys_process() -> tuple[CProcess, ...]:
+def sys_process() -> list[Process]:
     """
     return Process()
     """
     p = Any
-    objects = ()
+    process_list = []
     for p in psutil.process_iter():
         try:
-            objects += (CProcess(p.pid),)
+            process_list.append(Process(p.pid),)
         except psutil.NoSuchProcess:
             continue
 
-    return objects
+    return process_list
 
 
 def find_processes(name):
     p = sys_process()
-    objs = []
+    results = []
     for i in p:
         if i.name() == name:
-            objs.append(i)
-    return objs
+            results.append(i)
+    return results
 
 
 def kill_process_by_name(process_name):
@@ -114,7 +120,6 @@ def kill_process_by_name(process_name):
     for i in ps_list:
         try:
             i.terminate()
-            i.wait()
         except psutil.NoSuchProcess:
             continue
 
@@ -124,14 +129,15 @@ def kill_process_by_pid(pid: int):
         try:
             ps = psutil.Process(pid)
             ps.terminate()
-            ps.wait()
         except psutil.NoSuchProcess:
-            return False
+            raise psutil.NoSuchProcess(pid, None, "process no longer exists")
 
 
-def to_info(ps: tuple[CProcess, ...]):
-    objs = []
+def to_info(ps: tuple[Process, ...]):
+    process_info_list = []
     for i in ps:
         o = ProcessInfo(i)
-        objs.append(o)
-    return objs
+        process_info_list.append(o)
+    return process_info_list
+
+

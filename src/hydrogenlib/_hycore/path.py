@@ -17,7 +17,7 @@ def isfile(file):
     return os.path.isfile(file)
 
 
-def exists(path):
+def path_exists(path):
     return os.path.exists(path)
 
 
@@ -39,7 +39,7 @@ def remove(path):
     os.remove(path)
 
 
-def rename(old, new):
+def rename_file(old, new):
     os.rename(old, new)
 
 
@@ -90,24 +90,7 @@ def isabspath(path):
     return os.path.isabs(path)
 
 
-def split(path):
-    if isinstance(path, (list, tuple)):
-        return list(path)
-    else:
-        path = process(path)
-        pls = list(os.path.split(path))
-        # 去重 \\
-        return pls
-
-
-def process(path) -> str:
-    path = str(path)
-    path = path.replace("/", "\\")
-    path = path.replace("\\\\", "\\")
-    return path
-
-
-def _tree(folder) -> dict:
+def tree(folder) -> dict:
     f_dic = {folder: {}}
     now_dic = f_dic[folder]
     folder = path_to(folder)
@@ -121,11 +104,6 @@ def _tree(folder) -> dict:
             else:
                 now_dic[i.path] = os.path.getsize(i.path)
     return f_dic
-
-
-def tree(folder):
-    t = _tree(folder)
-    return t
 
 
 class StringPath(str):

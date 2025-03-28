@@ -3,68 +3,59 @@ import os
 
 import psutil
 
-from .process_addons import Process
+from .process import Process
 
 if os.name == 'nt':
-
-    def shutdown(mode: str, _time: int = 1):
-        if _time < 1:
-            _time = 1
-        return os.system(f'shutdown -{mode} -t {_time}')
+    def shutdown(mode: str, time: int = 1):
+        if time < 1:
+            time = 1
+        return os.system(f'shutdown -{mode} -t {time}')
 
 
 class Runtime:
     _instance = None
 
-    @classmethod
-    def __getruntime(cls, *args, **kwargs):
-        return cls.__new__(cls, *args, **kwargs)
-
     def __new__(cls, *args, **kwargs):
-        stact = inspect.stack()[1].function
-        if stact != "__getruntime":
-            raise RuntimeError("Runtime class can only be instantiated by the getruntime method")
         if cls._instance is None:
-            cls._instance = super(Runtime, cls).__new__(cls)
-
+            cls._instance = super().__new__(cls)
         return cls._instance
 
     def __init__(self):
-        self._c = Process(os.getpid())
+        self._process = Process(os.getpid())
 
     @property
     def pid(self):
-        return self._c.pid
+        return self._process.pid
 
     def cpu_count(self):
         return os.cpu_count()
 
     def num_threads(self):
-        return self._c.num_threads()
+        return self._process.num_threads()
 
     def cpu_percent(self):
-        return self._c.cpu_percent()
+        return self._process.cpu_percent()
 
     def memory_percent(self):
-        return self._c.memory_percent()
+        return self._process.memory_percent()
 
     def memory_info(self):
-        return self._c.memory_info()
+        return self._process.memory_info()
 
     def memory_full_info(self):
-        return self._c.memory_full_info()
+        return self._process.memory_full_info()
 
     def kill(self):
-        self._c.kill()
+        self._process.kill()
 
     def exit(self, code):
         exit(code)
 
     def environ(self):
-        return self._c.environ()
+        return self._process.environ()
 
     def cmdline(self):
-        return self._c.cmdline()
+        return self._process.cmdline()
 
     def exec(self, command):
         return psutil.Popen(command)
@@ -72,6 +63,3 @@ class Runtime:
     def execute(self, command):
         return Process(psutil.Popen(command).pid)
 
-    @classmethod
-    def getRuntime(cls):
-        return cls.__getruntime()

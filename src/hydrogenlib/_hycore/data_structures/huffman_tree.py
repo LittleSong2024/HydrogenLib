@@ -1,3 +1,5 @@
+from collections import deque
+
 from ..utils.probability_counter import ProbabilityCounter
 
 
@@ -27,6 +29,22 @@ class HuffmanNode:
         self.right = None
         self.value = None
         self.probability = None
+
+    def set_left(self, node):
+        self.left = node
+
+    def set_right(self, node):
+        self.right = node
+
+    def init_left(self):
+        if self.left is None:
+            self.left = HuffmanNode()
+        return self.left
+
+    def init_right(self):
+        if self.right is None:
+            self.right = HuffmanNode()
+        return self.right
 
     def is_leaf(self):
         return self.left is None and self.right is None
@@ -86,6 +104,24 @@ class HuffmanTree:
 
     def walk(self):
         return self._walk(self.root, '')
+
+    @staticmethod
+    def _bfs(root, ls):
+        queue = deque([root])
+        for i in ls:
+            node = queue.popleft()  # type: HuffmanNode
+            node.value = i
+            queue.append(node.init_left())
+            queue.append(node.init_right())
+
+    @classmethod
+    def from_list(cls, ls):
+        """
+        依次将数据填充到树中
+        越靠前的数据，所在树的深度越低
+        """
+        tree = HuffmanTree()
+        tree._bfs(tree.root, ls)
 
 
 def get_huffman_codes(huffman_tree):

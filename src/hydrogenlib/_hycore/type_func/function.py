@@ -3,7 +3,7 @@ import types
 import typing
 from inspect import stack as call_stack
 
-from src.hydrogenlib._hycore.type_func import hasindex
+from .list_func import hasindex
 
 
 def get_args(func):

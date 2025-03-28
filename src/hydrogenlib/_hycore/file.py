@@ -171,7 +171,7 @@ class NeoIO:
         if create is None:
             create = self.create
 
-        if not exists(file) and not create:
+        if not path_exists(file) and not create:
             mkfile(file)
 
         self.__push_fd(

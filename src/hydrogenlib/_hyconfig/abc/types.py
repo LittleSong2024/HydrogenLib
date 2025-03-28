@@ -24,6 +24,7 @@ from .backend import AbstractBackend
 
 _TypeType = Union[ConfigTypeBase, type[ConfigTypeBase]]
 
+
 class ConfigTypeMapping:
     def __init__(self):
         self._mapping = {}
@@ -33,14 +34,14 @@ class ConfigTypeMapping:
 
     def add_type(self, config_type: _TypeType):
         self.add_pair(config_type.type, config_type)
-    
+
     def add_types(self, *config_types: _TypeType):
         for config_type in config_types:
             self.add_type(config_type)
 
     def remove_pair(self, key_type):
         return self._mapping.pop(key_type)
-    
+
     def remove_pairs(self, *key_types):
         for key_type in key_types:
             self.remove_pair(key_type)

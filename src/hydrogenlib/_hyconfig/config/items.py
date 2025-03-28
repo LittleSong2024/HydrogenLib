@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import builtins
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 from ..abc.types import ConfigTypeBase
-from ..._hycore.utils import InstanceDict
+from ..._hycore.better_descriptor import *
 
 
 @runtime_checkable
@@ -13,27 +13,31 @@ class Item(Protocol):
     key_instance: Any
 
 
-class ConfigItemInstance:
-    def __init__(self, type: ConfigTypeBase, attr, key, default, parent: 'ConfigItem' = None):
-        self.key, self.attr = key, attr
-        self.type = type
-        self._value = None
-        self.default = default
+class ConfigItemInstance(BetterDescriptorInstance):
+    key: str
+    attr: str
+    type: ConfigTypeBase
+    default: Any
 
+    _value = None
+
+    def __init__(self, parent: 'ConfigItem' = None):
+        super().__init__()
         self.parent = parent
+        self.sync()
 
     def sync(self):
-        self.key, self.attr, self.type, self.default = (
-            self.parent.key, self.parent.attr, self.parent.type, self.parent.default)
+        self.key, self.type, self.default = (
+            self.parent.key, self.parent.type, self.parent.default)
 
-    def set(self, value):
-        self.validate(value, error=True)
-        self._value = value
+    def set(self, v):
+        self.validate(v, error=True)
+        self._value = v
 
-    def validate(self, value, error=False):
-        res = self.type.validate(value)
+    def validate(self, v, error=False):
+        res = self.type.validate(v)
         if not res and error:
-            raise TypeError(f"{type(value)} is not a valid type")
+            raise TypeError(f"{type(v)} is not a valid type")
         return res
 
     @property
@@ -44,12 +48,20 @@ class ConfigItemInstance:
     def value(self, value):
         self.set(value)
 
+    def __better_get__(self, instance, owner, parent) -> Any:
+        return self.value
 
-class ConfigItem:
-    def __init__(self, type: type | ConfigTypeBase, default: Any, *, key = None):
+    def __better_set__(self, instance, value, parent):
+        self.set(value)
+
+    def __better_del__(self, instance, parent):
+        self.value = self.default
+
+
+class ConfigItem(BetterDescriptor, type=ConfigItemInstance):
+    def __init__(self, type: type | ConfigTypeBase, default: Any, *, key=None):
+        super().__init__()
         self.default = default
-
-        self.attr = None
         self.key = key
 
         if isinstance(type, ConfigTypeBase):
@@ -57,34 +69,14 @@ class ConfigItem:
         else:
             self.type = type()
 
-        self.validate(default)
+        if not self.type.validate(default):
+            raise TypeError("default value is not a valid type")
 
         if not isinstance(type, builtins.type):
             raise TypeError("type must be a ItemType")
 
-        self._instances = InstanceDict()
+    def __better_new__(self) -> "BetterDescriptorInstance":
+        return ConfigItemInstance(self)
 
-    def validate(self, value):
-        if not self.type.validate(value):
-            raise TypeError(f"{type(value)} is not a valid type")
-
-    def _get_instance(self, ins) -> Item:
-        if ins not in self._instances:
-            self._instances[ins] = ConfigItemInstance(self.type, self.attr, self.key, self.default, self)
-        return self._instances[ins]
-
-    def __get__(self, instance, owner):
-        if instance is None:
-            return self
-        return self._get_instance(instance).value.value
-
-    def __set__(self, instance, value):
-        item = self._get_instance(instance).value  # dict_item.value
-        old, new = item.value, value
-
-        item.set(value)
-        instance.on_change(self.attr, old, new)
-
-    def from_instance(self, instance) -> 'ConfigItemInstance':
-        item_instance = self._get_instance(instance).value
-        return item_instance
+    def from_instance(self, instance) -> ConfigItemInstance:
+        return self.get_instance_by_instance(instance)

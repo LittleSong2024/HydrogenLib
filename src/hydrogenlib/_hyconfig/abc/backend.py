@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, Any, Tuple
 
-from ...hycore import NeoIO
+from ..._hycore.file import NeoIO
 
 
 class ChangeEvent:

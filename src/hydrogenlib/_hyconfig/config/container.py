@@ -4,6 +4,7 @@ from typing import Union, Type
 from .const import *
 from .items import ConfigItem, ConfigItemInstance
 from ..abc.backend import AbstractBackend
+from .types import ConfigTypeMapping, builtin_type_mapping
 from ..._hycore.utils import DoubleDict
 
 
@@ -41,11 +42,11 @@ class NewConfigContainerError(ConfigError):
         return f"Failed to create config container ==> {self.e}"
 
 
-def _build_items(self: 'type[ConfigContainer]'):
+def _build_items(self: 'Type[HyConfig]'):
     self.__cfgitems__ = get_attrs_by_type(self, ConfigItem)
 
 
-def _build_mapping(self: 'type[ConfigContainer]'):
+def _build_mapping(self: 'Type[HyConfig]'):
     mapping = self.__cfgmapping__
     items = self.__cfgitems__
 
@@ -53,7 +54,7 @@ def _build_mapping(self: 'type[ConfigContainer]'):
         item = getattr(self, name)  # type: ConfigItem
         key = item.key
 
-        if item.key == AUTO:
+        if item.key is None:
             item.key = key = name
 
         if name in mapping:  # 有配置项的name与其他配置项的key或name冲突
@@ -66,7 +67,7 @@ def _build_mapping(self: 'type[ConfigContainer]'):
         mapping[key] = name  # 保存映射关系
 
 
-class ConfigContainer:
+class HyConfig:
     """
     配置主类
     继承并添加ConfigItem类属性
@@ -95,6 +96,7 @@ class ConfigContainer:
     __cfgmapping__: DoubleDict = None
 
     # 可重写配置属性
+    __cfgtypemapping__: ConfigTypeMapping = builtin_type_mapping
     __cfgfile__: Union[Path, str] = None
     __cfgbackend__: AbstractBackend = None
     __cfgautoload__ = False
@@ -141,7 +143,7 @@ class ConfigContainer:
         self._load()
 
     def validate(self, key_or_attr, value, error=False):
-        if not self.exists(key_or_attr):
+        if not self.config_exists(key_or_attr):
             raise KeyError(f'{key_or_attr} is not a valid config item or key')
         return self.get_cfgitem(key_or_attr, self).validate(value, error)
 
@@ -152,7 +154,7 @@ class ConfigContainer:
         """
         return self.cfg_backend.existing
 
-    def exists(self, key_or_attr):
+    def config_exists(self, key_or_attr):
         """
         判断配置项是否存在
         """
@@ -214,13 +216,16 @@ class ConfigContainer:
     def _load(self):
         self.cfg_backend.load()
         for key, value in self.cfg_backend.items():
-            attr = self.to_attr(key)
-            data = self.get_cfgitem(attr, self)
+            try:
+                attr = self.to_attr(key)
+                data = self.get_cfgitem(attr, self)
 
-            if data.validate(value):
-                setattr(self, attr, value)
-            else:
-                setattr(self, attr, data.default)
+                if data.validate(value):
+                    setattr(self, attr, value)
+                else:
+                    setattr(self, attr, data.default)
+            except KeyError:
+                continue
 
         self.changes.clear()
 

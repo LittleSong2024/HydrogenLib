@@ -1,3 +1,3 @@
-from .container import ConfigContainer
+from .container import HyConfig
 from .items import ConfigItem
 from .types import *

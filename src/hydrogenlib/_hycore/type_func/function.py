@@ -52,8 +52,12 @@ def get_signature(func):
 
 class Function:
     def __init__(self, func):
-        self._func = func
-        self._signature = inspect.signature(func)
+        if isinstance(func, self.__class__):
+            self._func = func._func
+        else:
+            self._func = func
+
+        self._signature = None
 
     @property
     def name(self):
@@ -81,6 +85,8 @@ class Function:
 
     @property
     def signature(self):
+        if not self._signature:
+            self._signature = inspect.signature(self._func)
         return self._signature
 
     @property
@@ -91,7 +97,7 @@ class Function:
         return self._signature.bind(*args, **kwargs)
 
     def __str__(self):
-        return f'<Func {self.name} {self.qualname}>'
+        return f'<Func {self.qualname} ({self._signature})>'
 
     def __call__(self, *args, **kwargs):
         return self._func(*args, **kwargs)
@@ -99,7 +105,7 @@ class Function:
 
 class FunctionGroup:
     def __init__(self, funcs: typing.Iterable):
-        self._funcs = funcs
+        self._funcs = list(funcs)
 
     def __iter__(self):
         return iter(self._funcs)

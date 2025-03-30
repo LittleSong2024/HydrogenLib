@@ -1,149 +1,182 @@
-import os
 import sys
-import types
-import winreg
+from pathlib import Path
+
+if sys.version not in {'3.12', '3.8', '3.7'}:
+    import winreg
+
+    reg_hkey = {
+        "HKEY_CURRENT_USER": winreg.HKEY_CURRENT_USER,
+        "HKEY_LOCAL_MACHINE": winreg.HKEY_LOCAL_MACHINE,
+        "HEKY_CLASSES_ROOT": winreg.HKEY_CLASSES_ROOT,
+        "HEKY_USERS": winreg.HKEY_USERS,
+        "HEKY_CURRENT_CONFIG": winreg.HKEY_CURRENT_CONFIG,
+
+        "HKCU": winreg.HKEY_CURRENT_USER,  # 缩写
+        "HKLM": winreg.HKEY_LOCAL_MACHINE
+    }
 
 
-def add_to_startup(name, file_path=""):
-    # By IvanHanloth
-    if file_path == "":
-        file_path = os.path.realpath(sys.argv[0])
-    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Run",
-                         winreg.KEY_SET_VALUE,
-                         winreg.KEY_ALL_ACCESS | winreg.KEY_WRITE | winreg.KEY_CREATE_SUB_KEY)  # By IvanHanloth
-    winreg.SetValueEx(key, name, 0, winreg.REG_SZ, file_path)
-    winreg.CloseKey(key)
+    def name_to_const(name):
+        reg = reg_hkey[str(name).upper()]
+        return reg
 
 
-def remove_from_startup(name):
-    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run",
-                         winreg.KEY_SET_VALUE,
-                         winreg.KEY_ALL_ACCESS | winreg.KEY_WRITE | winreg.KEY_CREATE_SUB_KEY)  # By IvanHanloth
-    try:
-        winreg.DeleteValue(key, name)
-
-    except FileNotFoundError:
-        print(f"{name} not found in startup.")
-    else:
-        print(f"{name} removed from startup.")
-
-    winreg.CloseKey(key)
+    def root_to_const(reg_path):
+        root = Path(reg_path).root
+        reg = name_to_const(root)
+        return reg
 
 
-def value_HKEY(name):
-    reg_path_l = name
-    reg = winreg.HKEY_LOCAL_MACHINE
-    if reg_path_l == "HKEY_CURRENT_USER":
-        reg = winreg.HKEY_CURRENT_USER
-    if reg_path_l == "HKEY_LOCAL_MACHINE":
-        reg = winreg.HKEY_LOCAL_MACHINE
-    if reg_path_l == "HEKY_CLASSES_ROOT":
-        reg = winreg.HKEY_CLASSES_ROOT
-    if reg_path_l == "HEKY_USERS":
-        reg = winreg.HKEY_USERS
-    if reg_path_l == "HEKY_CURRENT_CONFIG":
-        reg = winreg.HKEY_CURRENT_CONFIG
+    def split_reg_path(reg_path):
+        path = Path(reg_path)
+        root = path.root
 
-    return reg
+        reg = name_to_const(root)
+        sub_path = path.relative_to(root)
+
+        return reg, sub_path
 
 
-def name_to_const(reg_path):
-    reg = winreg.HKEY_LOCAL_MACHINE
+    class RegistryPath:
+        def __init__(self, path):
+            self.path = Path(path)
+            self._root_const = root_to_const(path)
 
-    reg_path_l = reg_path.split('\\')[0]
+        def touch(self):
+            reg, sub_path = split_reg_path(self.path)
+            try:
+                winreg.CreateKey(reg, sub_path)
+            except OSError:
+                pass
 
-    if reg_path_l == "HKEY_CURRENT_USER":
-        reg = winreg.HKEY_CURRENT_USER
-    if reg_path_l == "HKEY_LOCAL_MACHINE":
-        reg = winreg.HKEY_LOCAL_MACHINE
-    if reg_path_l == "HEKY_CLASSES_ROOT":
-        reg = winreg.HKEY_CLASSES_ROOT
-    if reg_path_l == "HEKY_USERS":
-        reg = winreg.HKEY_USERS
-    if reg_path_l == "HEKY_CURRENT_CONFIG":
-        reg = winreg.HKEY_CURRENT_CONFIG
+        @property
+        def root(self):
+            return self._root_const
 
-    return reg
+        @property
+        def parent(self):
+            return self.__class__(self.path.parent)
 
+        def open(self, mode: str = "r"):
+            reg, sub_path = split_reg_path(self.path)
 
-def get_all(reg_path: str):
-    """
-    sepstr be \\
-    """
-    d = {}
+            access = 0
+            if 'r' in mode:
+                access |= winreg.KEY_READ
 
-    reg = name_to_const(reg_path)
+            if '+' in mode:
+                access |= winreg.KEY_WRITE
 
-    try:
-        key = winreg.OpenKey(reg, reg_path)
-    except OSError:
-        return d
+            if '*' in mode:
+                access |= winreg.KEY_ALL_ACCESS
 
-    # 获取该键的所有键值，遍历枚举
-    try:
-        i = 0
-        while 1:
-            # EnumValue方法用来枚举键值，EnumKey用来枚举子键
-            name, value, _type = winreg.EnumValue(key, i)
-            d[name] = (name, value, _type)
-            i += 1
-    except OSError:
-        pass
+            if 'e' in mode:
+                access |= winreg.KEY_EXECUTE
 
-    return d
+            if 'n' in mode:
+                access |= winreg.KEY_NOTIFY
+
+            handle = winreg.OpenKeyEx(reg, str(sub_path), 0, access)
+            return Handle(handle)
 
 
-def get_keys(reg_path):
-    r"""
-    sepstr only be '\\'
-    """
-    reg = name_to_const(reg_path)
+    class Handle:
+        def __init__(self, handle):
+            self._handle = handle
 
-    try:
-        key = winreg.OpenKey(reg, reg_path)
-    except OSError:
-        key = winreg.CreateKey(reg, reg_path)
+        def __setitem__(self, key, value):
+            winreg.SetValueEx(self._handle, key, 0, pytype_to_regtype(value), value)
 
-    winreg.CloseKey(key)
+        def __getitem__(self, item):
+            return winreg.QueryValueEx(self._handle, item)
+
+        def __delitem__(self, item):
+            try:
+                winreg.DeleteValue(self._handle, item)
+            except OSError:
+                raise KeyError(f"{item} not found.")
+
+        def __iter__(self):
+            i = 0
+            while True:
+                try:
+                    name, value, type = winreg.EnumValue(self._handle, i)
+                    yield name, value, type
+                except OSError:
+                    break
+
+                i += 1
+
+        def keys(self):
+            i = 0
+            while True:
+                try:
+                    name = winreg.EnumKey(self._handle, i)
+                    yield name
+                except OSError:
+                    break
+
+        def values(self):
+            i = 0
+            while True:
+                try:
+                    name = winreg.EnumKey(self._handle, i)
+                    yield name
+                except OSError:
+                    break
+
+        def items(self):
+            i = 0
+            while True:
+                try:
+                    name, value, type = winreg.EnumValue(self._handle, i)
+                    yield name, value
+                except OSError:
+                    break
+
+        def pop(self, item):
+            try:
+                winreg.DeleteValue(self._handle, item)
+            except OSError:
+                raise KeyError(f"{item} not found.")
+
+        def clear(self):
+            for key in self.keys():
+                self.pop(key)
+
+        def __repr__(self):
+            return f"<Handle {self._handle}>"
+
+        __str__ = __repr__
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            winreg.CloseKey(self._handle)
+
+        def __del__(self):
+            winreg.CloseKey(self._handle)
+
+        @classmethod
+        def from_path(cls, path):
+            hkey, path = split_reg_path(path)
+            handle = winreg.CreateKey(hkey, str(path))
+            return cls(handle)
 
 
-classInfo = type | types.UnionType | tuple[object, ...]
-
-
-def py_type_to_reg_type(pyType: object, big_type: bool = False):
-    if isinstance(pyType, int):  # pyType为int
-        if big_type:
-            return winreg.REG_QWORD
+    def pytype_to_regtype(pyType: object, big_type: bool = False):
+        if isinstance(pyType, int):  # pyType为int
+            if big_type:
+                return winreg.REG_QWORD
+            else:
+                return winreg.REG_DWORD
+        elif isinstance(pyType, float):  # pyType = float
+            return ValueError("REG types not have 'float'.")
+        elif isinstance(pyType, str):
+            if big_type:
+                return winreg.REG_EXPAND_SZ
+            else:
+                return winreg.REG_SZ
         else:
-            return winreg.REG_DWORD
-    elif isinstance(pyType, float):  # pyType = float
-        return ValueError("REG types not have 'float'.")
-    elif isinstance(pyType, str):
-        if big_type:
-            return winreg.REG_EXPAND_SZ
-        else:
-            return winreg.REG_SZ
-    else:
-        return ValueError(f"pyType '{pyType}' don't turn to 'REG_TYPE'.")
-
-
-def spilt_reg_path(reg_path: str):
-    reg = name_to_const(reg_path)
-    path = '\\'.join(reg_path.split('\\')[1::])
-    return reg, path
-
-
-def set_reg_key(reg_path: str, _type: int):
-    r"""
-    reg_path
-        path.name=value
-    HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer.DisallowRun=1
-    """
-    after = reg_path.split('.')
-    value = after[1].split('=')[1::]
-    value = ''.join(value)
-    name = after[1].split('=')[0]
-    r, p = spilt_reg_path(reg_path)
-    p = spilt_reg_path(after[0])[1]
-    k = winreg.OpenKey(r, p, 0, winreg.KEY_SET_VALUE)
-    winreg.SetValueEx(k, name, 0, _type, value)
+            return ValueError(f"pyType '{pyType}' don't turn to 'REG_TYPE'.")

@@ -25,7 +25,7 @@ class HyDll:
             self.bind_functions[func.name].append(func)
         return func
 
-    def function(self, func):
+    def define(self, func):
         func = CFunction(func)
         if func.name in self.cfunctions:
             func = self.cfunctions[func.name]

@@ -23,6 +23,12 @@ def _c__str__(self):
     return msg
 
 
+def _c__getattr__(self, item):
+    for field, type in self._fields_:
+        if field.startswith(item):
+            return getattr(self, field)
+
+
 class HyStructure(ctypes.Structure):
     _fields_ = []
     _order_ = None
@@ -52,7 +58,8 @@ class HyStructure(ctypes.Structure):
                 '_fields_': cls._fields_,
                 '_length_': max_length,
                 '__str__': _c__str__,
-                '__repr__': _c__str__
+                '__repr__': _c__str__,
+                '__getattr__': _c__getattr__,
             }
         )
         # cls._type_ = cls.__structure__._type_

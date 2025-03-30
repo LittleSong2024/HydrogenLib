@@ -1,5 +1,7 @@
 from collections import deque
 
+from bitarray import bitarray
+
 from ..utils.probability_counter import ProbabilityCounter
 
 
@@ -69,8 +71,45 @@ class HuffmanNode:
 class HuffmanTree:
     def __init__(self):
         self.root = None
+        self.codes = {}
 
-    def build_tree(self, probabilities: dict):
+    @staticmethod
+    def _bfs(root, ls):
+        queue = deque([root])
+        for i in ls:
+            node = queue.popleft()  # type: HuffmanNode
+            node.value = i
+            queue.append(node.init_left())
+            queue.append(node.init_right())
+
+    def _walk(self, node, path: bitarray):
+        if not node:
+            return
+        if node.is_leaf():
+            yield path.tobytes(), node.value
+        else:
+            path.append(0)
+            yield from self._walk(node.left, path)
+            path[-1] = 1
+            yield from self._walk(node.right, path)
+            path.pop()
+
+    def walk(self):
+        path = bitarray()
+        return self._walk(self.root, path)
+
+    @classmethod
+    def from_list(cls, ls):
+        """
+        依次将数据填充到树中
+        越靠前的数据，所在树的深度越低
+        """
+        tree = HuffmanTree()
+        tree._bfs(tree.root, ls)
+
+    @classmethod
+    def build_tree(cls, probabilities: dict):
+        self = cls()
         priority_queue: list[HuffmanNode] = []
         for char, probability in probabilities.items():
             node = HuffmanNode()
@@ -94,34 +133,7 @@ class HuffmanTree:
 
         root = priority_queue.pop()
         self.root = root
-
-    def _walk(self, node, path):
-        if node.is_leaf():
-            yield path, node.value
-        else:
-            yield from self._walk(node.left, path + '0')
-            yield from self._walk(node.right, path + '1')
-
-    def walk(self):
-        return self._walk(self.root, '')
-
-    @staticmethod
-    def _bfs(root, ls):
-        queue = deque([root])
-        for i in ls:
-            node = queue.popleft()  # type: HuffmanNode
-            node.value = i
-            queue.append(node.init_left())
-            queue.append(node.init_right())
-
-    @classmethod
-    def from_list(cls, ls):
-        """
-        依次将数据填充到树中
-        越靠前的数据，所在树的深度越低
-        """
-        tree = HuffmanTree()
-        tree._bfs(tree.root, ls)
+        return self
 
 
 def get_huffman_codes(huffman_tree):
@@ -134,11 +146,10 @@ def get_huffman_codes_dict(huffman_tree):
 
 def compress(data):
     probabilities = get_probabilities_dict(data)
-    huffman_tree = HuffmanTree()
-    huffman_tree.build_tree(probabilities)
+    huffman_tree = HuffmanTree.build_tree(probabilities)
     codes = get_huffman_codes_dict(huffman_tree)
 
-    res = ''
+    res = b''
     for char in data:
         res += codes[char]
 
@@ -147,21 +158,22 @@ def compress(data):
 
 def decompress(data, huffman_tree: HuffmanTree):
     res = ''
-    current_code = huffman_tree.root
-    for char in data:
-        current_code = current_code.left if char == '0' else current_code.right
-        if current_code.is_leaf():
-            res += current_code.value
-            current_code = huffman_tree.root
+    current = huffman_tree.root
+    ba = bitarray()
+    ba.frombytes(data)
+    for bit in ba:
+        current = current.left if bit == 0 else current.right
+        if current.is_leaf():
+            res += current.value
+            current = huffman_tree.root
 
     return res
 
 
 if __name__ == '__main__':
     test_str = "aaaaabcdef"
-    huffman_tree = HuffmanTree()
     probabilities = get_probabilities_dict(test_str)
-    huffman_tree.build_tree(probabilities)
+    huffman_tree = HuffmanTree.build_tree(probabilities)
 
     print("Test string:", repr(test_str))
     print(probabilities)

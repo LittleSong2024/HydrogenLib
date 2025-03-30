@@ -91,6 +91,9 @@ class BetterDescriptor:
         except Exception as e:
             raise RuntimeError(f"Failed to create instance of type {self.instance_type}: {e}")
 
+    def __better_init__(self, name, owner):
+        ...
+
     def __get__(self, instance, owner) -> Any:
         """
         实现描述符协议的 __get__ 方法。
@@ -128,6 +131,7 @@ class BetterDescriptor:
         :param name: 描述符的名称。
         """
         self.name = name
+        self.__better_init__(name, owner)
 
 
 class BetterDescriptorInstance:

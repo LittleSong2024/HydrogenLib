@@ -18,11 +18,11 @@ class HyDll:
         self.cfunctions = {}
         self.bind_functions = {}
 
-    def _add_bind_function(self, func):
-        if func.name not in self.bind_functions:
-            self.bind_functions[func.name] = [func]
+    def _add_bind_function(self, func: CFunction):
+        if func.qualname not in self.bind_functions:
+            self.bind_functions[func.qualname] = [func]
         else:
-            self.bind_functions[func.name].append(func)
+            self.bind_functions[func.qualname].append(func)
         return func
 
     def define(self, func):

@@ -20,9 +20,14 @@ class CFunction(Function):
 
         return CFunction(self, dll=self.dll, target=target)  # copy a new instance
 
+    def _sort_args(self, args, kwargs):
+        arguments = self.signature.bind(*args, **kwargs).arguments
+        return list(arguments.values())
+
     def __call__(self, *args, **kwargs):
         if self.target is None:
             raise TypeError("CFunction target is None")
-        return self.target(*args, **kwargs)
+        return self.target(*(self._sort_args(args, kwargs)))
+        # return self.target(*args, **kwargs)
 
 

@@ -1,16 +1,25 @@
 import ctypes
+import platform
+from types import FunctionType
 
-from .methods import *
+from .cfunction import *
+from .._hyoverload import overload
 
 STDCALL = 0
-C = 1
+CDECL = 1
 
 
 class HyDll:
-    def __init__(self, name, call_type=STDCALL):
+    def __init__(self, name, call_type=None):
+        if call_type is None:
+            if platform.system() == 'Windows':
+                call_type = STDCALL
+            elif platform.system() in {'Linux', 'Darwin'}:
+                call_type = CDECL
+
         if call_type == STDCALL:
             self.dll = ctypes.windll.LoadLibrary(name)
-        elif call_type == C:
+        elif call_type == CDECL:
             self.dll = ctypes.cdll.LoadLibrary(name)
         else:
             raise ValueError('call_type must be STDCALL or C')
@@ -25,9 +34,30 @@ class HyDll:
             self.bind_functions[func.qualname].append(func)
         return func
 
-    def define(self, func):
+    def __define(self, func, name=None):
         func = CFunction(func)
-        if func.name in self.cfunctions:
-            func = self.cfunctions[func.name]
+        name = name or func.name
+        if name in self.cfunctions:
+            func = self.cfunctions[name]
 
-        return self._add_bind_function(func.generate_c_signature(getattr(self.dll, func.name)))
+        return self._add_bind_function(func.generate_c_signature(getattr(self.dll, name)))
+
+    @overload
+    def define(self, func: FunctionType):
+        return self.__define(func)
+
+    @overload
+    def define(self, name: str):
+        def wrapper(func):
+            return self.__define(func, name)
+
+        return wrapper
+
+    def __call__(self, func):
+        return self.define(func)
+
+    def __getattr__(self, item):
+        if item in self.cfunctions:
+            return self.cfunctions[item]
+        else:
+            return self.dll.__getattr__(item)

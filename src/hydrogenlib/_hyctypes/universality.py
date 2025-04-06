@@ -23,10 +23,21 @@ def _c__str__(self):
     return msg
 
 
+def _c__repr__(self):
+    dct = {field: getattr(self, field) for field, type in self._fields_}
+    return f"{self.__class__.__name__}({', '.join([f'{field}={value}' for field, value in dct.items()])})"
+
+
 def _c__getattr__(self, item):
+    ls = []
     for field, type in self._fields_:
         if field.startswith(item):
-            return getattr(self, field)
+            ls.append(field)
+
+    if len(ls) == 1:
+        return getattr(self, ls[0])
+    else:
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{item}'")
 
 
 class HyStructure(ctypes.Structure):
@@ -58,7 +69,7 @@ class HyStructure(ctypes.Structure):
                 '_fields_': cls._fields_,
                 '_length_': max_length,
                 '__str__': _c__str__,
-                '__repr__': _c__str__,
+                '__repr__': _c__repr__,
                 '__getattr__': _c__getattr__,
             }
         )

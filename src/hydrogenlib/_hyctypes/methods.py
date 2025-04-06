@@ -1,33 +1,21 @@
-from .._hycore.type_func import Function
+import ctypes as _ctypes
 
 
-class CFunction(Function):
-    def __init__(self, func, dll=None, target=None):
-        super().__init__(func)
-        self.dll = dll
-        self.target = target
+def copy_new(source):
 
-    def generate_c_signature(self, target):
-        argtypes = []
+    if not isinstance(source, (_ctypes.Union, _ctypes.Structure)):
+        raise TypeError("source must be a ctypes Union or Structure")
 
-        for param in self.signature.parameters.values():
-            argtypes.append(param.annotation)
+    try:
+        source_addr = _ctypes.addressof(source)
+        source_cls = type(source)
 
-        restype = self.signature.return_annotation
+        size = _ctypes.sizeof(source)
 
-        target.argtypes = argtypes
-        target.restype = restype
+        target = source_cls()
+        _ctypes.memmove(_ctypes.addressof(target), source_addr, size)
 
-        return CFunction(self, dll=self.dll, target=target)  # copy a new instance
-
-    def _sort_args(self, args, kwargs):
-        arguments = self.signature.bind(*args, **kwargs).arguments
-        return list(arguments.values())
-
-    def __call__(self, *args, **kwargs):
-        if self.target is None:
-            raise TypeError("CFunction target is None")
-        return self.target(*(self._sort_args(args, kwargs)))
-        # return self.target(*args, **kwargs)
-
+        return target
+    except Exception as e:
+        raise RuntimeError("Failed to copy ctypes Union or Structure") from e
 

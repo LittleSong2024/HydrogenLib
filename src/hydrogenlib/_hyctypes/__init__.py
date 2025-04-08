@@ -17,9 +17,8 @@ from .dll import HyDll, CDECL, STDCALL
 from .universality import HyStructure
 
 
-import os as _os
-
-if _os.name == 'nt':
-    from ctypes.wintypes import *
-
 from .methods import *
+
+from . import all_types as types_namespace
+
+from .all_types import *

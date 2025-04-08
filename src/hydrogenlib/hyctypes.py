@@ -1,9 +1,5 @@
 import ctypes as _ctypes, os as _os
-from ._hyctypes import HyDll, HyStructure
-from ctypes import *
-
-if _os.name == 'nt':
-    from ctypes.wintypes import *
+from ._hyctypes import *
 
 
 def POINTER(type):

@@ -4,6 +4,7 @@ from types import FunctionType
 
 from .cfunction import *
 from .._hyoverload import overload
+from . import quick_define as _qdefine, all_types
 
 STDCALL = 0
 CDECL = 1
@@ -52,6 +53,15 @@ class HyDll:
             return self.__define(func, name)
 
         return wrapper
+
+    def quick_define(self, string, globals=None, locals=None):
+        if globals is None:
+            globals = vars(all_types)
+        func = _qdefine.Function.from_string(string, globals, locals)
+        cfunc = CFunction(None, self.dll, func.generate_c_signature(
+            getattr(self.dll, func.name)
+        ))
+        return self._add_bind_function(cfunc)
 
     def __call__(self, func):
         return self.define(func)

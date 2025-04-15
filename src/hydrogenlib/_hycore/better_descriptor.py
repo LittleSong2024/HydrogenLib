@@ -6,9 +6,8 @@ from .utils.instance_dict import InstanceDict
 
 
 class BetterDescriptor:
-    name: str = None
-    instance_dict: InstanceDict = None
-    instance_type: Type["BetterDescriptorInstance"]
+    __better_instance_mapping__: InstanceDict = None
+    __better_type__: Type["BetterDescriptorInstance"]
 
     def get_instance_by_instance(self, instance) -> BetterDescriptorInstance:
         """
@@ -16,7 +15,7 @@ class BetterDescriptor:
         :param instance: 访问描述符的实例。
         :return: 对应 BetterDescriptorInstance 实例的值.
         """
-        return self.instance_dict.get(instance).value if instance in self.instance_dict else self.__better_new__()
+        return self.__better_instance_mapping__.get(instance).value if instance in self.__better_instance_mapping__ else self.__better_new__()
 
     def __init__(self, *args, **kwargs):
         """
@@ -24,7 +23,7 @@ class BetterDescriptor:
         :param args: 传递给实例化的参数。
         :param kwargs: 传递给实例化的关键字参数。
         """
-        self.instance_dict = InstanceDict()
+        self.__better_instance_mapping__ = InstanceDict()
         self.args, self.kwargs = args, kwargs
 
     def __init_subclass__(cls, **kwargs):
@@ -33,11 +32,11 @@ class BetterDescriptor:
         :param kwargs: 包含子类初始化所需的参数。
         """
         super().__init_subclass__()
-        cls.instance_type = kwargs.get("type", BetterDescriptorInstance)
+        cls.__better_type__ = kwargs.get("type", BetterDescriptorInstance)
 
         # 验证 instance_type 是否为合法类型
-        if not issubclass(cls.instance_type, BetterDescriptorInstance):
-            raise TypeError(f"instance_type must be a subclass of BetterDescriptorInstance, got {cls.instance_type}")
+        if not issubclass(cls.__better_type__, BetterDescriptorInstance):
+            raise TypeError(f"instance_type must be a subclass of BetterDescriptorInstance, got {cls.__better_type__}")
 
     def __better_get__(self, instance, owner) -> Any:
         """
@@ -47,7 +46,7 @@ class BetterDescriptor:
         :return: 描述符的值。
         """
         try:
-            return self.instance_dict[instance].__better_get__(instance, owner, self)
+            return self.__better_instance_mapping__[instance].__better_get__(instance, owner, self)
         except KeyError as e:
             raise RuntimeError(f"Instance not found in instance_dict: {e}")
 
@@ -58,14 +57,14 @@ class BetterDescriptor:
         :param value: 要设置的值。
         """
         try:
-            self.instance_dict[instance].__better_set__(instance, value, self)
+            self.__better_instance_mapping__[instance].__better_set__(instance, value, self)
         except KeyError as e:
             raise RuntimeError(f"Instance not found in instance_dict: {e}")
 
     def __better_check_existing__(self, instance):
-        if instance not in self.instance_dict:
+        if instance not in self.__better_instance_mapping__:
             try:
-                self.instance_dict[instance] = self.__better_new__()
+                self.__better_instance_mapping__[instance] = self.__better_new__()
             except Exception as e:
                 raise RuntimeError(f"Failed to initialize instance for {instance}: {e}")
 
@@ -75,7 +74,7 @@ class BetterDescriptor:
         :param instance: 访问描述符的实例。
         """
         try:
-            self.instance_dict[instance].__better_del__(instance, self)
+            self.__better_instance_mapping__[instance].__better_del__(instance, self)
         except KeyError as e:
             raise RuntimeError(f"Instance not found in instance_dict: {e}")
 
@@ -85,11 +84,11 @@ class BetterDescriptor:
         :return: 新的 BetterDescriptorInstance 实例。
         """
         try:
-            ins = self.instance_type(*self.args, **self.kwargs)
+            ins = self.__better_type__(*self.args, **self.kwargs)
             ins.name = self.name
             return ins
         except Exception as e:
-            raise RuntimeError(f"Failed to create instance of type {self.instance_type}: {e}")
+            raise RuntimeError(f"Failed to create instance of type {self.__better_type__}: {e}")
 
     def __better_init__(self, name, owner):
         ...
@@ -130,7 +129,6 @@ class BetterDescriptor:
         :param owner: 描述符所属的类。
         :param name: 描述符的名称。
         """
-        self.name = name
         self.__better_init__(name, owner)
 
 
@@ -145,7 +143,7 @@ class BetterDescriptorInstance:
         :param parent: 父级描述符。
         :raises NotImplementedError: 如果子类未实现该方法。
         """
-        raise NotImplementedError(f"{self.__class__.__name__} must implement __better_get__")
+        return self
 
     def __better_set__(self, instance, value, parent):
         """
@@ -165,3 +163,8 @@ class BetterDescriptorInstance:
         :raises NotImplementedError: 如果子类未实现该方法。
         """
         raise NotImplementedError(f"{self.__class__.__name__} must implement __better_del__")
+
+    def __better_init__(self, instance, owner, name):
+        """
+        初始化描述符(需子类实现)。
+        """

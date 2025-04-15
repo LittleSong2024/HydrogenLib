@@ -7,8 +7,8 @@ from .dict_func import *
 from .function import *
 from .index_offset import *
 from .list_func import *
-from .safe_eval import *
 from .number import *
+from .safe_eval import *
 from .tempalte_type import *
 from .type_func import *
 
@@ -51,21 +51,32 @@ def get_vaild_data(data: bytes) -> bytes:
     return b''
 
 
-def is_errortype(exception) -> bool:
+def is_error(exception) -> bool:
     return isinstance(exception, Exception)
 
 
-def get_attr_by_path(path, Globals=None, Locals=None):
+def get_attr_by_path(path, obj):
     """
     :param path: 引用路径
-    :param Globals: globals() 字典
-    :param Locals: locals() 字典
+    :param obj: 起始对象
 
     """
-    try:
-        return LiteralEval.literal_eval(path, Globals, Locals)
-    except (NameError, ValueError, SyntaxError, TypeError, Exception):
-        return None
+    path_ls = path.split(".")
+    cur = obj
+    for attr in path_ls:
+        cur = getattr(cur, attr)
+    return cur
+
+
+def set_attr_by_path(path, obj, value):
+    path_ls = path.split(".")
+    last_index = len(path_ls) - 1
+    cur = obj
+    for i, attr in enumerate(path_ls):
+        if i == last_index:
+            setattr(cur, attr, value)
+        else:
+            cur = getattr(cur, attr)
 
 
 def get_type_name(origin_data):

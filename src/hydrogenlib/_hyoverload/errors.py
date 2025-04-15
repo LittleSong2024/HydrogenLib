@@ -1,4 +1,6 @@
 import inspect
+import sys
+import traceback
 from inspect import Signature
 
 import rich
@@ -88,9 +90,10 @@ class OverloadRuntimeError(Exception):
         self.kwargs = call_kwargs
 
     def __str__(self):
-        return (f'\n\t以参数({OverloadError.to_call_format(self.args, self.kwargs)})'
-                f'调用`{self.qualname}`'
+        return (f'\n以参数 ({OverloadError.to_call_format(self.args, self.kwargs)}) '
+                f'调用 `{self.qualname}` '
                 f'的重载 "{self.called_overload}" '
                 f'时发生错误.'
-                f'\n\t详细信息 {self.e.__class__.__name__}: {self.e}'
+                '\n\n详细信息:\n\n' +
+                (''.join(traceback.format_exception(self.e)))
                 )

@@ -5,7 +5,7 @@ overload_temp = {}  # type: dict[str, dict[tuple[type, ...], 'OverloadFunctionCa
 overload_funcs = {}  # type: dict[str, 'OverloadFunctionCallable']
 
 
-def _register(function_callable):
+def _register_overload(function_callable):
     name = function_callable.qualname
     if name not in overload_funcs:
         overload_funcs[name] = function_callable
@@ -25,6 +25,7 @@ def _add_to_temp(qualname, types):
 def _check_temp(qualname, args):
     if qualname not in overload_temp:
         return False
+
     for types in overload_temp[qualname]:
         if len(types) != len(args):
             continue

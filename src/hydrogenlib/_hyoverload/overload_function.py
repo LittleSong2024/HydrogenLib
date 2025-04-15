@@ -1,37 +1,29 @@
 import inspect
 from fractions import Fraction
-from inspect import signature, Signature
+from inspect import Signature
 
-from .._hycore.type_func import get_qualname
-from .._hycore.type_func import Function
-from . import OverloadRuntimeError, OverloadError
+from .errors import OverloadRuntimeError, OverloadError
 from .namespace import _check_temp, get_func_overloads
 from .type_checker import _get_match_degree, count_possible_types
+from .._hycore.type_func import Function, get_type_name
 
 
-class OverloadFunction:
+class OverloadFunction(Function):
     def __init__(self, func):
-        self.func = Function(func)
-        self.params = dict(self.signature.parameters)
+        super().__init__(func)
+        self.params_dict = dict(self.signature.parameters)
         self.prec = get_prec(self.signature)
-        self.is_method = inspect.ismethod(func)  # TODO: 无法正确识别方法函数
 
     @property
-    def signature(self):
-        return self.func.signature
+    def callable(self):
+        return OverloadFunctionCallable(self.qualname)
 
-    @property
-    def qualname(self):
-        return self.func.qualname
-
-    def match(self, args, kwargs):
-        if self.is_method:
-            args = (None,) + args  # 针对方法函数，第一个参数为self, 进行参数绑定时应该加上
-        return _get_match_degree(self.signature, args, kwargs)
+    def match(self, args, kwargs, instance=False):
+        return _get_match_degree(self.signature, args, kwargs, instance)
 
     def call(self, args, kwargs):
         try:
-            return self.func(*args, **kwargs)
+            return super().__call__(*args, **kwargs)
         except Exception as e:
             raise OverloadRuntimeError(self.qualname, self.signature, e, args, kwargs)
 
@@ -45,7 +37,7 @@ class OverloadFunction:
         return self.prec > other.prec
 
     def __str__(self):
-        return f'Overload({self.signature}) with prec {self.prec}'
+        return f'{get_type_name(self)}{self.signature} with prec {self.prec}'
 
     __repr__ = __str__
 
@@ -60,15 +52,15 @@ class OverloadFunctionCallable:
     def __init__(self, qualname):
         self.qualname = qualname
 
-    def __call__(self, *args, **kwargs):
-        print("Args:", args, kwargs)
+    def call(self, args, kwargs, instance=False):
+        # print("Args:", args, kwargs)
         if _check_temp(self.qualname, args):
             return
 
         results = []
 
-        for func in get_func_overloads(self.qualname):
-            prec = func.match(args, kwargs)
+        for func in get_func_overloads(self):
+            prec = func.match(args, kwargs, instance)
             results.append((prec, func))
 
         prec, matched_func = max(results)
@@ -77,3 +69,10 @@ class OverloadFunctionCallable:
             raise OverloadError(self.qualname, tuple(results), args, kwargs)
 
         return matched_func.call(args, kwargs)
+
+    def __call__(self, *args, **kwargs):
+        return self.call(args, kwargs)
+
+    def __get__(self, instance, owner):
+        # print('GET')
+        return lambda *args, **kwargs: self.call((instance, )+args, kwargs, True)

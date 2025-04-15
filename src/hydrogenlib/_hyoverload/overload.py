@@ -1,6 +1,6 @@
 import sys
 
-from .namespace import _register, overloads
+from .namespace import _register_overload, overloads
 from .overload_function import OverloadFunction
 from .._hycore.data_structures import Heap
 
@@ -23,6 +23,6 @@ def overload(func):
     else:
         overloads[func.qualname] = Heap([func], True)
 
-    return _register(func.qualname)
+    return _register_overload(func).callable
 
 

@@ -51,20 +51,26 @@ def _match_type(arg, param_type):
         return 1 if isinstance(arg, param_type) else 0
 
 
-def _get_match_degree(signature: Signature, args, kwargs):
-    match_degrees = []
+def _get_match_degree(signature: Signature, args, kwargs, instance_method=False):
+    match_degrees = 0
     # print(args, kwargs)
     try:
         bound_args = signature.bind(*args, **kwargs)
     except TypeError as e:
-        print('Bind Error:', e, "signature:", signature)
+        # print('Bind Error:', e, "signature:", signature)
         return 0
 
-    for param_name, arg in bound_args.arguments.items():
+    for index, (param_name, arg) in enumerate(bound_args.arguments.items()):
+        if instance_method and index == 0:
+            continue
         param = signature.parameters[param_name]
-        match_degrees.append(_match_type(arg, param.annotation))
+        match_degrees += _match_type(arg, param.annotation)
 
-    return sum(match_degrees) / len(match_degrees) if match_degrees else 0  # 匹配程度
+    length = len(bound_args.arguments) - int(bool(instance_method))
+
+    # print("Match Degrees:", match_degrees, "Length:", length)
+
+    return match_degrees / length if match_degrees else 0  # 匹配程度
 
 
 def count_possible_types(type_hint):

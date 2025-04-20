@@ -16,3 +16,17 @@ class AbstractMarker(ABC):
         :param countainer:父容器
         :param kwargs: 外部传入的额外参数
         """
+
+
+def generate(marker_or_any, countainer, **kwargs):
+    if isinstance(marker_or_any, AbstractMarker):
+        return marker_or_any.generate(countainer, **kwargs)
+    else:
+        return marker_or_any
+
+
+def restore(marker_or_any, countainer, value, **kwargs):
+    if isinstance(marker_or_any, AbstractMarker):
+        return marker_or_any.restore(countainer, value, **kwargs)
+    else:
+        return marker_or_any

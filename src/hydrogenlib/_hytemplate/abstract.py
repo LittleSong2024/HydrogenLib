@@ -1,5 +1,7 @@
 from abc import ABC
 
+from .._hycore.utils import AutoSingleton
+
 
 class AbstractMarker(ABC):
     def generate(self, countainer, **kwargs):
@@ -16,6 +18,13 @@ class AbstractMarker(ABC):
         :param countainer:父容器
         :param kwargs: 外部传入的额外参数
         """
+
+
+class _CannotRestore(AutoSingleton):
+    ...
+
+
+CannotRestore = _CannotRestore()
 
 
 def generate(marker_or_any, countainer, **kwargs):

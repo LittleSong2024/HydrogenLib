@@ -10,7 +10,7 @@ class AbstractMarker(ABC):
         :return: Any
         """
 
-    def restore(self, countainer, **kwargs):
+    def restore(self, countainer, value, **kwargs):
         """
         把值还原成标记
         :param countainer:父容器

@@ -1,6 +1,5 @@
 from abc import ABC
 from copy import deepcopy
-from types import FunctionType
 
 
 class Auto(ABC):
@@ -172,3 +171,12 @@ class AutoInfo(AutoRepr, AutoStr):
     def __str__(self):
         self._str_attrs = self._info_attrs
         return super().__str__()
+
+
+class AutoSingleton(Auto):
+    _single_instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._single_instance is None:
+            cls._single_instance = super().__new__(cls, *args, **kwargs)
+        return cls._single_instance

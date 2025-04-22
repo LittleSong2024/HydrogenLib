@@ -20,13 +20,6 @@ class AbstractMarker(ABC):
         """
 
 
-class _CannotRestore(AutoSingleton):
-    ...
-
-
-CannotRestore = _CannotRestore()
-
-
 def generate(marker_or_any, countainer, **kwargs):
     if isinstance(marker_or_any, AbstractMarker):
         return marker_or_any.generate(countainer, **kwargs)

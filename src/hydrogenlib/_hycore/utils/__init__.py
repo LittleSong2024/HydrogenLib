@@ -3,6 +3,7 @@ from .basic import *
 from .clock import *
 from .dotpath import *
 from .double_dict import *
+from .getting_path import *
 from .instance_dict import *
 from .multi_set import *
 from .member_manager import *

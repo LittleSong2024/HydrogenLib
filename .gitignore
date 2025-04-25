@@ -5,7 +5,13 @@
 /.vscode/
 
 # Files in Dev
-/src/hydrolib/hycl/.old.source/
 /.temp/
+
+/src/hybitmap/
+
+/src/hydrogenlib/_hycl/
 /src/hydrogenlib/_hyshm/
-/src/hybitmap/pyd/
+/src/hydrogenlib/_hyhttpapi/
+/src/hydrogenlib/_hydownloader/
+/src/hydrogenlib/_hytest/
+/src/hydrogenlib/_hyargs/

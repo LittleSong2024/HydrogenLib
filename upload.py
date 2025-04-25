@@ -49,11 +49,21 @@ def init_parser(parser: argparse.ArgumentParser):
     )
 
 
+def pre_check():
+    code, ps = run_command(['pip', 'install', '-U', 'twine', 'hatch'])
+    if code != 0:
+        console.print("[bold red]Installing dependencies failed!")
+        console.print(ps.stderr.decode())
+        sys.exit(code)
+
+
 version_path = r"src/hydrolib/src\version"
+spinner = "aesthetic"
 args = sys.argv[1::]
 
 if __name__ == '__main__':
-    spinner = "aesthetic"
+    pre_check()
+
     parser = argparse.ArgumentParser()
     console = rich.console.Console(force_terminal=True)
     init_parser(parser)
@@ -103,7 +113,8 @@ if __name__ == '__main__':
             rt_code, ps = run_command(["twine", "check", "dist/*"])
         time.sleep(0.1)
         if rt_code != 0:
-            console.print("[bold red]Checkin wheel failed!")
+            console.print("[bold red]Checking wheel failed!")
+            console.print(ps.stdout)
             console.print(ps.stderr)
             sys.exit(rt_code)
         print("[bold green]success!")

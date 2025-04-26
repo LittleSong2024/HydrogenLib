@@ -41,12 +41,12 @@ jobs:
         env:
           TAG: ${{ github.ref_name }}
         run:
-          python scripts/upload-for-workflow.py
+          python ./scripts/upload-for-workflow.py
 
       - name: 构建和发布 Python 包(手动模式)
         if: github.event_name == 'workflow_dispatch'
         env:
           TAG: ${{ github.event.inputs.tag }}
         run:
-          python scripts/upload-for-workflow.py
+          python ./scripts/upload-for-workflow.py
 

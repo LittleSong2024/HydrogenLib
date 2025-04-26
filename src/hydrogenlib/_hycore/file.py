@@ -4,7 +4,7 @@ from .data_structures.stack import Stack
 from .path import *
 
 
-def read(file, mode='r'):
+def readfile(file, mode='r'):
     """
     从文件读取数据，允许自定义模式
     """
@@ -12,7 +12,7 @@ def read(file, mode='r'):
         return f.read()
 
 
-def write(data, file, mode='w'):
+def writefile(data, file, mode='w'):
     """
     向文件写入数据，允许自定义模式
     """
@@ -20,7 +20,7 @@ def write(data, file, mode='w'):
         f.write(data)
 
 
-def empty(file):
+def isfileempty(file):
     """
     判断文件内容是否为空
     """
@@ -28,14 +28,38 @@ def empty(file):
         d = f.read(1)
         if d == '':
             return True
+        return None
 
 
-def isspace(file):
+def isfilespace(file):
     """
-    判断文件内容是否为空白
+    判断文件内容是否完全为空白
     """
-    d = read(file)
+    d = readfile(file)
     return d.isspace()
+
+
+def copyfile(src, dst):
+    """
+    复制文件
+    """
+    with open(src, 'rb') as f:
+        data = f.read()
+    with open(dst, 'wb') as f:
+        f.write(data)
+
+
+def copyfile_stream(src, dst, chunk_size=1024):
+    """
+    流式复制文件
+    """
+    with open(src, 'rb') as src_f:
+        with open(dst, 'wb') as dst_f:
+            while True:
+                data = src_f.read(chunk_size)
+                if data == b'':
+                    break
+                dst_f.write(data)
 
 
 fileDataType = Union[str, bytes, bytearray]
@@ -133,18 +157,18 @@ class NeoIO:
             return self.fstat.st_gid
 
     def __init__(self):
-        self._fd_ls = Stack()
+        self._file_stack = Stack()
         self.create = False
 
-    def __push_fd(self, fd):
-        self._fd_ls.push(fd)
+    def __push_file(self, fd):
+        self._file_stack.push(fd)
 
     @property
-    def __fd_on_top(self):
+    def __topfile(self):
         """
         获取当前栈顶的文件
         """
-        return self._fd_ls.top
+        return self._file_stack.top
 
     @classmethod
     def from_fd(cls, fd):
@@ -174,7 +198,7 @@ class NeoIO:
         if not path_exists(file) and not create:
             mkfile(file)
 
-        self.__push_fd(
+        self.__push_file(
             open(file, mode, encoding=encoding, *args, **kwargs))
 
         return self
@@ -183,56 +207,56 @@ class NeoIO:
         """
         压入一个新的文件描述符
         """
-        self.__push_fd(fd)
+        self.__push_file(fd)
 
     @property
     def opened(self):
         """
         是否存在打开的文件
         """
-        return self.__fd_on_top.top is not None and not self.__fd_on_top.closed
+        return self._file_stack.size() and not self.__topfile.closed
 
     @property
     def can_write(self):
         """
         是否可写
         """
-        return self.__fd_on_top.writable()
+        return self.__topfile.writable()
 
     @property
     def can_read(self):
         """
         是否可读
         """
-        return self.__fd_on_top.readable()
+        return self.__topfile.readable()
 
     @property
     def can_seek(self):
         """
         是否可定位
         """
-        return self.__fd_on_top.seekable()
+        return self.__topfile.seekable()
 
     @property
     def is_bytes_io(self):
         """
         是否为BytesIO
         """
-        return isinstance(self.__fd_on_top, BytesIO)
+        return isinstance(self.__topfile, BytesIO)
 
     @property
     def pos(self):
         """
         当前位置
         """
-        return self.__fd_on_top.tell()
+        return self.__topfile.tell()
 
     @property
     def fileno(self):
         """
         文件描述符
         """
-        return self.__fd_on_top.fileno()
+        return self.__topfile.fileno()
 
     @property
     def osfstat(self):
@@ -263,7 +287,7 @@ class NeoIO:
         写入数据
         """
         if self.can_write:
-            self.__fd_on_top.write(data)
+            self.__topfile.write(data)
         else:
             raise IOError("文件无法写入")
 
@@ -271,14 +295,14 @@ class NeoIO:
         """
         定位文件
         """
-        self.__fd_on_top.seek(offset, whence)
+        self.__topfile.seek(offset, whence)
 
     def read(self, size=-1):
         """
         读取数据
         """
         if self.can_read:
-            return self.__fd_on_top.read(size)
+            return self.__topfile.read(size)
         else:
             raise IOError("文件无法读取")
 
@@ -287,7 +311,7 @@ class NeoIO:
         读取一行
         """
         if self.can_read:
-            return self.__fd_on_top.readline(size)
+            return self.__topfile.readline(size)
         else:
             raise IOError("文件无法读取")
 
@@ -296,7 +320,7 @@ class NeoIO:
         读取所有行
         """
         if self.can_read:
-            return self.__fd_on_top.readlines(hint)
+            return self.__topfile.readlines(hint)
         else:
             raise IOError("文件无法读取")
 
@@ -304,21 +328,21 @@ class NeoIO:
         """
         清除文件内容
         """
-        self.__fd_on_top.truncate(0)
+        self.__topfile.truncate(0)
 
     def flush(self):
         """
         刷新文件
         """
-        self.__fd_on_top.flush()
+        self.__topfile.flush()
 
     def close(self):
         """
         关闭位于栈顶的文件
         """
-        if self.__fd_on_top:
-            self.__fd_on_top.close()
-            self._fd_ls.pop()
+        if self.__topfile:
+            self.__topfile.close()
+            self._file_stack.pop()
         else:
             raise IOError('未打开任何文件')
 
@@ -326,8 +350,8 @@ class NeoIO:
         """
         关闭所有文件
         """
-        while self._fd_ls:
-            self._fd_ls.pop().close()
+        while self._file_stack:
+            self._file_stack.pop().close()
 
     def __enter__(self):
         return self

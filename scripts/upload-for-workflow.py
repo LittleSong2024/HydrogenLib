@@ -45,7 +45,7 @@ class TagChecker:
 
 
 class Main:
-    def __init__(self)
+    def __init__(self):
         self.checker = TagChecker()
         self.version = None
         self.tag = None
@@ -93,7 +93,7 @@ class Main:
         self.load_version()
         self.show_info()
 
-        self.check_tag()
+        self.check_tag(os.environ.get('TAG'))
         self.build()
         self.upload()
 

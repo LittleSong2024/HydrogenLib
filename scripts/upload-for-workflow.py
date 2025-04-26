@@ -4,32 +4,12 @@ import re
 import sys
 
 from subprocess import run as _run, PIPE
-from argparse import ArgumentParser
 
 
 def run(*args, **kwargs):
     if kwargs.get('check') is None:
         kwargs['check'] = True
     return _run(*args, **kwargs)
-
-
-class MyParser(ArgumentParser):
-    def __init__(self):
-        super().__init__()
-        self.add_argument(
-            '--tag', '-t',
-            type=str,
-            help='tag name',
-            required=True
-        )
-
-    def get_tag_name(self, args=None):
-        if args is None:
-            args = sys.argv[1:]
-
-        nsp = self.parse_args(args)
-        tag = nsp.tag.removeprefix('refs/tags/')
-        return tag
 
 
 class TagChecker:
@@ -65,8 +45,7 @@ class TagChecker:
 
 
 class Main:
-    def __init__(self):
-        self.parser = MyParser()
+    def __init__(self)
         self.checker = TagChecker()
         self.version = None
         self.tag = None
@@ -77,8 +56,7 @@ class Main:
         print("Version:", repr(version))
         self.version = version
 
-    def check_tag(self):
-        self.tag = tag = self.parser.get_tag_name()
+    def check_tag(self, tag):
         if tag:
             # 解析标签
             curv = self.checker.match(tag)
@@ -93,9 +71,9 @@ class Main:
                 print('不更新版本号')
             else:
                 print('更新版本号:', curv)
-                self.update_version(curv)
+                self.set_version(curv)
 
-    def update_version(self, ver):
+    def set_version(self, ver):
         run(['hatch', 'version', ver])
 
     def upload(self):
@@ -104,16 +82,16 @@ class Main:
     def build(self):
         run(['hatch', 'build'])
 
-    def exec(self):
-
-        self.load_version()
-
+    def show_info(self):
         print(f'Upload script runs on {platform.platform()}')
         print(f'PID: {os.getpid()}')
         print(f'Args: {sys.argv}')
-        print(f'Env: {os.environ}')
-        print(f'Activity tag: {self.parser.get_tag_name()}')
-        print(f'Get-Version: {self.version}')
+        print(f'Activity tag: {self.tag}')
+        print(f'Get-Library-Version: {self.version}')
+
+    def exec(self):
+        self.load_version()
+        self.show_info()
 
         self.check_tag()
         self.build()

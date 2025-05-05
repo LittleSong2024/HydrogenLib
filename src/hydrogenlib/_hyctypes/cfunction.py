@@ -22,7 +22,7 @@ C_FunctionFlag = CFunctionflag()
 
 
 @dataclass
-class CFunctionPrototype:
+class CPrototype:
     name_or_ordinal: Union[str, int]
     argtypes: Optional[list[type]]
     restype: Optional[type]
@@ -71,7 +71,7 @@ class CFunction:
     def __init__(self, func, dll=None):
         self._func = Function(func)
         self._callable = None
-        self._prototype = CFunctionPrototype.from_function(self._func)
+        self._prototype = CPrototype.from_function(self._func)
 
         self._dll = dll
 

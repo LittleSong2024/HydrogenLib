@@ -1,14 +1,13 @@
 import ctypes
-import platform
 from dataclasses import dataclass
 
-from .cfunction import CFunctionPrototype
+from .cfunction import CPrototype
 from .const import CallStandard as CS
 
 
 @dataclass
 class Dll_Function:
-    prototype: CFunctionPrototype
+    prototype: CPrototype
     name_or_ordinal: str
     parent: 'HyDll'
 

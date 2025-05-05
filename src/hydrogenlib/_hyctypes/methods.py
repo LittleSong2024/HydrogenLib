@@ -1,8 +1,11 @@
 import ctypes as _ctypes
+from types import FunctionType
+from .._hycore import type_func as _typefunc
+from .type_mapping import TypeMapping, DefaultMapping, type_map
+import typing
 
 
 def copy_new(source):
-
     if not isinstance(source, (_ctypes.Union, _ctypes.Structure)):
         raise TypeError("source must be a ctypes Union or Structure")
 

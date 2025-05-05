@@ -7,6 +7,7 @@ def get_annotation(cls, name):
     bases = cls.__bases__
     for base in bases:
         return get_annotation(base, name)
+    return None
 
 
 def _c__str__(self):
@@ -73,10 +74,3 @@ class HyStructure(ctypes.Structure):
                 '__getattr__': _c__getattr__,
             }
         )
-        # cls._type_ = cls.__structure__._type_
-
-    def __new__(cls, **kwargs):
-        self = cls.c_struct()
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-        return self

@@ -1,73 +1,51 @@
 import ctypes
 import platform
-from types import FunctionType
+from dataclasses import dataclass
 
-from .cfunction import *
-from .._hyoverload import overload
-from . import quick_define as _qdefine, all_types
+from .cfunction import CFunctionPrototype
+from .const import CallStandard as CS
 
-STDCALL = 0
-CDECL = 1
+
+@dataclass
+class _C_HyDll_Function:
+    prototype: CFunctionPrototype
+    name_or_ordinal: str
+    parent: 'HyDll'
+
+    functype = None
+    functype_callable = None
+    functype_paramflags = None
+    call_standard = CS.AUTO
+
+    def __call__(self, *args, **kwargs):
+        if self.functype_callable is None:  # 懒加载
+            self.functype = self.prototype.generate_cfunctype()
+            self.functype_paramflags = self.prototype.generate_paramflags()
+            self.functype_callable = self.functype((self.name_or_ordinal, self.parent.dll), self.functype_paramflags)
+
+        return self.functype_callable(*args, **kwargs)
 
 
 class HyDll:
     def __init__(self, name, call_type=None):
         if call_type is None:
-            if platform.system() == 'Windows':
-                call_type = STDCALL
-            elif platform.system() in {'Linux', 'Darwin'}:
-                call_type = CDECL
+            if platform.system() == "Windows":
+                call_type = CS.STDCALL
+            else:
+                call_type = CS.CDECL
 
-        if call_type == STDCALL:
-            self.dll = ctypes.windll.LoadLibrary(name)
-        elif call_type == CDECL:
-            self.dll = ctypes.cdll.LoadLibrary(name)
+        if call_type == CS.STDCALL:
+            self.dll = ctypes.WinDLL(name)
+        elif call_type == CS.CDECL:
+            self.dll = ctypes.CDLL(name)
         else:
-            raise ValueError('call_type must be STDCALL or C')
+            raise ValueError("Invalid call type")
 
-        self.cfunctions = {}
-        self.bind_functions = {}
+        self._c_functions = {}
 
-    def _add_bind_function(self, func: CFunction):
-        if func.qualname not in self.bind_functions:
-            self.bind_functions[func.qualname] = [func]
-        else:
-            self.bind_functions[func.qualname].append(func)
-        return func
+    def __add_function(self, name, prototype):
+        self._c_functions[name] = _C_HyDll_Function(prototype, name, self)
 
-    def __define(self, func, name=None):
-        func = CFunction(func)
-        name = name or func.name
-        if name in self.cfunctions:
-            func = self.cfunctions[name]
-
-        return self._add_bind_function(func.generate_c_signature(getattr(self.dll, name)))
-
-    @overload
-    def define(self, func: FunctionType):
-        return self.__define(func)
-
-    @overload
-    def define(self, name: str):
-        def wrapper(func):
-            return self.__define(func, name)
-
-        return wrapper
-
-    def quick_define(self, string, globals=None, locals=None):
-        if globals is None:
-            globals = vars(all_types)
-        func = _qdefine.Function.from_string(string, globals, locals)
-        cfunc = CFunction(None, self.dll, func.generate_c_signature(
-            getattr(self.dll, func.name)
-        ))
-        return self._add_bind_function(cfunc)
-
-    def __call__(self, func):
-        return self.define(func)
-
-    def __getattr__(self, item):
-        if item in self.cfunctions:
-            return self.cfunctions[item]
-        else:
-            return self.dll.__getattr__(item)
+    def register(self, prototype, name_or_ordinal=None):
+        name_or_ordinal = name_or_ordinal or prototype.name_or_ordinal
+        self.__add_function(name_or_ordinal, prototype)

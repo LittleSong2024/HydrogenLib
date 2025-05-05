@@ -13,12 +13,12 @@ Use:
 from ctypes import *
 from ctypes import util
 
-from .dll import HyDll, CDECL, STDCALL
-from .universality import HyStructure
-
-
+from .dll import HyDll
+from .structure import HyStructure
+from .const import CallStandard
 from .methods import *
+from .cfunction import *
 
-from . import all_types as types_namespace
+from . import c_types as types_namespace
 
-from .all_types import *
+from .c_types import *

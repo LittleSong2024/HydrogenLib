@@ -27,16 +27,11 @@ class _C_HyDll_Function:
 
 
 class HyDll:
-    def __init__(self, name, call_type=None):
-        if call_type is None:
-            if platform.system() == "Windows":
-                call_type = CS.STDCALL
-            else:
-                call_type = CS.CDECL
-
-        if call_type == CS.STDCALL:
+    def __init__(self, name, call_standard = CS.AUTO):
+        self.call_standard = call_standard
+        if call_standard == CS.STDCALL:
             self.dll = ctypes.WinDLL(name)
-        elif call_type == CS.CDECL:
+        elif call_standard == CS.CDECL:
             self.dll = ctypes.CDLL(name)
         else:
             raise ValueError("Invalid call type")

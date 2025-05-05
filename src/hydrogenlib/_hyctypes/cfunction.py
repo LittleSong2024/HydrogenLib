@@ -1,7 +1,7 @@
 import ctypes
 from dataclasses import dataclass
 from inspect import Signature
-from typing import Optional
+from typing import Optional, Union
 
 from .const import CallStandard as CS
 from .type_mapping import DefaultMapping
@@ -23,7 +23,7 @@ C_FunctionFlag = CFunctionflag()
 
 @dataclass
 class CFunctionPrototype:
-    name: str
+    name_or_ordinal: Union[str, int]
     argtypes: Optional[list[type]]
     restype: Optional[type]
     signature: Signature
@@ -62,14 +62,30 @@ class CFunctionPrototype:
             if param.default is param.empty:
                 flags.append(C_FunctionFlag(0, param.name))
             else:
-                flags.append(C_FunctionFlag(C_FunctionFlag.OPTIONAL, param.name, param.default))
-        return flags
+                # flags.append(C_FunctionFlag(C_FunctionFlag.OPTIONAL, param.name, param.default))
+                flags.append(C_FunctionFlag(1, param.name, param.default))  # 为什么设置为4会报错???
+        return tuple(flags)
 
 
 class CFunction:
-    def __init__(self, func):
+    def __init__(self, func, dll=None):
         self._func = Function(func)
-        self._c_prototype = CFunctionPrototype.from_function(self._func)
+        self._callable = None
+        self._prototype = CFunctionPrototype.from_function(self._func)
+
+        self._dll = dll
+
+        if self._dll is not None:
+            self._dll = dll
+            self._prototype.call_standard = dll.call_standard
+            self.connect(dll)  # 连接dll
+
+    @classmethod
+    def define(cls, dll):
+        def wrapper(func):
+            return cls(func, dll)
+
+        return wrapper
 
     @property
     def func(self):
@@ -79,4 +95,7 @@ class CFunction:
         """
         将函数原型与dll连接
         """
-        dll.register(self._c_prototype)
+        self._callable = dll.register(self._prototype)
+
+    def __call__(self, *args, **kwargs):
+        return self._callable(*args, **kwargs)

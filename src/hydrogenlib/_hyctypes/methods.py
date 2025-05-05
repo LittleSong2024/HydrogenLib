@@ -1,8 +1,4 @@
 import ctypes as _ctypes
-from types import FunctionType
-from .._hycore import type_func as _typefunc
-from .type_mapping import TypeMapping, DefaultMapping, type_map
-import typing
 
 
 def copy_new(source):

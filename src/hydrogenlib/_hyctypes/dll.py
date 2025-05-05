@@ -7,7 +7,7 @@ from .const import CallStandard as CS
 
 
 @dataclass
-class _C_HyDll_Function:
+class Dll_Function:
     prototype: CFunctionPrototype
     name_or_ordinal: str
     parent: 'HyDll'
@@ -21,6 +21,7 @@ class _C_HyDll_Function:
         if self.functype_callable is None:  # 懒加载
             self.functype = self.prototype.generate_cfunctype()
             self.functype_paramflags = self.prototype.generate_paramflags()
+            # print(self.functype_paramflags)
             self.functype_callable = self.functype((self.name_or_ordinal, self.parent.dll), self.functype_paramflags)
 
         return self.functype_callable(*args, **kwargs)
@@ -39,8 +40,16 @@ class HyDll:
         self._c_functions = {}
 
     def __add_function(self, name, prototype):
-        self._c_functions[name] = _C_HyDll_Function(prototype, name, self)
+        func = Dll_Function(prototype, name, self)
+        self._c_functions[name] = func
+        return func
 
     def register(self, prototype, name_or_ordinal=None):
         name_or_ordinal = name_or_ordinal or prototype.name_or_ordinal
-        self.__add_function(name_or_ordinal, prototype)
+        return self.__add_function(name_or_ordinal, prototype)
+
+    def __getattr__(self, item):
+        if item in self._c_functions:
+            return self._c_functions[item]
+        else:
+            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{item}'")

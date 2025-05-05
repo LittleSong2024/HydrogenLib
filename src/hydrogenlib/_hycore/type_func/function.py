@@ -51,13 +51,17 @@ def get_signature(func):
 
 
 class Function:
-    def __init__(self, func):
-        if isinstance(func, self.__class__):
-            self._func = func._func
-        else:
-            self._func = func
+    _signature = None
+    __slots__ = ['_func']
 
-        self._signature = None
+    def __new__(cls, func):
+        if isinstance(func, cls):
+            return func
+
+        self = super().__new__()
+        self._func = func
+
+        return self
 
     @property
     def name(self):

@@ -51,7 +51,8 @@ class InstanceDict(UserDict):
 
         value = self._get(k)
 
-        self.get_event(GetEvent(value.key, value.value))
+        event = GetEvent(value.key, value.value)
+        self.get_event(event)
 
         return value.value  # 找到项, 返回字典值
 

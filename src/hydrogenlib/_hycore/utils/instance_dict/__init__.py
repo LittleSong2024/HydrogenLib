@@ -54,7 +54,7 @@ class InstanceDict(UserDict):
         event = GetEvent(value.key, value.value)
         self.get_event(event)
 
-        return value.value  # 找到项, 返回字典值
+        return event.result  # 找到项, 返回字典值
 
     def set(self, k, v, id=False):
         if not id:

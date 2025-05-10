@@ -43,6 +43,12 @@ class InstanceDict(UserDict):
         super().__delitem__(key)
 
     def get(self, k, id=False, default=None) -> Any:
+        """
+        从 实例字典 中获取值
+        :param k: 键
+        :param id: 传入的 k 参数是否是一个 id 值
+        :param default: 返回的默认值
+        """
         if not id:  # 如果 k 不作为 id 传入
             k = self.to_key(k)  # 转换为 id
 
@@ -57,6 +63,12 @@ class InstanceDict(UserDict):
         return event.result  # 找到项, 返回字典值
 
     def set(self, k, v, id=False):
+        """
+        设置 实例字典 的值
+        :param k: 键
+        :param v: 值
+        :param id: 传入的是否是一个 id 值
+        """
         if not id:
             k = self.to_key(k)
 
@@ -66,12 +78,23 @@ class InstanceDict(UserDict):
         self._set(self.to_key(k), v)
 
     def delete(self, key, id=False):
+        """
+        删除一个 实例字典 项
+        :param key: 键
+        :param id: 传入的键是否是一个 id 值
+        """
         if not id:
             key = self.to_key(key)
 
         self._delete(key)
 
     def pop(self, key, id=False):
+        """
+        弹出一个 实例字典 项
+        :param key: 键
+        :param id: 传入的键是否是一个 id 值
+        :return: Any
+        """
         if not id:
             key_id = self.to_key(key)
 

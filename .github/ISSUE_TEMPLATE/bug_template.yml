@@ -1,5 +1,4 @@
 name: Bug 报告
-about: 用于报告软件中的问题
 labels:
   - bug
 
@@ -94,7 +93,7 @@ body:
         - 3.12
         - 3.13
 
-      default: 3.12
+      default: 5
 
   - type: markdown
     attributes:

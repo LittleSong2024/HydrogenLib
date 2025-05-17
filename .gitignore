@@ -11,7 +11,8 @@
 
 /src/hydrogenlib/_hycl/
 /src/hydrogenlib/_hyshm/
-/src/hydrogenlib/_hyhttpapi/
+/src/hydrogenlib/_hyquickapi/
 /src/hydrogenlib/_hydownloader/
 /src/hydrogenlib/_hytest/
 /src/hydrogenlib/_hyargs/
+/src/hydrogenlib/_hyfs/

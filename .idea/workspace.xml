@@ -4,19 +4,439 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/patterns.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/token.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_block_parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_syntax_parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/_types.py" afterDir="false" />
+    <list default="true" id="7959c70c-b6f9-4097-9ac2-36ee9a2c2f43" name="更改" comment="fix(issue_template): 错误的about键和default值">
+      <change afterPath="$PROJECT_DIR$/src/hyargs/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyargs/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyargs/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyargs/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyargs/src/_hyargs/args_processer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyargs/src/hyargs/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/src/_hyauth/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyauth/src/hyauth/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguage.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguage.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguageLexer.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguageLexer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguageLexer.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguageListener.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/hyconfiglanguageParser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_grammar/hyconfiglanguage.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycl/src/hycl/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyconfig/src/hyconfig/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hycore/src/hycore/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/src/_hyctypes_extra/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/src/_hyctypes_extra/prototype_persistence/serializer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes-extra/src/hyctypes_extra/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/function.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/functype.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/paramflags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/prototype.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyctypes/src/hyctypes/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydemo/src/hydemo/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hydownloader/src/hydownloader/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyencrypt/src/hyencrypt/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/src/_hyfs/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/src/_hyfs/abstract.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyfs/src/hyfs/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/methods/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hylog/src/hylog/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/socket_structure/serialized_socket/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hynet-structure/src/hynet_structure/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/args_temp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/overload.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/overload_machine.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/type_checker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyoverload/src/hyoverload/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/namedpipe/mac.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypipe/src/hypipe/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/src/_hypy/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hypy/src/hypy/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/api_abc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/backend.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/cases.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/countainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/defines.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/function.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/requester.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/_hyquickapi/client/template.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyquickapi/src/hyquickapi/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/src/_hyre/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/src/_hyre/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyre/src/hyre/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/src/_hyshm/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/src/_hyshm/hyshm/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/src/_hyshm/hyshm/windows/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hyshm/src/hyshm/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/hysocket.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/protrol_abc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/protrol_const.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/protrols/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hysocket/src/hysocket/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/binstruct.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/errors.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/serializer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/serializer_methods.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/struct_abc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/type_mapping.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hystruct/src/hystruct/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/src/_hytemplate/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/src/_hytemplate/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytemplate/src/hytemplate/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/src/_hytest/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/src/_hytest/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hytest/src/hytest/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/src/_hythreading/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/src/_hythreading/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/src/_hythreading/thread.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hythreading/src/hythreading/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/License.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/License_CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/src/_hywinreg/__about__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/src/_hywinreg/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hywinreg/src/hywinreg/__about__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/bug_template.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/bug_template.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/HydrogenLib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/HydrogenLib.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/__about__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/__about__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Lexer/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hydrolib/type_func/Dict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydrolib/type_func/Dict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scan_requirements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hybitmap/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hybitmap/pyd/bitmap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hybitmap/quick-build.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hybitmap/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/__about__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyauth/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyargs/src/_hyargs/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyauth/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyauth/src/_hyauth/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyargs/src/_hyargs/argsparser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/_base_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/_base_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/_lex.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/_lex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/_lex_funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/_lex_funcs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/antlr4_class/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyauth/src/_hyauth/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13-/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.11.13-/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13/_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.11.13/_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13/parser.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.11.13/parser.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13/parsetab.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.11.13/parsetab.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Interpreter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Interpreter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Lexer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Lexer/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Lexer/patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Lexer/patterns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Lexer/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Lexer/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Lexer/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Lexer/token.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Parser/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Parser/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Parser/_block_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Parser/_block_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Parser/_syntax_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Parser/_syntax_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/Parser/_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/Parser/_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/Interpreter/_funs.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/_funs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycl/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/.old.source/2024.10-/antlr4_class/antlr4_grammar/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/abc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/abc/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/abc/backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/abc/backend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/abc/types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/abc/types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/backend/binstruct/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/backend/binstruct/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/backend/json/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/backend/json/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/config/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/config/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/config/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/config/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/config/container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/config/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/config/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyconfig/config/types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyconfig/src/_hyconfig/config/types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/async_socket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/async_socket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/atexit.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/atexit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/better_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/better_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/codedoc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/Interpreter/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/codedoc/code_struct.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/codedoc/code_struct.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/coro_plus.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/coro_plus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/Bitmap/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/b_plus_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/b_plus_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/heap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/heap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/huffman_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/huffman_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/stack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/vis_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/vis_structure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/data_structures/wrappers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/data_structures/wrappers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/env_plus.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/env_plus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/file.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/hash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/hytime.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/hytime.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/import_plus.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/import_plus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/io_addons.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/io_addons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/json/Json.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/json/Json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/json/Pickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/json/Pickle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/json/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/json/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/json_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/json_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/neostruct.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/neostruct.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/output_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/output_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/path.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/sys_plus.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/sys_plus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/threading_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/threading_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/binary_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/binary_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/bitmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/bitmap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/dict_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/dict_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/function.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/index_offset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/index_offset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/list_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/list_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/number.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/number.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/safe_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/safe_eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/tempalte_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/tempalte_type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/type_func/type_func.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/type_func/type_func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/auto.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/auto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/basic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/clock.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/clock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/dotpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/dotpath.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/double_dict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/double_dict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/getting_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/getting_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/instance_dict/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/instance_dict/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/instance_dict/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/instance_dict/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/member_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/member_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/multi_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/multi_set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/namespace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/namespace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/network_packages.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/network_packages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/once_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/once_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/permission_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/permission_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/probability_counter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/probability_counter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/timed_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/timed_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hycore/utils/triggers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/utils/triggers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/c_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/c_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/cfunction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/const.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/ctypes.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/ctypes.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/dll.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/dll.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/structure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyctypes/type_mapping.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/type_mapping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/example.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/sample_data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/sample_data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/scripts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycl/src/_hycl/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/scripts/enter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/scripts/enter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/scripts/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hycore/src/_hycore/codedoc/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/scripts/utils/build-bitmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/scripts/utils/build-bitmap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydemo/scripts/utils/rename-x.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/scripts/utils/rename-x.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes-extra/src/_hyctypes_extra/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/dynamic_model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/dynamic_model/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/dynamic_model/model_abc.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/dynamic_model/model_abc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/dynamic_model/models/static_download_model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes-extra/src/_hyctypes_extra/prototype_persistence/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/dynamic_model/models/static_download_model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/dynamic_model/models/static_download_model/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hydownloader/dynamic_model/models/static_download_model/requirements.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/dynamic_model/models/static_download_model/requirements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encryio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encryio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encrypt/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encrypt/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encrypt/aes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encrypt/aes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encrypt/both.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encrypt/both.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encrypt/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encrypt/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyencrypt/encrypt/rsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyencrypt/src/_hyencrypt/encrypt/rsa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/C/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyctypes/src/_hyctypes/cfunctype.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/abstracts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/abstracts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/formatter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/formatter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/base/logger_register.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/logger_register.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/feature/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/scripts/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/feature/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/feature/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/methods/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydemo/src/_hydemo/scripts/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/methods/filter_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/methods/filter_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hylog/components/methods/handler_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/methods/handler_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/socket_structure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/socket_structure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/socket_structure/_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/socket_structure/_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/socket_structure/serialized_socket/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/socket_structure/serialized_socket/_serialized_socket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/socket_structure/serialized_socket/_serialized_socket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hynet_structure/socket_structure/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hynet-structure/src/_hynet_structure/socket_structure/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/errors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/namespace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/namespace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/overload.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/overload_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyoverload/src/_hyoverload/overload_function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyoverload/type_checker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/namedpipe/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/namedpipe/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/namedpipe/_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/namedpipe/_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/namedpipe/linux.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/namedpipe/linux.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/namedpipe/mac.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/feature/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/namedpipe/windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/namedpipe/windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypipe/ospipe.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypipe/src/_hypipe/ospipe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypy/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypy/src/_hypy/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hypy/ses/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hypy/src/_hypy/ses/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyre/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyfs/src/_hyfs/namespace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyre/re_plus/REConcatenater.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyre/src/_hyre/re_plus/REConcatenater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyre/re_plus/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyre/src/_hyre/re_plus/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyre/re_plus/_reconcatenater_abc.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyre/src/_hyre/re_plus/_reconcatenater_abc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyshm/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyshm/src/_hyshm/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyshm/hyshm/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hydownloader/src/_hydownloader/dynamic_model/models/static_download_model/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyshm/hyshm/windows/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyshm/src/_hyshm/hyshm/windows/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hyshm/hyshm/windows/winapi/winapi.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hysocket/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hysocket/protrols/builtins.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hysocket/src/_hysocket/protrols/builtins.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_BinStruct/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_BinStruct/_binstruct.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_BinStruct/methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_binstruct/methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_BinStruct/struct_abc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_Combination.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_combination.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_Json.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_JsonPickle.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_jsonpickle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/S_Wrapping.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_wrapping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/_serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/_serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/Serializers/abc.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hystruct/src/_hystruct/serializers/abc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hystruct/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hytemplate/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyfs/src/_hyfs/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hytemplate/abstract.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hytemplate/src/_hytemplate/abstract.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hytemplate/markers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hytemplate/src/_hytemplate/markers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hytemplate/template.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hytemplate/src/_hytemplate/template.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hytest/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hywinreg/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hylog/src/_hylog/components/base/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/_hywinreg/hywinreg.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hywinreg/src/_hywinreg/hywinreg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyauth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyconfig.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hycore.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyctypes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hydatabase.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hydemo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyencrypt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hynet_structure.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyoverload.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hyre.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hystruct.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hytemplate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrogenlib/hywinreg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hydrolib/data_structures/Bitmap/_bitmap/bitmap_c.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/image/HydroLib-LOGO-SVG.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/image/LOGO-PNG.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_configs/Class.Namespace.Namespace.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_funcs.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,65 +477,73 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2lvPz7CY1DbQCHIDnlcxzoiVobL" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Abc.executor": "Run",
-    "Python.ConstStruct.executor": "Run",
-    "Python.Json.executor": "Run",
-    "Python.LiteralEval.executor": "Run",
-    "Python.Parser.executor": "Run",
-    "Python.PermissionManager.executor": "Run",
-    "Python.REConcatenater.executor": "Run",
-    "Python.S_BinStruct.executor": "Run",
-    "Python.SocketPlus.executor": "Run",
-    "Python.Start Test.executor": "Run",
-    "Python.Struct.executor": "Run",
-    "Python.TaskManager.executor": "Run",
-    "Python.UnitConversion.executor": "Run",
-    "Python.Upload HydrogenLib.executor": "Run",
-    "Python._Base.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python._error_hook.executor": "Run",
-    "Python._expression_parser.executor": "Run",
-    "Python._literal_eval.executor": "Run",
-    "Python._parser.executor": "Run",
-    "Python.get-req.executor": "Run",
-    "Python.scratch.executor": "Run",
-    "Python.scratch_1.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.test_10.executor": "Run",
-    "Python.test_2.executor": "Run",
-    "Python.test_3 (1).executor": "Run",
-    "Python.test_3.executor": "Run",
-    "Python.test_4.executor": "Run",
-    "Python.test_5.executor": "Run",
-    "Python.test_6.executor": "Run",
-    "Python.test_7.executor": "Run",
-    "Python.test_8 (1).executor": "Run",
-    "Python.test_8.executor": "Run",
-    "Python.test_9.executor": "Run",
-    "Python.upload.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/@PythonProjects/HydrogenLib/src/hydrolib/hyconfig/Interpreter/Parser/_types.py",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Abc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ConstStruct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Json.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LiteralEval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Parser.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PermissionManager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.REConcatenater.executor&quot;: &quot;Run&quot;,
+    &quot;Python.S_BinStruct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SocketPlus.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Start Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Struct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TaskManager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.UnitConversion.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Upload HydrogenLib.executor&quot;: &quot;Run&quot;,
+    &quot;Python._Base.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python._error_hook.executor&quot;: &quot;Run&quot;,
+    &quot;Python._expression_parser.executor&quot;: &quot;Run&quot;,
+    &quot;Python._literal_eval.executor&quot;: &quot;Run&quot;,
+    &quot;Python._parser.executor&quot;: &quot;Run&quot;,
+    &quot;Python.const.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extra.asynchttp.compare.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extra.dataclass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.get-req.executor&quot;: &quot;Run&quot;,
+    &quot;Python.install.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lib.hyctypes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lib.hystruct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lib.hytemplate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.refact.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_10.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_3 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_5.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_6.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_7.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_8 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_8.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_9.executor&quot;: &quot;Run&quot;,
+    &quot;Python.upload.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/@PythonProjects/HydrogenLib/src/hydrolib/hyconfig/Interpreter/Parser/_types.py&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
-      "Python"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件&quot;: [
+      &quot;Python&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\@PythonProjects\HydrogenLib\src\hydrolib\hydownloader" />
@@ -125,36 +553,14 @@
       <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib\Resources\upload.py" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\@PythonProjects\HydrogenLib\src\hynet-structure" />
+      <recent name="E:\@PythonProjects\HydrogenLib\src\hyctypes-extra" />
+      <recent name="E:\@PythonProjects\HydrogenLib\src\hydrogenlib\_hyctypes\C" />
+      <recent name="E:\@PythonProjects\HydrogenLib\scripts" />
       <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib\HyConfigLanguage" />
-      <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib\HyConfigLanguage\.old.source\2024.11.13" />
-      <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib\HyConfigLanguage\.old.source\2024.10-" />
-      <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib\HyStruct\Serializers" />
-      <recent name="E:\PythonProjects\HydrogenLib\src\HydrogenLib" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_2">
-    <configuration name="Parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hydrolib/hyconfig/Interpreter/Parser.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.refact">
     <configuration name="Start Test" type="PythonConfigurationType" factoryName="Python">
       <module name="hydrogenlib" />
       <option name="ENV_FILES" value="" />
@@ -201,8 +607,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scratch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
+    <configuration name="const" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HydrogenLib" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -210,12 +616,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="E:\ProgramData\anaconda3" />
-      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hydrogenlib/_hyctypes" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="E:\@PythonProjects\HydrogenLib\src\hydrogenlib\_hyctypes\C\const.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="extra.asynchttp.compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HydrogenLib" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.temp/__tests__" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/__tests__/extra.asynchttp.compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -224,8 +651,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
+    <configuration name="extra.dataclass" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HydrogenLib" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.temp" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/extra.dataclass.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lib.hyctypes" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HydrogenLib" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -237,7 +686,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/test_10.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/lib.hyctypes.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -246,8 +695,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
+    <configuration name="refact" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HydrogenLib" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -255,33 +704,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.temp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/test_2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_3 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hydrogenlib" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.temp" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/.temp/test_3.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/refact.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -293,26 +720,26 @@
     <list>
       <item itemvalue="Python.Start Test" />
       <item itemvalue="Python.Upload HydrogenLib" />
-      <item itemvalue="Python.Parser" />
-      <item itemvalue="Python.test_10" />
-      <item itemvalue="Python.test_2" />
-      <item itemvalue="Python.test_3 (1)" />
-      <item itemvalue="Python.scratch" />
+      <item itemvalue="Python.refact" />
+      <item itemvalue="Python.const" />
+      <item itemvalue="Python.extra.dataclass" />
+      <item itemvalue="Python.lib.hyctypes" />
+      <item itemvalue="Python.extra.asynchttp.compare" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_2" />
-        <item itemvalue="Python.test_10" />
-        <item itemvalue="Python.Parser" />
-        <item itemvalue="Python.scratch" />
-        <item itemvalue="Python.test_3 (1)" />
+        <item itemvalue="Python.refact" />
+        <item itemvalue="Python.lib.hyctypes" />
+        <item itemvalue="Python.extra.dataclass" />
+        <item itemvalue="Python.const" />
+        <item itemvalue="Python.extra.asynchttp.compare" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-495700d161d3-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.220" />
+        <option value="bundled-python-sdk-890ed5b35930-d9c5bdb153f4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.23774.444" />
       </set>
     </attachedChunks>
   </component>
@@ -324,270 +751,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726057836699</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Sept. 19 2024 02">
-      <option name="closed" value="true" />
-      <created>1726746840850</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1726746840850</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Sept. 19 2024 02">
-      <option name="closed" value="true" />
-      <created>1726746861577</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1726746861577</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Sept. 19 2024 02">
-      <option name="closed" value="true" />
-      <created>1726748412590</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1726748412590</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Sept. 20 2024 01">
-      <option name="closed" value="true" />
-      <created>1726834127782</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1726834127782</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Sept. 20 2024 02&#10;完善自动上传脚本">
-      <option name="closed" value="true" />
-      <created>1726836644900</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1726836644900</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Sept. 20 2024 03&#10;这个东西居然忘记加gitignore了">
-      <option name="closed" value="true" />
-      <created>1726836681722</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1726836681722</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Sept. 21 2024 01&#10;完善upload.py, 测试upload.py">
-      <option name="closed" value="true" />
-      <created>1726916151692</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1726916151692</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Sept. 23 2024 01&#10;修改upload.py到通用模式&#10;未完成：&#10;Classes.Version.Version&#10;InteractiveCLI&#10;BroadcastRoom&#10;&#10;完成：&#10;修改AUTO类为ABC">
-      <option name="closed" value="true" />
-      <created>1727096682933</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1727096682933</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Sept. 27 2024 01&#10;&#10;未完成：&#10;对所有SocketStructure的异步替换&#10;完成TestCreator&#10;完善AutoOperator类的逻辑&#10;&#10;完成：&#10;完成对原始Socket的异步转换&#10;完成对异步类的同步包装">
-      <option name="closed" value="true" />
-      <created>1727525712776</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1727525712776</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Sept. 27 2024 01&#10;&#10;未完成：&#10;对所有SocketStructure的异步替换&#10;&#10;完成：&#10;完成对原始Socket的异步转换&#10;完成对异步类的同步包装&#10;完成TestCreator&#10;完善AutoOperator类的逻辑">
-      <option name="closed" value="true" />
-      <created>1727525736129</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1727525736129</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Sept. 27 2024 02&#10;&#10;未完成：&#10;对所有SocketStructure的异步替换&#10;&#10;完成：&#10;完成异步MultiSocket以及不完全的同步包装">
-      <option name="closed" value="true" />
-      <created>1727526586594</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1727526586594</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Sept. 29 2024 01&#10;&#10;未完成：&#10;修改MultiSocket&#10;&#10;完成：&#10;完成AsyncSocketGroup">
-      <option name="closed" value="true" />
-      <created>1727613564030</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1727613564030</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Oct. 4 2024 01&#10;&#10;未完成：&#10;BroadcastRoom的pipe版本&#10;&#10;完成：&#10;BroadcastRoom的Socket版本（异步）&#10;修正一些细节">
-      <option name="closed" value="true" />
-      <created>1728022441045</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1728022441045</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Oct. 4 2024 01&#10;&#10;未完成：&#10;&#10;完成：&#10;&#10;其他：&#10;删除EnhanceTOML，准备重制新的配置文件格式解析器">
-      <option name="closed" value="true" />
-      <created>1728022509653</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1728022509653</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Oct. 17 2024 01&#10;&#10;未完成：&#10;HyConfigLanguage 的语法分析部分&#10;&#10;完成：&#10;HyConfigLanguage 的词法分析完善&#10;&#10;其他：&#10;无">
-      <option name="closed" value="true" />
-      <created>1729172003299</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1729172003299</updated>
-    </task>
-    <task id="LOCAL-00024" summary="update">
-      <option name="closed" value="true" />
-      <created>1729417188285</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1729417188285</updated>
-    </task>
-    <task id="LOCAL-00025" summary="更新README文档，优化项目介绍和使用说明&#10;&#10;- 添加GithubStars徽章，增加项目吸引力&#10;-移除&quot;为什么这个项目被称为HydrogenLib&quot;部分，精简内容&#10;- 更新Python版本兼容性说明，明确最低版本为Python3.7&#10;- 优化&quot;.Database&quot;模块描述，强调其轻量级特性">
-      <option name="closed" value="true" />
-      <created>1729417500249</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1729417500249</updated>
-    </task>
-    <task id="LOCAL-00026" summary="改进HyConfigLanguage的词法和语法分析功能&#10;&#10;- 重构了词法分析器，增加了对新语法元素的支持&#10;- 实现了语法分析器的基础结构，添加了对多种语句类型的支持&#10;- 优化了错误处理和调试输出，提高了代码的健壮性和可维护性&#10;&#10;**此项目">
-      <option name="closed" value="true" />
-      <created>1729417532209</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1729417532209</updated>
-    </task>
-    <task id="LOCAL-00027" summary="可能的新许可证&#10;如对其中内容有更好的建议，可以提出&#10;1个月后生效">
-      <option name="closed" value="true" />
-      <created>1729417905254</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1729417905254</updated>
-    </task>
-    <task id="LOCAL-00028" summary="配置版本控制和自动化发布到PyPI&#10;&#10;- 在pyproject.toml中添加git版本控制配置&#10;- 新增GitHub Actions工作流，实现在发布新版本时自动构建和上传到PyPI">
-      <option name="closed" value="true" />
-      <created>1729418704034</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1729418704034</updated>
-    </task>
-    <task id="LOCAL-00029" summary="```配置版本控制以使用Git并调整文档依赖项&#10;&#10;- 在[tool.hatch.version]部分添加source = &quot;git&quot;，以使用Git进行版本控制&#10;- 移除多余的[tool.hatch.version]部分，清理配置以避免重复- 保持其他配置项不变，以确保项目依赖项和构建设置不受影响&#10;```">
-      <option name="closed" value="true" />
-      <created>1729419011883</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1729419011883</updated>
-    </task>
-    <task id="LOCAL-00030" summary="update workflows">
-      <option name="closed" value="true" />
-      <created>1729422434196</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1729422434196</updated>
-    </task>
-    <task id="LOCAL-00031" summary="改进HyConfigLanguage解析器和词法分析器&#10;&#10;- 更新Token类的__repr__方法，使用类名代替硬编码的字符串&#10;- 在词法分析器中添加新的关键字：FROM、AS和新的运算符：MULTIPLY&#10;-重构解析器：&#10;  - 重命名某些语法规则以提高清晰度（如fill_elem改为fill_item）&#10;  - 添加支持算术运算符的语法规则（如multiply、div、floordiv） - 改进赋值语句的解析（通过_assign和assign规则）&#10;  - 添加对表达式的解析支持（expr规则）&#10;  -优化括号序列的解析（start_seq、end_seq规则）&#10;  - 改进属性访问的解析（get_attr规则）&#10;  - 统一常量值的解析（constant规则）&#10;- 优化解析流程，分离首次解析和中间解析步骤- 添加__repr__方法以方便调试">
-      <option name="closed" value="true" />
-      <created>1729515704317</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1729515704317</updated>
-    </task>
-    <task id="LOCAL-00032" summary="- 修改了Lexer.py中的WHITESPACE处理&#10;- 更新了list.py中的ReplaceList类&#10;- 重构了Parser.py中的解析逻辑，增加了二次解析支持&#10;- 修正了README.md中的描述信息">
-      <option name="closed" value="true" />
-      <created>1729602955668</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1729602955668</updated>
-    </task>
-    <task id="LOCAL-00033" summary="添加异步socket类以支持异步操作&#10;&#10;实现了asyncsocket类，作为socket.socket的异步版本。该类封装了socket操作的异步版本，包括读写、连接、接受连接等，并提供了同步方法的异步实现。此外，还实现了部分重要的同步方法，如settimeout、listen、bind和close等。这一实现使得在异步环境中使用socket变得更加方便和高效。">
-      <option name="closed" value="true" />
-      <created>1730552367369</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1730552367369</updated>
-    </task>
-    <task id="LOCAL-00034" summary="将Json相关功能独立成新模块JsonFile.py&#10;&#10;从File.py中移除所有与Json操作相关的类和函数，包括JsonDict、JsonList、JsonBaseType等，以及相关的辅助函数如json_open、pickle_open等。这些内容将在新的JsonFile.py模块中重新组织。&#10;&#10;新增JsonFile.py模块，专注于Json数据的读写操作，包含以下主要变更：&#10;- 新增JsonPickleTypes类，用于处理JsonPickle对象的读写。&#10;- 更新json_open和pickle_open函数，以适应新的数据类型处理。&#10;- 保持json_safe_open、pickle_safe_open等函数的基本功能，优化错误处理。- 重新定义json_read、json_write、pickle_read和pickle_write函数，以适配新模块结构。">
-      <option name="closed" value="true" />
-      <created>1730552399911</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1730552399911</updated>
-    </task>
-    <task id="LOCAL-00035" summary="添加Signal类实现信号机制&#10;&#10;新增Signal类，用于实现信号机制。该类包含以下功能：&#10;- 初始化时接收一个函数作为参数&#10;- 实现__call__方法，使其实例可以像函数一样调用&#10;- 提供connect方法，允许在运行时更改关联的函数此实现为项目添加了基本的信号处理能力，可用于组件间的通信和事件处理。">
-      <option name="closed" value="true" />
-      <created>1730552684846</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1730552684846</updated>
-    </task>
-    <task id="LOCAL-00036" summary="添加SocketIO类和JSON序列化支持&#10;&#10;- 新增SocketIO类，用于模拟socket通信，具有发送和接收数据的功能&#10;- 实现JSON序列化模块，支持JSON数据的序列化和反序列化- JSON模块包括动态解析功能，可从socket中读取并解析JSON数据">
-      <option name="closed" value="true" />
-      <created>1730555414442</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1730555414442</updated>
-    </task>
-    <task id="LOCAL-00037" summary="添加SocketIO类和JSON序列化支持&#10;&#10;- 新增SocketIO类，用于模拟socket通信，具有发送和接收数据的功能&#10;- 实现JSON序列化模块，支持JSON数据的序列化和反序列化- JSON模块包括动态解析功能，可从socket中读取并解析JSON数据">
-      <option name="closed" value="true" />
-      <created>1730555428895</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1730555428895</updated>
-    </task>
-    <task id="LOCAL-00038" summary="None">
-      <option name="closed" value="true" />
-      <created>1730555462434</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1730555462434</updated>
-    </task>
-    <task id="LOCAL-00039">
-      <option name="closed" value="true" />
-      <created>1730555471131</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1730555471131</updated>
-    </task>
-    <task id="LOCAL-00040" summary=".gitignore">
-      <option name="closed" value="true" />
-      <created>1730555493228</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1730555493228</updated>
-    </task>
-    <task id="LOCAL-00041" summary="docs(项目文档): 更新许可证信息和项目描述&#10;&#10;- 将 NewLicense_EN.md 重命名为 License.md&#10;- 在 License.md 中添加简体中文版本链接&#10;- 更新 pyproject.toml 中的 license 信息为 &quot;HydrogenLib License&quot;- 修改 README.md 中的许可证说明和项目安装示例&#10;-调整 README.md 中的注意事项描述">
-      <option name="closed" value="true" />
-      <created>1731744697323</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1731744697323</updated>
     </task>
     <task id="LOCAL-00042" summary="feat(HydrogenLib): 新增 aiohttp 相关功能并优化现有模块&#10;&#10;- 新增 QuickAiohttp 模块，实现异步 HTTP 请求的简化接口&#10;- 优化 IoAddons 模块，增加 socket 支持并实现 MSG_PEEK 功能&#10;- 更新 LiteralEval 模块，支持一元运算符&#10;- 重构 number 模块，移除未使用的 decimal 导入">
       <option name="closed" value="true" />
@@ -717,7 +880,271 @@
       <option name="project" value="LOCAL" />
       <updated>1737025226260</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="fix(utils): 没有被导入的 getting_path 模块&#10;&#10;- 在 utils 子模块的 __init__.py 中添加了 getting_path 模块导入">
+      <option name="closed" value="true" />
+      <created>1745326619286</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1745326619286</updated>
+    </task>
+    <task id="LOCAL-00059" summary="refactor(hydrogenlib):重构模板系统&#10;&#10;- 移除了 _CannotRestore 类和 CannotRestore单例&#10;- 新增了 hytemplate.py 文件，作为模板系统的入口&#10;- 新增了 markers.py 文件，定义了多种标记类型&#10;- 重构了 Template 类，增加了 restore 方法和属性支持">
+      <option name="closed" value="true" />
+      <created>1745326692091</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1745326692091</updated>
+    </task>
+    <task id="LOCAL-00060" summary="build: 更新 .gitignore 文件&#10;- 新增 /src/hybitmap/pyd/ 目录到忽略列表">
+      <option name="closed" value="true" />
+      <created>1745326793119</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1745326793119</updated>
+    </task>
+    <task id="LOCAL-00061" summary="build:优化项目构建和发布流程&#10;&#10;- 更新 .gitignore 文件，添加多个新目录到忽略列表&#10;- 在 upload.py 中添加预检查步骤，确保依赖项已安装&#10;- 优化 upload.py脚本，提高错误处理能力和日志输出">
+      <option name="closed" value="true" />
+      <created>1745578505454</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1745578505454</updated>
+    </task>
+    <task id="LOCAL-00062" summary="build(upload): 更新版本号并优化上传脚本&#10;&#10;- 将版本号从 0.1.15 修改为 0.2.1a1&#10;- 添加 pre_check 函数以安装依赖&#10;- 优化错误处理和日志输出">
+      <option name="closed" value="true" />
+      <created>1745578539367</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1745578539367</updated>
+    </task>
+    <task id="LOCAL-00063" summary="build: 发布 v0.2.2">
+      <option name="closed" value="true" />
+      <created>1745580047254</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1745580047254</updated>
+    </task>
+    <task id="LOCAL-00064" summary="build: 发布 v0.2.2">
+      <option name="closed" value="true" />
+      <created>1745580133338</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1745580133338</updated>
+    </task>
+    <task id="LOCAL-00065" summary="publish: v0.2.2-upload-retry">
+      <option name="closed" value="true" />
+      <created>1745580599427</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1745580599427</updated>
+    </task>
+    <task id="LOCAL-00066" summary="feat(file): 重命名函数并添加文件操作相关功能&#10;&#10;-重命名 read 为 readfile，write 为 writefile，empty为 isfileempty，isspace 为 isfilespace&#10;- 添加 copyfile 和 copyfile_stream 函数用于复制文件&#10;- 优化 File 类内部结构，提高代码可读性&#10;- 新增 git-hooks 相关脚本用于自动安装和处理 git 钩子">
+      <option name="closed" value="true" />
+      <created>1745645139330</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1745645139330</updated>
+    </task>
+    <task id="LOCAL-00067" summary="publish: v0.2.3-upload">
+      <option name="closed" value="true" />
+      <created>1745645244155</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1745645244155</updated>
+    </task>
+    <task id="LOCAL-00068" summary="ci(publish): 更新发布流程并增加手动触发选项&#10;&#10;- 修改 coverage 配置，将 hydrolib 改为 hydrogenlib&#10;- 更新 GitHub Actions 工作流:&#10;  - 增加手动触发选项&#10;  - 修改步骤名称为中文&#10;  - 调整构建和发布步骤，适应不同触发事件">
+      <option name="closed" value="true" />
+      <created>1745646765471</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1745646765471</updated>
+    </task>
+    <task id="LOCAL-00069" summary="publish: v0.2.4-upload">
+      <option name="closed" value="true" />
+      <created>1745646814581</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1745646814582</updated>
+    </task>
+    <task id="LOCAL-00070" summary="ci:修复 Python 包构建和发布工作流中的脚本路径&#10;&#10;- 将 Windows 风格的路径分隔符 '\'替换为 Unix 风格的 '/'">
+      <option name="closed" value="true" />
+      <created>1745646988722</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1745646988722</updated>
+    </task>
+    <task id="LOCAL-00071" summary="ci:修复 Python 包构建和发布工作流中的脚本路径&#10;&#10;- 将 Windows 风格的路径分隔符 '\'替换为 Unix 风格的 '/',去掉前缀的'.'">
+      <option name="closed" value="true" />
+      <created>1745647156112</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1745647156113</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.github/workflows/python-publish.yml">
+      <option name="closed" value="true" />
+      <created>1745660493768</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1745660493768</updated>
+    </task>
+    <task id="LOCAL-00073" summary="refactor(upload-for-workflow):重构上传工作流脚本&#10;&#10;- 将 upload-for-workflow.py移动到 scripts 目录&#10;- 移除了亢余的 ArgumentParser 类&#10;- 重新组织了 Main 类的结构和逻辑&#10;- 优化了代码可读性和模块化">
+      <option name="closed" value="true" />
+      <created>1745661429759</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1745661429759</updated>
+    </task>
+    <task id="LOCAL-00074" summary="fix(scripts): 修复 upload-for-workflow.py 中的标签检查逻辑&#10;&#10;- 添加缺失的冒号修复 __init__ 方法的语法错误&#10;- 修改 check_tag 方法，使其能够接收 TAG 环境变量作为参数">
+      <option name="closed" value="true" />
+      <created>1745661922637</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1745661922637</updated>
+    </task>
+    <task id="LOCAL-00075" summary="ci: 添加环境权限以允许发布到 PyPI&#10;&#10;- 在 GitHub Actions 工作流程中添加 id-token 权限&#10;- 此更改是为了确保能够成功发布到 PyPI">
+      <option name="closed" value="true" />
+      <created>1745662596518</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1745662596518</updated>
+    </task>
+    <task id="LOCAL-00076" summary="ci: 更新发布日志&#10;&#10;- 修正 v0.2.3-upload 失败的记录&#10;- 标记 v0.2.4-upload 跳过&#10;- 添加 v0.2.3-upload 成功的记录">
+      <option name="closed" value="true" />
+      <created>1745662900460</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1745662900460</updated>
+    </task>
+    <task id="LOCAL-00077" summary="refactor(huffman_tree): 重构哈夫曼树的构建和使用方式&#10;&#10;- 修改 bfs 函数名称为 build_tree_from_list，更准确地反映其功能&#10;- 更新 build_tree 方法为类方法，并改名为 from_data&#10;- 添加 huffman_code 和 huffman_codes_dict 属性，优化代码结构&#10;- 将 compress 和 decompress 函数改为类的成员方法&#10;- 简化测试代码，提高可读性">
+      <option name="closed" value="true" />
+      <created>1746428580225</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1746428580226</updated>
+    </task>
+    <task id="LOCAL-00078" summary="refactor(hydrogenlib):优化 Function 类的实例化逻辑&#10;- 修改了 Function 类的构造函数，使用 __new__ 方法替代 __init__&#10;- 实现了类实例的复用，当传入参数为当前类实例时，直接返回该实例&#10;- 优化了内存使用，通过 __slots__ 属性限制实例属性">
+      <option name="closed" value="true" />
+      <created>1746434281322</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1746434281323</updated>
+    </task>
+    <task id="LOCAL-00079" summary="refactor(hydrogenlib): 添加 CData 类型定义&#10;&#10;添加了 CData 和 SimpleCData 类型定义，以支持 ctypes 数据类型的检查和使用。">
+      <option name="closed" value="true" />
+      <created>1746435947703</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1746435947703</updated>
+    </task>
+    <task id="LOCAL-00080" summary="refactor(hydrogenlib):重构 CTypes 相关代码&#10;- 重新组织模块结构，改用更清晰的命名&#10;- 引入数据类和类型注解，提高代码可读性&#10;- 优化函数签名和参数处理逻辑&#10;- 新增类型映射功能，支持 Python 类型到 C 类型的转换&#10;- 移除快速定义功能,准备在后期加入更好的快速定义逻辑">
+      <option name="closed" value="true" />
+      <created>1746439480010</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1746439480010</updated>
+    </task>
+    <task id="LOCAL-00081" summary="refactor(hydrogenlib):重构 HyDll 类的初始化方法&#10;- 移除了对 platform.system() 的判断，简化了代码逻辑&#10;- 重新定义了 call_standard 参数，使其更灵活易用&#10;- 优化了代码结构，提高了代码的可读性和可维护性">
+      <option name="closed" value="true" />
+      <created>1746439741882</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1746439741882</updated>
+    </task>
+    <task id="LOCAL-00082" summary="feat(hydrogenlib): 实现 HyDll 的延迟加载并优化 CFunction&#10;&#10;- 为 CFunctionPrototype 类的 name 字段添加 Union 类型，支持 str 和 int&#10;- 重构 CFunction 类，添加 dll 参数并实现与 HyDll 的连接&#10;- 优化 Dll_Function 类，改用新的 CFunctionPrototype 结构&#10;- 更新 HyDll 类的 register 方法，返回 Dll_Function 实例&#10;- 添加 __getattr__ 方法，实现 HyDll 的延迟加载功能">
+      <option name="closed" value="true" />
+      <created>1746440421510</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1746440421510</updated>
+    </task>
+    <task id="LOCAL-00083" summary="refactor(hydrogenlib):重构 CFunctionPrototype 类&#10;&#10;- 将 CFunctionPrototype 类重命名为 CPrototype&#10;- 更新相关的导入和引用&#10;- 此更改提高了代码的可读性和一致性">
+      <option name="closed" value="true" />
+      <created>1746440916957</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1746440916958</updated>
+    </task>
+    <task id="LOCAL-00084" summary="refactor(instance_dict): 添加事件,优化代码&#10;&#10;- 添加了三种可触发事件: set_event, get_event, delete_event&#10;- 优化了部分逻辑&#10;- 提取 to_key 方法为公开方法">
+      <option name="closed" value="true" />
+      <created>1746852681890</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1746852681890</updated>
+    </task>
+    <task id="LOCAL-00085" summary="fix(instance_dict): 修复GetEvent事件没有被正确处理的问题">
+      <option name="closed" value="true" />
+      <created>1746853252046</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1746853252046</updated>
+    </task>
+    <task id="LOCAL-00086" summary="fix(instance_dict): 使 get 方法返回 event 处理过的实际结果">
+      <option name="closed" value="true" />
+      <created>1746853294382</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1746853294382</updated>
+    </task>
+    <task id="LOCAL-00087" summary="refactor(hydrogenlib):为 InstanceDict 类和事件类添加文档字符串">
+      <option name="closed" value="true" />
+      <created>1746853318227</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1746853318227</updated>
+    </task>
+    <task id="LOCAL-00088" summary="docs: 添加 bug 报告模板">
+      <option name="closed" value="true" />
+      <created>1746953620622</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1746953620623</updated>
+    </task>
+    <task id="LOCAL-00089" summary="fix(issue_template): 文件夹名大小写问题(?)">
+      <option name="closed" value="true" />
+      <created>1746954786209</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1746954786209</updated>
+    </task>
+    <task id="LOCAL-00090" summary="fix(issue_template): 错误的about键和default值">
+      <option name="closed" value="true" />
+      <created>1746955144129</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1746955144129</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -735,32 +1162,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- 修改了Lexer.py中的WHITESPACE处理&#10;- 更新了list.py中的ReplaceList类&#10;- 重构了Parser.py中的解析逻辑，增加了二次解析支持&#10;- 修正了README.md中的描述信息" />
-    <MESSAGE value="添加异步socket类以支持异步操作&#10;&#10;实现了asyncsocket类，作为socket.socket的异步版本。该类封装了socket操作的异步版本，包括读写、连接、接受连接等，并提供了同步方法的异步实现。此外，还实现了部分重要的同步方法，如settimeout、listen、bind和close等。这一实现使得在异步环境中使用socket变得更加方便和高效。" />
-    <MESSAGE value="将Json相关功能独立成新模块JsonFile.py&#10;&#10;从File.py中移除所有与Json操作相关的类和函数，包括JsonDict、JsonList、JsonBaseType等，以及相关的辅助函数如json_open、pickle_open等。这些内容将在新的JsonFile.py模块中重新组织。&#10;&#10;新增JsonFile.py模块，专注于Json数据的读写操作，包含以下主要变更：&#10;- 新增JsonPickleTypes类，用于处理JsonPickle对象的读写。&#10;- 更新json_open和pickle_open函数，以适应新的数据类型处理。&#10;- 保持json_safe_open、pickle_safe_open等函数的基本功能，优化错误处理。- 重新定义json_read、json_write、pickle_read和pickle_write函数，以适配新模块结构。" />
-    <MESSAGE value="添加Signal类实现信号机制&#10;&#10;新增Signal类，用于实现信号机制。该类包含以下功能：&#10;- 初始化时接收一个函数作为参数&#10;- 实现__call__方法，使其实例可以像函数一样调用&#10;- 提供connect方法，允许在运行时更改关联的函数此实现为项目添加了基本的信号处理能力，可用于组件间的通信和事件处理。" />
-    <MESSAGE value="添加SocketIO类和JSON序列化支持&#10;&#10;- 新增SocketIO类，用于模拟socket通信，具有发送和接收数据的功能&#10;- 实现JSON序列化模块，支持JSON数据的序列化和反序列化- JSON模块包括动态解析功能，可从socket中读取并解析JSON数据" />
-    <MESSAGE value="None" />
-    <MESSAGE value=".gitignore" />
-    <MESSAGE value="docs(项目文档): 更新许可证信息和项目描述&#10;&#10;- 将 NewLicense_EN.md 重命名为 License.md&#10;- 在 License.md 中添加简体中文版本链接&#10;- 更新 pyproject.toml 中的 license 信息为 &quot;HydrogenLib License&quot;- 修改 README.md 中的许可证说明和项目安装示例&#10;-调整 README.md 中的注意事项描述" />
-    <MESSAGE value="feat(HydrogenLib): 新增 aiohttp 相关功能并优化现有模块&#10;&#10;- 新增 QuickAiohttp 模块，实现异步 HTTP 请求的简化接口&#10;- 优化 IoAddons 模块，增加 socket 支持并实现 MSG_PEEK 功能&#10;- 更新 LiteralEval 模块，支持一元运算符&#10;- 重构 number 模块，移除未使用的 decimal 导入" />
-    <MESSAGE value="update" />
-    <MESSAGE value="来自2024.11.24-的积累提交" />
-    <MESSAGE value="某些文件没有被加入文件管理" />
-    <MESSAGE value="feat(type_func, output_methods, HyStruct): 优化和扩展功能- 在 LiteralEval.py 中添加对属性访问的支持并优化类型注解&#10;- 改进 output_methods.py 中的 IO 重定向逻辑- 在 S_BinStruct.py 中实现类型名称的准确获取和静态 unpack 方法" />
-    <MESSAGE value="优化和扩展功能- 在 LiteralEval.py 中添加对属性访问的支持并优化类型注解&#10;- 改进 output_methods.py 中的 IO 重定向逻辑- 在 S_BinStruct.py 中实现类型名称的准确获取和静态 unpack 方法" />
-    <MESSAGE value="2024.12.6-的积累更新" />
-    <MESSAGE value="完成二进制序列化器" />
-    <MESSAGE value="add class `Function`" />
-    <MESSAGE value="add class `StringPath`" />
-    <MESSAGE value="未完成的下载器" />
-    <MESSAGE value="feat(utils): 添加 Clock 类用于控制任务执行间隔&#10;&#10;- 新增 Clock 类，用于确保任务以指定的间隔时间执行&#10;- 实现了 strike 方法，可以传入刷新间隔时间参数&#10;- 添加了必要的注释，说明了类和方法的用途" />
-    <MESSAGE value="refactor(HyDownloader): 重构下载模块&#10;&#10;- 移除旧的下载相关代码(未完成)&#10;- 新增动态模型和静态下载模型(未完成)&#10;- 更新导入和文件结构&#10;-优化命名和代码组织&#10;&#10;以及至2025.1.8的积累更新" />
-    <MESSAGE value="refactor(lexer): 重构词法分析器&#10;&#10;- 优化 Token 类定义，增加类型注解和默认值&#10;- 修改 __repr__ 方法以提供更多信息&#10;- 删除未使用的 INDENT 规则&#10;- 更新 INT 和 STR 规则以简化匹配&#10;- 重新设计缩进处理逻辑&#10;- 添加代码首尾空行删除功能&#10;-优化错误提示信息" />
-    <MESSAGE value="至2025.1.15的积累更改" />
-    <MESSAGE value="至2025.1.15的积累更改-2" />
-    <MESSAGE value="feat(utils): 重构 OnceMessage 类并添加新功能&#10;&#10;- 使用 threading.Event 代替 time.sleep 实现更高效的等待机制&#10;- 添加 set 方法的 timeout 参数，支持设置消息时的超时&#10;- 新增 is_set 方法，用于判断消息是否已被设置&#10;- 新增 clear 方法，用于清除已设置的消息&#10;- 新增 close 方法，用于关闭 OnceMessage 实例&#10;- 添加 closed 属性，用于判断 OnceMessage 是否已关闭&#10;- 优化类文档字符串，详细说明各个方法的使用" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(utils): 重构 OnceMessage 类并添加新功能&#10;&#10;- 使用 threading.Event 代替 time.sleep 实现更高效的等待机制&#10;- 添加 set 方法的 timeout 参数，支持设置消息时的超时&#10;- 新增 is_set 方法，用于判断消息是否已被设置&#10;- 新增 clear 方法，用于清除已设置的消息&#10;- 新增 close 方法，用于关闭 OnceMessage 实例&#10;- 添加 closed 属性，用于判断 OnceMessage 是否已关闭&#10;- 优化类文档字符串，详细说明各个方法的使用" />
+    <MESSAGE value="feat(file): 重命名函数并添加文件操作相关功能&#10;&#10;-重命名 read 为 readfile，write 为 writefile，empty为 isfileempty，isspace 为 isfilespace&#10;- 添加 copyfile 和 copyfile_stream 函数用于复制文件&#10;- 优化 File 类内部结构，提高代码可读性&#10;- 新增 git-hooks 相关脚本用于自动安装和处理 git 钩子" />
+    <MESSAGE value="publish: v0.2.3-upload" />
+    <MESSAGE value="ci(publish): 更新发布流程并增加手动触发选项&#10;&#10;- 修改 coverage 配置，将 hydrolib 改为 hydrogenlib&#10;- 更新 GitHub Actions 工作流:&#10;  - 增加手动触发选项&#10;  - 修改步骤名称为中文&#10;  - 调整构建和发布步骤，适应不同触发事件" />
+    <MESSAGE value="publish: v0.2.4-upload" />
+    <MESSAGE value="ci:修复 Python 包构建和发布工作流中的脚本路径&#10;&#10;- 将 Windows 风格的路径分隔符 '\'替换为 Unix 风格的 '/'" />
+    <MESSAGE value="ci:修复 Python 包构建和发布工作流中的脚本路径&#10;&#10;- 将 Windows 风格的路径分隔符 '\'替换为 Unix 风格的 '/',去掉前缀的'.'" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.github/workflows/python-publish.yml" />
+    <MESSAGE value="refactor(upload-for-workflow):重构上传工作流脚本&#10;&#10;- 将 upload-for-workflow.py移动到 scripts 目录&#10;- 移除了亢余的 ArgumentParser 类&#10;- 重新组织了 Main 类的结构和逻辑&#10;- 优化了代码可读性和模块化" />
+    <MESSAGE value="fix(scripts): 修复 upload-for-workflow.py 中的标签检查逻辑&#10;&#10;- 添加缺失的冒号修复 __init__ 方法的语法错误&#10;- 修改 check_tag 方法，使其能够接收 TAG 环境变量作为参数" />
+    <MESSAGE value="ci: 添加环境权限以允许发布到 PyPI&#10;&#10;- 在 GitHub Actions 工作流程中添加 id-token 权限&#10;- 此更改是为了确保能够成功发布到 PyPI" />
+    <MESSAGE value="ci: 更新发布日志&#10;&#10;- 修正 v0.2.3-upload 失败的记录&#10;- 标记 v0.2.4-upload 跳过&#10;- 添加 v0.2.3-upload 成功的记录" />
+    <MESSAGE value="refactor(huffman_tree): 重构哈夫曼树的构建和使用方式&#10;&#10;- 修改 bfs 函数名称为 build_tree_from_list，更准确地反映其功能&#10;- 更新 build_tree 方法为类方法，并改名为 from_data&#10;- 添加 huffman_code 和 huffman_codes_dict 属性，优化代码结构&#10;- 将 compress 和 decompress 函数改为类的成员方法&#10;- 简化测试代码，提高可读性" />
+    <MESSAGE value="refactor(hydrogenlib):优化 Function 类的实例化逻辑&#10;- 修改了 Function 类的构造函数，使用 __new__ 方法替代 __init__&#10;- 实现了类实例的复用，当传入参数为当前类实例时，直接返回该实例&#10;- 优化了内存使用，通过 __slots__ 属性限制实例属性" />
+    <MESSAGE value="refactor(hydrogenlib): 添加 CData 类型定义&#10;&#10;添加了 CData 和 SimpleCData 类型定义，以支持 ctypes 数据类型的检查和使用。" />
+    <MESSAGE value="refactor(hydrogenlib):重构 CTypes 相关代码&#10;- 重新组织模块结构，改用更清晰的命名&#10;- 引入数据类和类型注解，提高代码可读性&#10;- 优化函数签名和参数处理逻辑&#10;- 新增类型映射功能，支持 Python 类型到 C 类型的转换&#10;- 移除快速定义功能,准备在后期加入更好的快速定义逻辑" />
+    <MESSAGE value="refactor(hydrogenlib):重构 HyDll 类的初始化方法&#10;- 移除了对 platform.system() 的判断，简化了代码逻辑&#10;- 重新定义了 call_standard 参数，使其更灵活易用&#10;- 优化了代码结构，提高了代码的可读性和可维护性" />
+    <MESSAGE value="feat(hydrogenlib): 实现 HyDll 的延迟加载并优化 CFunction&#10;&#10;- 为 CFunctionPrototype 类的 name 字段添加 Union 类型，支持 str 和 int&#10;- 重构 CFunction 类，添加 dll 参数并实现与 HyDll 的连接&#10;- 优化 Dll_Function 类，改用新的 CFunctionPrototype 结构&#10;- 更新 HyDll 类的 register 方法，返回 Dll_Function 实例&#10;- 添加 __getattr__ 方法，实现 HyDll 的延迟加载功能" />
+    <MESSAGE value="refactor(hydrogenlib):重构 CFunctionPrototype 类&#10;&#10;- 将 CFunctionPrototype 类重命名为 CPrototype&#10;- 更新相关的导入和引用&#10;- 此更改提高了代码的可读性和一致性" />
+    <MESSAGE value="refactor(instance_dict): 添加事件,优化代码&#10;&#10;- 添加了三种可触发事件: set_event, get_event, delete_event&#10;- 优化了部分逻辑&#10;- 提取 to_key 方法为公开方法" />
+    <MESSAGE value="fix(instance_dict): 修复GetEvent事件没有被正确处理的问题" />
+    <MESSAGE value="fix(instance_dict): 使 get 方法返回 event 处理过的实际结果" />
+    <MESSAGE value="refactor(hydrogenlib):为 InstanceDict 类和事件类添加文档字符串" />
+    <MESSAGE value="docs: 添加 bug 报告模板" />
+    <MESSAGE value="fix(issue_template): 文件夹名大小写问题(?)" />
+    <MESSAGE value="fix(issue_template): 错误的about键和default值" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(issue_template): 错误的about键和default值" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

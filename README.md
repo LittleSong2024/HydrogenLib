@@ -6,19 +6,20 @@
 
 <div align="center">
 
-[![PyPI - Version](https://img.shields.io/pypi/v/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib)
+[![PyPI - Version](https://img.shields.io/pypi/v/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib-next)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hydrogenlib-next.svg)](https://pypi.org/project/hydrogenlib-next)
 [![Github Stars](https://img.shields.io/github/stars/LittleSong2024/HydrogenLib.svg)](https://github.com/LittleSong2024/HydrogenLib)
 
 </div>
 
 当前为测试版本,功能可能有**缺失,不完整或错误**,详细请见[注意事项](#注意事项)
 ## 开发进度
+
+由于项目出现的时间较早，较多代码来自小学时期编写，开发者正在尽可能重写相关部分的源码以达到实现更好效率和美观度的目的
+
 <summary>
 <details>
-
-- [ ] boardcast_room
-- [ ] codedoc
+    
 - [x] data_strctures
 - [x] encrypt
 - [ ] hycl(Hydrogen Config Language)

@@ -5,7 +5,7 @@ from inspect import Signature
 import rich
 
 from . import namespace as namespace
-from .._hycore.type_func import get_type_name
+from _hycore.type_func import get_type_name
 
 
 class OverloadError(Exception):

@@ -2,7 +2,7 @@
 from . import Json
 from ._binstruct.methods import add_length as _connect_length, get_part
 from .abc import AbstractSerializer
-from ..._hycore.type_func import Offset, get_subclasses_recursion, get_type_name
+from _hycore.type_func import Offset, get_subclasses_recursion, get_type_name
 
 
 # 找不到序列化器

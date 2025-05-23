@@ -1,6 +1,6 @@
 from abc import ABC
 
-from .._hycore.utils import AutoSingleton
+from _hycore.utils import AutoSingleton
 
 
 class AbstractMarker(ABC):

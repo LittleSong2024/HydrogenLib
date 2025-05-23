@@ -4,7 +4,7 @@ import builtins
 from typing import Protocol, runtime_checkable
 
 from ..abc.types import ConfigTypeBase
-from ..._hycore.better_descriptor import *
+from _hycore.better_descriptor import *
 
 
 @runtime_checkable

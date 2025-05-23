@@ -1,5 +1,5 @@
-from src.hydrogenlib._hysocket.protrol_abc import HySocketProtrol
-from .._hycore.neostruct import pack_variable_length_int, unpack_variable_length_int
+from _hysocket.protrol_abc import HySocketProtrol
+from _hycore.neostruct import pack_variable_length_int, unpack_variable_length_int
 
 
 def build_protrol_head(protrol):

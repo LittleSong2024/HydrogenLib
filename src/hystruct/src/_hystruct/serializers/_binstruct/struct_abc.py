@@ -2,9 +2,9 @@ import typing
 from abc import ABC, abstractmethod
 from typing import Protocol, Self, Union, runtime_checkable, Optional, Any
 
-from src.hydrogenlib._hycore.type_func import get_qualname
-from src.hydrogenlib._hystruct.serializers._binstruct.binstruct import struct_types
-from src.hydrogenlib._hystruct.serializers._binstruct.errors import GeneraterError
+from _hycore.type_func import get_qualname
+from _hystruct.serializers._binstruct.binstruct import struct_types
+from _hystruct.serializers._binstruct.errors import GeneraterError
 
 
 @runtime_checkable

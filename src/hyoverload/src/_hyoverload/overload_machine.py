@@ -1,6 +1,6 @@
 from .type_checker import MultiSignatureMatcher
-from .._hycore.type_func import Function
-from .._hycore.utils import InstanceDict
+from _hycore.type_func import Function
+from _hycore.utils import InstanceDict
 
 
 # @Descriptor

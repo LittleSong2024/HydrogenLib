@@ -1,4 +1,4 @@
-from ...._hyctypes import *
+from _hyctypes import *
 
 # 注册函数
 # CreateFileMapping

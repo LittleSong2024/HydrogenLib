@@ -1,8 +1,7 @@
 import ctypes
 from dataclasses import dataclass
 
-from .cfunction import C
-from .const import CallStandard as CS
+from . import C
 
 
 @dataclass

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..._hycore.type_func import literal_eval as _lt_ev
+from _hycore.type_func import literal_eval as _lt_ev
 
 
 def literal_eval(string, globals_: Optional[dict] = None, locals_: Optional[dict] = None, builtins: bool = False,

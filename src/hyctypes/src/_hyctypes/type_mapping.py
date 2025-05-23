@@ -1,7 +1,7 @@
 import typing
 
 from . import c_types as ctypes
-from .._hycore.utils import InstanceDict
+from _hycore.utils import InstanceDict
 
 
 class TypeMapping(InstanceDict):

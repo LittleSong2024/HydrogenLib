@@ -2,7 +2,7 @@ import jsonpickle
 from . import _json
 
 
-class JsonPickle(S_Json.Json):
+class JsonPickle(_json.Json):
     def dumps(self, data):
         return jsonpickle.dumps(data).encode()
 

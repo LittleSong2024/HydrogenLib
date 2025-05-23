@@ -1,6 +1,8 @@
-from .abstract import AbstractMarker, generate
-from .._hycore.type_func import get_attr_by_path, set_attr_by_path
+from _hycore.type_func import get_attr_by_path, set_attr_by_path
+from ..abstract import AbstractMarker, generate
 
+
+# Value Markers
 
 class Attribute(AbstractMarker):
     def __init__(self, attr, obj=None):
@@ -8,11 +10,11 @@ class Attribute(AbstractMarker):
         self.obj = obj
 
     def generate(self, countainer, **kwargs):
-        obj = generate(self.obj or countainer, countainer, **kwargs)
+        obj = generate(self.obj, countainer, **kwargs) or countainer
         return get_attr_by_path(obj, self.attr_path)
 
     def restore(self, countainer, value, **kwargs):
-        obj = generate(self.obj or countainer, countainer, **kwargs)
+        obj = generate(self.obj, countainer, **kwargs) or countainer
         set_attr_by_path(obj, self.attr_path, value)
 
 
@@ -28,6 +30,7 @@ class StaticCall(AbstractMarker):
     """
     Call function with given arguments and kwargs
     """
+
     def __init__(self, func, *args, **kwargs):
         self.func = func
         self.args = args
@@ -41,6 +44,7 @@ class DynamicCall(AbstractMarker):
     """
     Call function with given arguments and kwargs, but the function, arguments and kwargs can be dynamic
     """
+
     def __init__(self, func, *args, **kwargs):
         self.func = func
         self.args = args
@@ -55,4 +59,14 @@ class DynamicCall(AbstractMarker):
         return func(*args, **kwargs)
 
 
+# Struct Markers
 
+
+from .list import List
+
+
+# Template Markers
+
+
+from .template_marker import TemplateMarker
+from .template_marker import TemplateMarker as Template

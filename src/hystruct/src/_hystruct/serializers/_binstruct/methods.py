@@ -3,7 +3,7 @@ import sys
 from types import NoneType
 from typing import Union
 
-from ...._hycore import type_func, neostruct
+from _hycore import type_func, neostruct
 
 
 def get_class(equal_name: str):

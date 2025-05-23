@@ -4,7 +4,7 @@ from typing import Union, Type
 from .items import ConfigItem, ConfigItemInstance
 from .types import ConfigTypeMapping, builtin_type_mapping
 from ..abc.backend import AbstractBackend
-from ..._hycore.utils import DoubleDict
+from _hycore.utils import DoubleDict
 
 
 def get_keys_by_type(dct, tp):

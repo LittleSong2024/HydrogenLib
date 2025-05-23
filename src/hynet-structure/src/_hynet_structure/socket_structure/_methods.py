@@ -1,8 +1,8 @@
 import asyncio
 from typing import AsyncGenerator
 
-from ..._hycore.async_socket import Asyncsocket
-from ..._hycore.neostruct import pack_variable_length_int, unpack_variable_length_int
+from _hycore.async_socket import Asyncsocket
+from _hycore.neostruct import pack_variable_length_int, unpack_variable_length_int
 
 
 async def sock_to_iterable(s: Asyncsocket):

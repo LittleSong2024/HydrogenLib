@@ -1,7 +1,7 @@
 from .errors import OverloadRuntimeError, OverloadError
 from .namespace import _check_temp, get_func_overloads
 from .type_checker import get_argtypes_degrees, get_signature_parameters_prec
-from .._hycore.type_func import Function, get_type_name
+from _hycore.type_func import Function, get_type_name
 
 
 class OverloadFunction(Function):

@@ -1,6 +1,6 @@
 from ...abc.backend import AbstractBackend
-from ....hystruct import *
-from ....hycore import json_types
+from hystruct import *
+from _hycore.json import json_types
 
 
 class Json_Backend(AbstractBackend):

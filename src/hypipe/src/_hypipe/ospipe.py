@@ -5,8 +5,8 @@ import queue
 from collections import deque
 from typing import Optional
 
-from .._hycore import threading_methods
-from .._hycore.json import Pickle
+from _hycore import threading_methods
+from _hycore.json import Pickle
 
 
 # module end
@@ -31,7 +31,7 @@ class _PIPEWriter:
     def set(self, pipe: int):
         self._event.set()
         self._io.close()
-        self._write_thread.join()
+        self._write_thread.bytes_join()
         self._pipe = pipe
         self._io = os.fdopen(self._pipe, 'w', self.buffersize)
         self._event.clear()
@@ -70,7 +70,7 @@ class _PIPEReader:
 
     def set(self, reader):
         self._event.set()
-        self._read_thread.join()
+        self._read_thread.bytes_join()
         self._io.close()
         self._pipe = reader
         self._io = os.fdopen(self._pipe, 'r')

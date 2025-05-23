@@ -4,10 +4,10 @@ from types import *
 from typing import *
 
 from .args_temp import Temp
-from .._hycore.type_func import literal_eval
+from _hycore.type_func import literal_eval
 
 
-def get_type_degrees(argument, param_type):
+def get_typematch_degrees(argument, param_type):
     if isinstance(param_type, Parameter):
         param_type = param_type.annotation
 
@@ -23,7 +23,7 @@ def get_type_degrees(argument, param_type):
 
     if origin is Union:
         inner_types = get_args(param_type)
-        matches = [get_type_degrees(argument, t) for t in inner_types]
+        matches = [get_typematch_degrees(argument, t) for t in inner_types]
         return sum(matches) / len(inner_types)
 
     elif origin in (List, Set, Deque, FrozenSet, Sequence):  # TODO: Not finished
@@ -32,7 +32,7 @@ def get_type_degrees(argument, param_type):
             return 1  # No specific type specified, assume match
         inner_type = inner_types[0]
         return sum(
-            get_type_degrees(item, inner_type) for item in inner_types) / len(inner_types) if argument else 1
+            get_typematch_degrees(item, inner_type) for item in inner_types) / len(inner_types) if argument else 1
 
     elif origin is Tuple:
         inner_types = get_args(param_type)
@@ -42,15 +42,15 @@ def get_type_degrees(argument, param_type):
 
         if inner_types[-1] is Ellipsis:
             return sum(
-                get_type_degrees(item, inner_types[0]) for item in argument)
+                get_typematch_degrees(item, inner_types[0]) for item in argument)
 
-        return sum(get_type_degrees(item, inner_type) for item, inner_type in zip(argument, inner_types)) / len(
+        return sum(get_typematch_degrees(item, inner_type) for item, inner_type in zip(argument, inner_types)) / len(
             argument) if argument else 1
 
     elif origin is Dict:
         key_type, value_type = get_args(param_type)
         return sum(
-            (get_type_degrees(value, value_type) + get_type_degrees(key, key_type)) / 2
+            (get_typematch_degrees(value, value_type) + get_typematch_degrees(key, key_type)) / 2
             for key, value in argument.items()
         ) / len(argument) if argument else 1
     else:
@@ -66,7 +66,7 @@ def get_argtypes_degrees(signature: Signature, bound_args: BoundArguments, insta
     # for index, (param_name, arg) in enumerate(bound_args.arguments.items()):
     for param_name, arg in bound_args.arguments.items():
         param = signature.parameters[param_name]
-        match_degrees += get_type_degrees(arg, param.annotation)
+        match_degrees += get_typematch_degrees(arg, param.annotation)
 
     length = len(bound_args.arguments)
 

@@ -1,4 +1,4 @@
-from ...._hyre.re_plus import Literal, Re, BaseRe
+from _hyre.re_plus import Literal, Re, BaseRe
 
 NEWLINE = Literal('\n')
 IDENT = Re('[a-zA-Z_][a-zA-Z0-9_-]*')

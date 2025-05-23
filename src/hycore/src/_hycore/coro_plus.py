@@ -97,7 +97,7 @@ class ThreadEventLoop:
 
     def stop(self):
         self._loop.call_soon_threadsafe(self._loop.stop)
-        self._thread.join()
+        self._thread.bytes_join()
 
 
 

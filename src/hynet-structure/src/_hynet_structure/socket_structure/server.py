@@ -1,5 +1,5 @@
 import asyncio
-from ..._hycore.async_socket import Asyncsocket
+from _hycore.async_socket import Asyncsocket
 
 
 class Server:

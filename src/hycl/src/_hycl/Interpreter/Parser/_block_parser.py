@@ -1,6 +1,6 @@
 from ._types import Block
-from ...._hycore.data_structures.stack import Stack
-from ...._hycore.type_func import ConstDict
+from _hycore.data_structures.stack import Stack
+from _hycore.type_func import ConstDict
 
 bracket_map = ConstDict(
     {

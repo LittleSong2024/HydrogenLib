@@ -1,4 +1,4 @@
-from .._hycore.data_structures import Heap
+from _hycore.data_structures import Heap
 
 overloads = {}  # type: dict[str, Heap]
 overload_temp = {}  # type: dict[str, dict[tuple[type, ...], 'OverloadFunctionCallable']]

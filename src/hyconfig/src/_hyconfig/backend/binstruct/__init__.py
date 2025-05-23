@@ -1,7 +1,6 @@
 from ...abc.backend import AbstractBackend
-from ....hystruct import Struct
-from ...._hystruct import BinStructBase
-from ....hycore import builtin_types
+from _hystruct import BinStructBase, Struct
+from _hycore.type_func import builtin_types
 
 
 class Binstruct_Backend(AbstractBackend):

@@ -4,7 +4,7 @@ from typing import Union
 
 from .. import abc
 from .struct_abc import BinStructBase
-from ...._hycore.type_func import get_qualname
+from _hycore.type_func import get_qualname
 
 from . import serializer_methods as methods
 

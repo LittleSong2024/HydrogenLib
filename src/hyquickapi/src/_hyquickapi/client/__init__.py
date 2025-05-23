@@ -6,4 +6,3 @@ from .function import *
 from .handler import *
 from .requester import *
 
-from ..defines import *

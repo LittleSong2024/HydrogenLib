@@ -1,5 +1,5 @@
-from ...._hycore.data_structures import HuffmanTree
-from ...._hycore.type_func import get_qualname
+from _hycore.data_structures import HuffmanTree
+from _hycore.type_func import get_qualname
 
 
 class TypeMapping:

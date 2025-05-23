@@ -1,5 +1,5 @@
 # ast types
-from src.HydrogenLib.TypeFunc.LiteralEval import literal_eval
+from _hycore.type_func import literal_eval
 
 
 class Expr:

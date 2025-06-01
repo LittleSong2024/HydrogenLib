@@ -2,46 +2,42 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/hyargs/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyauth/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hycl/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyconfig/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hycore/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyctypes-extra/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyctypes/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hydemo/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hydownloader/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyencrypt/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyfs/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hylog/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hynet-structure/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyoverload/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hypipe/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hypy/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyquickapi/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyre/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hyshm/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hysocket/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hystruct/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hytemplate/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hytest/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hythreading/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/hywinreg/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyargs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyauth/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hycl/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyconfig/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hycore/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyctypes-extra/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyctypes/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hydemo/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hydownloader/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyencrypt/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyfs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hylog/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hynet-structure/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyoverload/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hypipe/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hypy/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyquickapi/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyre/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyshm/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hysocket/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hystruct/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hytemplate/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hytest/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hythreading/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hywinreg/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyttlcache/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/.vscode" />
-      <excludeFolder url="file://$MODULE_DIR$/src/hydrogenlib/_hycl/.old.source" />
-      <excludeFolder url="file://$MODULE_DIR$/src/hydrogenlib/_hycl/.old.source/2024.10-" />
-      <excludeFolder url="file://$MODULE_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13" />
-      <excludeFolder url="file://$MODULE_DIR$/src/hydrogenlib/_hycl/.old.source/2024.11.13-" />
+      <excludeFolder url="file://$MODULE_DIR$/.temp" />
+      <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source" />
+      <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source/2024.10-" />
+      <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source/2024.11.13" />
+      <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source/2024.11.13-" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="HydrogenLib" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="uv (HydrogenLib)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-  <component name="PackageRequirementsSettings">
-    <option name="removeUnused" value="true" />
-  </component>
-  <component name="PyDocumentationSettings">
-    <option name="format" value="PLAIN" />
-    <option name="myDocStringFormat" value="Plain" />
   </component>
 </module>

@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "HydrogenLib-Next"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.11.0"
+keywords = []
+authors = [
+    { name = "LittleSong2024", email = "LittleSong2024@outlook.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+dependencies = [
+    "jsonpickle >= 3.3.0",
+    "pyaes >= 1.6.0",
+    "rsa >= 4.9",
+    "psutil >= 6.0.0",
+    "rich >= 13.6.0",
+    "ping3 >= 4.0.0",
+    "bitarray",
+    "natsort",
+]
+
+[project.urls]
+Documentation = "https://github.com/LittleSong2024/HydrogenLib#readme"
+Issues = "https://github.com/LittleSong2024/HydrogenLib/issues"
+Source = "https://github.com/LittleSong2024/HydrogenLib"
+
+
+[tool.hatch.version]
+path = "src/hydrogenlib/__about__.py"
+
+[tool.coverage.run]
+source_pkgs = ["hydrogenlib", "tests"]
+branch = true
+parallel = true
+omit = [
+    "src/hydrogenlib/__about__.py",
+]
+
+[tool.coverage.paths]
+hydrogenlib = ["src/hydrogenlib", "*/hydrogenlib/src/hydrogenlib"]
+tests = ["tests", "*/hydrogenlib/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.hatch.build]
+target = "wheel"
+
+[tool.hatch.build.targets.wheel]
+packages = ['src/hydrogenlib']
+
+[project.scripts]
+hydrogen-tools = "hydrolib.scripts.enter:main"

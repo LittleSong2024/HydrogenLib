@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "HydrogenLib-src/hylog"
+name = "HydrogenLib-Hylog"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
@@ -32,4 +32,7 @@ Issues = "https://github.com/LittleSong2024/HydrogenLib/issues"
 Source = "https://github.com/LittleSong2024/HydrogenLib"
 
 [tool.hatch.version]
-path = "src/hylog/__about__.py"
+path = "src/_hylog/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/_hylog"]

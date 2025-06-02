@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "HydrogenLib-hyargs"
+name = "HydrogenLib-Hyargs"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
@@ -32,4 +32,7 @@ Issues = "https://github.com/LittleSong2024/HydrogenLib/issues"
 Source = "https://github.com/LittleSong2024/HydrogenLib"
 
 [tool.hatch.version]
-path = "src/hyargs/__about__.py"
+path = "src/_hyargs/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/_hyargs"]

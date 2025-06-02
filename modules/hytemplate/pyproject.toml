@@ -8,21 +8,17 @@ dynamic = ["version"]
 description = ''
 readme = "README.md"
 requires-python = ">=3.11"
-license = "HydrogenLib License"
 keywords = []
 authors = [
-  { name = "LittleSong2024", email = "LittleSong2024@outlook.com" },
+    { name = "LittleSong2024", email = "LittleSong2024@outlook.com" },
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = []
 
@@ -32,4 +28,7 @@ Issues = "https://github.com/LittleSong2024/HydrogenLib/issues"
 Source = "https://github.com/LittleSong2024/HydrogenLib"
 
 [tool.hatch.version]
-path = "src/hytemplate/__about__.py"
+path = "src/_hytemplate/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/_hytemplate"]

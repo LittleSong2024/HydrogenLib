@@ -1,9 +1,11 @@
 class GettingPath:
-    def __init__(self, path):
+    def __init__(self, path, getter=None, setter=None):
         if not self.check(path):
             raise ValueError(f"Path {path} is not valid")
 
         self.path = path
+        self._getter = getter
+        self._setter = setter
 
     @property
     def parent(self):
@@ -29,25 +31,28 @@ class GettingPath:
         """
         Get next object from current object
         """
-        return getattr(current, next)
+        if self._getter is None:
+            return getattr(current, next)
+        else:
+            return self._getter(current, next)
 
-    def setnext(self, current, next, value):
+    def setnext(self, current, name, value):
         """
         Set next object from current object
         """
-        setattr(current, next, value)
+        setattr(current, name, value)
 
     def iter_path(self):
         return self.path
 
     def touch(self, obj):
         cur = obj
-        for next in self.iter_path():
-            cur = self.getnext(cur, next)
+        for part in self.iter_path():
+            cur = self.getnext(cur, part)
         return cur
 
     def set(self, obj):
         cur = obj
-        for next in self.iter_path()[:-1:]:
-            cur = self.getnext(cur, next)
+        for part in self.iter_path()[:-1:]:
+            cur = self.getnext(cur, part)
         self.setnext(cur, self.iter_path()[-1], obj)

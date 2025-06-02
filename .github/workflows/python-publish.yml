@@ -20,7 +20,6 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    environment: Pypi-Update
     permissions:
       id-token: write
 

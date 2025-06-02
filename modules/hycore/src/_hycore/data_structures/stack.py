@@ -5,6 +5,10 @@ from typing import Iterable
 class Stack:
     @property
     def stack(self):
+        """
+        Get stack.
+        :return: tuple of stack.
+        """
         return tuple(self._stack)
 
     @stack.setter

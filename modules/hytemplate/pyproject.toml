@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "HydrogenLib-src/hytemplate"
+name = "HydrogenLib-Hytemplate"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 license = "HydrogenLib License"
 keywords = []
 authors = [

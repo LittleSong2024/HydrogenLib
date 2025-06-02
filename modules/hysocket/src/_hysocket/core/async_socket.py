@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import os
 import socket
-from io import IOBase
 from typing import Any, Union
 
 from .._hycore.neostruct import pack_variable_length_int, unpack_variable_length_int_from_readable
@@ -28,6 +27,7 @@ class Asyncsocket:
     """
     socket.socket的异步版本
     """
+
     def __init__(self, s: Union[socket.socket, 'Asyncsocket'] = None, loop: asyncio.AbstractEventLoop = None):
         self.loop = None
 
@@ -117,11 +117,6 @@ class Asyncsocket:
         except OSError:
             return None
 
-    def getsockopt_string(self, level, optname, buflen=None):
-        err = self.getsockopt(level, optname, buflen)
-        if err:
-            return os.strerror(err)
-
     def gettimeout(self):
         return self.sock.gettimeout()
 
@@ -133,20 +128,3 @@ class Asyncsocket:
 
     async def close(self):
         self.sock.close()
-
-
-class AsyncItemsocket(Asyncsocket):
-    async def _recv_item(self):
-        io = self.sock.makefile('rb')
-        head = unpack_variable_length_int_from_readable(io)
-        return io.read(head)
-
-    async def send(self, data):
-        length = len(data)
-        head = pack_variable_length_int(length)
-        return await self.sendall(head + data)
-
-    async def recv(self, size: int):
-        for i in range(size):
-            yield await self._recv_item()
-

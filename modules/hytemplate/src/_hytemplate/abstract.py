@@ -4,18 +4,19 @@ from _hycore.utils import AutoSingleton
 
 
 class AbstractMarker(ABC):
-    def generate(self, countainer, **kwargs):
+    def generate(self, owner, **kwargs):
         """
         为标记生成一个确切的值
-        :param countainer:父容器
+        :param owner: 顶层template实例
         :param kwargs: 外部传入的额外参数
         :return: Any
         """
 
-    def restore(self, countainer, value, **kwargs):
+    def restore(self, owner, value, **kwargs):
         """
         把值还原成标记
-        :param countainer:父容器
+        :param value: 值
+        :param owner: 顶层template实例
         :param kwargs: 外部传入的额外参数
         """
 

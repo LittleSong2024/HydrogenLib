@@ -77,7 +77,11 @@ class InstanceDict(UserDict):
         id_item = self.__getitem__(k)
 
         event = GetEvent(id_item.key, id_item.value)
+
         self.get_event(event)
+
+        if not event.is_accepted():
+            raise RuntimeError('Get event failed', event)
 
         return event.result  # 找到项, 返回字典值
 
@@ -91,8 +95,11 @@ class InstanceDict(UserDict):
         if not id:
             k = self.to_key(k)
 
-        self.set_event(  # 触发事件
-            SetEvent(super().get(k, None), v))
+        event = SetEvent(super().get(k, None), v)
+        self.set_event(event)
+
+        if not event.is_accepted():
+            raise RuntimeError('Set event failed', event)
 
         self._set(self.to_key(k), v)
 
@@ -104,6 +111,12 @@ class InstanceDict(UserDict):
         """
         if not id:
             key = self.to_key(key)
+
+        event = DeleteEvent(key, self._get(key))
+        self.delete_event(event)
+
+        if not event.is_accepted():
+            raise RuntimeError('Delete event failed', event)
 
         self._delete(key)
 

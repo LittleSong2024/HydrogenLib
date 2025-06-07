@@ -15,6 +15,9 @@ class EventBase:
     def deaccept(self):
         self.__accepted = False
 
+    def is_accepted(self):
+        return self.__accepted
+
 
 class SetEvent(EventBase):
     """

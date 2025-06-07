@@ -6,17 +6,31 @@ from .events import *
 
 
 class InstanceDictItem:
+    _key: weakref.ReferenceType
+
     def __init__(self, key_instance, value, parent: 'InstanceDict' = None):
-        self.key_weakref = weakref.proxy(key_instance, self.delete_callback)
+        self._hasweakref = True
+        try:
+            self._key = weakref.ref(key_instance, self.delete_callback)
+        except TypeError:
+            self._key = key_instance  # 如果 key_instance 不是弱引用对象
+            self._hasweakref = False
         self.value = value
         self.parent = parent
 
     @property
     def key(self):
-        return self.key_weakref()
+        if self._hasweakref:
+            return self._key()
+        else:
+            return self._key
 
-    def delete_callback(self, object):
-        self.parent.delete(object)
+    @property
+    def as_key(self):
+        return self.parent.to_key(self.key)
+
+    def delete_callback(self, obj):
+        self.parent.delete(obj)
 
 
 class InstanceDict(UserDict):
@@ -26,15 +40,20 @@ class InstanceDict(UserDict):
             for k, v in dct.items():
                 self._set(k, v)
 
+    def to_dict(self):
+        return {
+            i.as_key: i.value for i in self.data.values()
+        }
+
     def to_key(self, value):
         return id(value)
 
-    def _get(self, key) -> InstanceDictItem:
-        return super().__getitem__(key)
+    def _get(self, key, item=False) -> InstanceDictItem:
+        i = self.__getitem__(key)
+        return i if item else i.value
 
     def _set(self, key, value) -> None:
-        #
-        super().__setitem__(key, InstanceDictItem(key, value, self))
+        super().__setitem__(self.to_key(key), InstanceDictItem(key, value, self))
 
     def _pop(self, key):
         return super().pop(key)
@@ -55,9 +74,9 @@ class InstanceDict(UserDict):
         if k not in self:  # 如果 k 不位于字典中
             return default  # 返回默认值
 
-        value = self._get(k)
+        id_item = self.__getitem__(k)
 
-        event = GetEvent(value.key, value.value)
+        event = GetEvent(id_item.key, id_item.value)
         self.get_event(event)
 
         return event.result  # 找到项, 返回字典值
@@ -96,14 +115,23 @@ class InstanceDict(UserDict):
         :return: Any
         """
         if not id:
-            key_id = self.to_key(key)
+            key = self.to_key(key)
 
-        self.delete_event(DeleteEvent(key, self._get(key_id)))
+        self.delete_event(DeleteEvent(key, self._get(key)))
 
-        return self._pop(key_id)
+        return self._pop(key)
+
+    def keys(self):
+        return [i.key for i in self.data.values()]
+
+    def values(self):
+        return [i.value for i in self.data.values()]
+
+    def items(self):
+        return [(i.key, i.value) for i in self.data.values()]
 
     def __getitem__(self, key):
-        return self._get(self.to_key(key)).value
+        return super().__getitem__(self.to_key(key)).value
 
     def __setitem__(self, key, value):
         self._set(key, value)
@@ -115,8 +143,7 @@ class InstanceDict(UserDict):
         return super().__contains__(self.to_key(item))
 
     def __iter__(self):
-        for v in super().values():
-            yield v.key, v.value
+        yield from self.keys()
 
     # 拓展
 

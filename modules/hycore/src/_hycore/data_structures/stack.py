@@ -1,4 +1,5 @@
 from collections import deque
+from copy import copy
 from typing import Iterable
 
 
@@ -7,9 +8,9 @@ class Stack:
     def stack(self):
         """
         Get stack.
-        :return: tuple of stack.
+        :return: the deque of stack.
         """
-        return tuple(self._stack)
+        return copy(self._stack)
 
     @stack.setter
     def stack(self, stack):
@@ -54,6 +55,9 @@ class Stack:
         Copy stack.
         """
         return self.__class__(self._stack.copy())
+
+    def as_tuple(self):
+        return tuple(self._stack)
 
     @property
     def top(self):

@@ -1,29 +1,32 @@
 from _hycore.type_func import get_attr_by_path, set_attr_by_path
-from ..abstract import AbstractMarker, generate
+from .dict_template import DictTemplateMarker
+from .list_template import ListTemplate
+from ..basic_methods import *
 
-
-# Value Markers
 
 class Attribute(AbstractMarker):
-    def __init__(self, attr, obj=None):
+    def __init__(self, attr, obj=None, restorable=True):
         self.attr_path = attr
         self.obj = obj
+        self.restorable = restorable
 
-    def generate(self, countainer, **kwargs):
-        obj = generate(self.obj, countainer, **kwargs) or countainer
+    def generate(self, context):
+        obj = self.obj or context.root
         return get_attr_by_path(obj, self.attr_path)
 
-    def restore(self, countainer, value, **kwargs):
-        obj = generate(self.obj, countainer, **kwargs) or countainer
-        set_attr_by_path(obj, self.attr_path, value)
+    def restore(self, context: RestorationContext):
+        if not self.restorable:
+            return
+        obj = self.obj or context.root
+        set_attr_by_path(obj, self.attr_path, context.value)
 
 
-class KWValue(AbstractMarker):
-    def __init__(self, kwarg_name):
-        self.kwarg_name = kwarg_name
+class Argument(AbstractMarker):
+    def __init__(self, argument):
+        self.argument = argument
 
-    def generate(self, countainer, **kwargs):
-        return kwargs[self.kwarg_name]
+    def generate(self, context: GenerationContext):
+        return context.arguments.get(self.argument)
 
 
 class StaticCall(AbstractMarker):
@@ -36,7 +39,7 @@ class StaticCall(AbstractMarker):
         self.args = args
         self.kwargs = kwargs
 
-    def generate(self, countainer, **kwargs):
+    def generate(self, context: GenerationContext):
         return self.func(*self.args, **self.kwargs)
 
 
@@ -50,23 +53,10 @@ class DynamicCall(AbstractMarker):
         self.args = args
         self.kwargs = kwargs
 
-    def generate(self, countainer, **kwargs):
-        func = generate(self.func, countainer, **kwargs)
-        args = (generate(i, countainer, **kwargs)
+    def generate(self, context: GenerationContext):
+        func = generate(self.func, context, parent=self)
+        args = (generate(i, context, parent=self)
                 for i in self.args)
-        kwargs = {k: generate(v, countainer, **kwargs)
+        kwargs = {k: generate(v, context, parent=self)
                   for k, v in self.kwargs.items()}
         return func(*args, **kwargs)
-
-
-# Struct Markers
-
-
-from .list import List
-
-
-# Template Markers
-
-
-from .template_marker import TemplateMarker
-from .template_marker import TemplateMarker as Template

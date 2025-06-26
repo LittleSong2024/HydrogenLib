@@ -1,50 +1,26 @@
-from typing import *
-from inspect import Signature
-from .const import CallingConvention as CS
+from _hycore.type_func import get_signature, get_name
+from .methods import *
 
 
-@dataclass
-class Prototype:
-    name_or_ordinal: Union[str, int]
-    argtypes: Optional[list[type]]
-    restype: Optional[type]
-    signature: Signature
-
-    call_standard = CS.AUTO
-    cdecl_functype = None
-    win_functype = None
+class ProtoType:
+    def __init__(self, *argtypes, restype=None, name: str = None):
+        self.argtypes = argtypes
+        self.restype = restype
+        self.name = name
 
     @classmethod
-    def from_function(cls, func, type_mapping=DefaultMapping):
-        func = Function(func)
+    def from_pyfunc(cls, maybe_func=None, name: str = None):
+        def decorator(func):
+            nonlocal name
 
-        argtypes = []
+            name = name or get_name(func)
+            signature = get_signature(func)
+            types = get_types_from_signature(signature)
+            restype = signature.return_annotation
 
-        st = func.signature
+            return cls(*types, restype=restype, name=name)
 
-        for param in st.parameters.values():
-            if param.annotation is not param.empty:
-                argtypes.append(type_mapping.map(param.annotation))
-
-        restype = type_mapping.map(
-            st.return_annotation if st.return_annotation is not st.empty else None)
-        return cls(func.name, argtypes, restype, st)
-
-    def generate_cfunctype(self):
-        if self.call_standard == CS.STDCALL:
-            self.cdecl_functype = functype = ctypes.CFUNCTYPE(self.restype, *self.argtypes)
+        if maybe_func is None:
+            return decorator
         else:
-            self.win_functype = functype = ctypes.WINFUNCTYPE(self.restype, *self.argtypes)
-
-        return functype
-
-    @property
-    def paramflags(self):
-        flags = []  # type: list[tuple[int, str, int]]
-        for param in self.signature.parameters.values():
-            if param.default is param.empty:
-                flags.append(C.ParamFlags(0, param.name))
-            else:
-                # flags.append(C_FunctionFlag(C_FunctionFlag.OPTIONAL, param.name, param.default))
-                flags.append(C.ParamFlags(1, param.name, param.default))  # 为什么设置为4会报错???
-        return tuple(flags)
+            return decorator(maybe_func)

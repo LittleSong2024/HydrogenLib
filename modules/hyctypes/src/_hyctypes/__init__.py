@@ -1,24 +1,17 @@
 """
 Use:
-    from ctypes import c_int
-    dll = HyDll(<dll_name>, <STDCALL | CDECL | None>)
+    import ...
+    dll = Dll('user32')
 
-    @dll.define
-    def AnyFunction(a: c_int, b: c_int) -> None: ...
+    @ProtoType.from_pyfunc
+    def MessageBoxW(hwnd: int, text: str, caption: str, uType: int) -> int: ...
 
-    @dll.define
-    def ... ( ... ) -> ... : ...
+    dll.connect(MessageBoxW)
+
 """
 
-from ctypes import *
-from ctypes import util
 
-from .dll import HyDll
-from .structure import HyStructure
-from .const import CallStandard
-from .methods import *
-from .cfunction import *
+from . import C
+from .C.enums import CallingConvention as CallingConv
+from .C.type_hints import *
 
-from . import c_types as types_namespace
-
-from .c_types import *

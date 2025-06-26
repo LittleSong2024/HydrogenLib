@@ -12,7 +12,11 @@ from .safe_eval import *
 from .tempalte_type import *
 from .type_func import *
 
-builtin_types = Union[int, float, str, bool, NoneType, list, tuple, dict, set, bytes, bytearray]
+builtin_types = (
+    int, float, str, bool,
+    NoneType, list, tuple, dict, set,
+    bytes, bytearray, memoryview, slice, type
+)
 
 
 def int_to_bytes(num: int, lenght, byteorder: Literal["little", "big"] = 'little'):

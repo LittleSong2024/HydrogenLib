@@ -1,4 +1,7 @@
-class DoubleDict(dict):
+from collections import UserDict
+
+
+class DoubleDict(UserDict):
     def __init__(self, dct=None):
         super().__init__()
         if dct:

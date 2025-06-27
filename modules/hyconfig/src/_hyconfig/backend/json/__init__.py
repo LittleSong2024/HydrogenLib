@@ -1,19 +1,27 @@
 from ...abc.backend import AbstractBackend
-from hystruct import *
+from ...abc.model import AbstractModel
 from _hycore.json import json_types
+import json
 
 
 class Json_Backend(AbstractBackend):
-    serializer = Json()
-    support_types = (json_types, )
+    serializer = json
+    __support_types__ = (json_types,)
 
-    def save(self):
-        with self._io.open(self.file, 'wb') as f:
-            f.write(self.serializer.dumps(self._data))
+    def __init__(self):
+        self.model: AbstractModel = None
 
-    def load(self):
-        with self._io.open(self.file, 'rb') as f:
-            if f.size:
-                self.existing = True
-                dic = self.serializer.loads(f.read())
-                self.init(**dic)
+    def set_model(self, model):
+        self.model = model
+        return self
+
+    def get_model(self):
+        return self.model
+
+    def save(self, file):
+        with open(file, 'w') as (f):
+            json.dump(self.model.data, f)
+
+    def load(self, file):
+        with open(file, 'r') as (f):
+            self.model.init(json.load(f))

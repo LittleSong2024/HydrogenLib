@@ -1,10 +1,9 @@
-from pathlib import Path
-from typing import Union, Type
+from typing import Type
 
+from _hycore.utils import DoubleDict
 from .items import ConfigItem, ConfigItemInstance
 from .types import ConfigTypeMapping, builtin_type_mapping
 from ..abc.backend import AbstractBackend
-from _hycore.utils import DoubleDict
 
 
 def get_keys_by_type(dct, tp):
@@ -41,19 +40,19 @@ class PreConfigCheckError(ConfigError):
         return f"Failed to create config container ==> {self.e}"
 
 
-def _build_items(self: 'Type[HyConfig]'):
-    self.__cfgitems__ = get_attrs_by_type(self, ConfigItem)
+def _build_items(cls: 'Type[HyConfig]'):
+    cls.__cfgitems__ = get_attrs_by_type(cls, ConfigItem)
 
 
-def _build_mapping(self: 'Type[HyConfig]'):
-    mapping = self.__cfgmapping__
-    items = self.__cfgitems__
+def _build_mapping(cls: 'Type[HyConfig]'):
+    mapping = cls.__cfgmapping__
+    items = cls.__cfgitems__
 
     for name in items:
-        item = getattr(self, name)  # type: ConfigItem
+        item = getattr(cls, name)  # type: ConfigItem
         key = item.key
 
-        if item.key is None:
+        if key is None:
             item.key = key = name
 
         if name in mapping:  # 有配置项的name与其他配置项的key或name冲突
@@ -97,13 +96,17 @@ class HyConfig:
 
     # 可重写配置属性
     __cfgtypemapping__: ConfigTypeMapping = builtin_type_mapping
-    __cfgfile__: Union[Path, str] = None
-    __cfgbackend__: AbstractBackend = None
     __cfgautoload__ = False
+    __cfgfile__ = None
+    __cfgbackend__: AbstractBackend = None
 
     @property
     def cfg_items(self):
         return self.__cfgitems__
+
+    @property
+    def cfg_file(self):
+        return self.__cfgfile__
 
     @property
     def cfg_backend(self):
@@ -114,20 +117,22 @@ class HyConfig:
         return self.__cfgmapping__
 
     @property
-    def cfg_file(self):
-        return self.__cfgfile__
-
-    @property
     def cfg_autoload(self):
         return self.__cfgautoload__
 
+    @property
+    def cfg_model(self):
+        return self.__cfgbackend__.get_model()
+
     @classmethod
     def get_cfgitem(cls, name, instance) -> 'ConfigItemInstance':
-        return getattr(cls, name).from_instance(instance)
+        return getattr(cls, name).get_instance(instance)
 
     def __init_subclass__(cls, **kwargs):  # 对于每一个子类,都会执行一次映射构建
         cls.__cfgitems__ = cls.__cfgitems__ or set()
         cls.__cfgmapping__ = DoubleDict()
+
+        cls.__cfgautoload__ = kwargs.get('autoload', cls.__cfgautoload__)
 
         _build_items(cls)
         _build_mapping(cls)
@@ -139,67 +144,45 @@ class HyConfig:
             self.load(self.cfg_file)
 
     def load(self, file=None):
-        self.cfg_backend.file = file
-        self._load()
+        file = file or self.cfg_file
+        self.cfg_backend.load(file)
 
     def validate(self, key_or_attr, value, error=False):
-        if not self.config_exists(key_or_attr):
+        if not self.exists(key_or_attr):
             raise KeyError(f'{key_or_attr} is not a valid config item or key')
         return self.get_cfgitem(key_or_attr, self).validate(value, error)
 
-    @property
-    def existing(self):
-        """
-        加载时配置文件是否存在
-        """
-        return self.cfg_backend.existing
-
-    def config_exists(self, key_or_attr):
+    def exists(self, key_or_attr):
         """
         判断配置项是否存在
         """
-        attr = self.to_attr(key_or_attr)
-        return attr in self.config_names()
+        attr = self.as_attrname(key_or_attr)
+        return attr in self.keys()
 
-    def config_names(self):
+    def keys(self):
         """
         返回作为配置项的属性名集合
         """
         return self.cfg_items
 
-    def config_values(self):
+    def values(self):
         """
         返回作为配置项的属性值集合
         """
-        return [getattr(self, key) for key in self.config_names()]
+        return [getattr(self, key) for key in self.keys()]
 
-    def config_items(self):
+    def items(self):
         """
         返回作为配置项的属性名和属性值集合
         """
-        return [(key, getattr(self, key)) for key in self.config_names()]
+        return [(key, getattr(self, key)) for key in self.keys()]
 
-    def save(self):
-        """
-        保存配置(仅限所有改动)
-        """
-        self._save(self.changes)
-
-    def save_all(self):
-        """
-        保存所有配置
-        """
-        self._save(self.config_names())
-
-    def clear_changes(self):
-        self.changes.clear()
-
-    def reset(self):
-        for attr in self.config_names():
+    def clear(self):
+        for attr in self.keys():
             data = self.get_cfgitem(attr, self)
             setattr(self, attr, data.default)
 
-    def to_attr(self, key_or_attr):
+    def as_attrname(self, key_or_attr):
         if key_or_attr in self.cfg_items:
             return key_or_attr
         elif key_or_attr in self.cfg_mapping:
@@ -207,50 +190,16 @@ class HyConfig:
         else:
             raise KeyError(f'{key_or_attr} is not a valid config item or key')
 
-    def on_change(self, key, old, new):
-        self.changes.add(key)
-
-    def add_to_changes(self, key):
-        self.changes.add(key)
-
-    def _load(self):
-        self.cfg_backend.load()
-        for key, value in self.cfg_backend.items():
-            try:
-                attr = self.to_attr(key)
-                data = self.get_cfgitem(attr, self)
-
-                if data.validate(value):
-                    setattr(self, attr, value)
-                else:
-                    setattr(self, attr, data.default)
-            except KeyError:
-                continue
-
-        self.changes.clear()
-
     def __getitem__(self, key):
-        attr = self.to_attr(key)
-        if attr in self.config_names():
+        attr = self.as_attrname(key)
+        if attr in self.keys():
             return getattr(self, attr)
         else:
             raise KeyError(f'{key} is not a config item or key')
 
     def __setitem__(self, key, value):
-        attr = self.to_attr(key)
-        if attr in self.config_names():
+        attr = self.as_attrname(key)
+        if attr in self.keys():
             setattr(self, attr, value)
         else:
             raise KeyError(f'{key} is not a config item or key')
-
-    @classmethod
-    def _get_item(cls, item_attr) -> ConfigItem:
-        return getattr(cls, item_attr)
-
-    def _save(self, keys):
-        for name in keys:
-            attr = self.to_attr(name)
-            cfgitem_instance = self.get_cfgitem(attr, self)
-            self.cfg_backend.set(name, cfgitem_instance.type.transform(cfgitem_instance.value))
-
-        self.cfg_backend.save()

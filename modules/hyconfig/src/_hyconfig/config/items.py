@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import builtins
+import typing
 from typing import Protocol, runtime_checkable
 
+from ..abc.model import AbstractModel
 from ..abc.types import ConfigTypeBase
 from _hycore.better_descriptor import *
+
+if typing.TYPE_CHECKING:
+    from .container import HyConfig
 
 
 @runtime_checkable
@@ -13,26 +18,29 @@ class Item(Protocol):
     key_instance: Any
 
 
-class ConfigItemInstance(BetterDescriptorInstance):
+class ConfigItemInstance(DescriptorInstance):
     key: str
-    attr: str
     type: ConfigTypeBase
     default: Any
 
-    _value = None
-
-    def __init__(self, parent: 'ConfigItem' = None):
+    def __init__(self):
         super().__init__()
-        self.parent = parent
-        self.sync()
 
-    def sync(self):
-        self.key, self.type, self.default = (
-            self.parent.key, self.parent.type, self.parent.default)
+    def __dspt_init__(self, inst, owner, name, dspt: 'ConfigItem'):
+        self.parent = dspt
+        self.inst = inst
+        self.key = dspt.key
+
+    @property
+    def model(self):
+        return self.parent.model
 
     def set(self, v):
         self.validate(v, error=True)
-        self._value = v
+        self.model.set(self.key, v)
+
+    def get(self):
+        return self.model.get(self.key)
 
     def validate(self, v, error=False):
         res = self.type.validate(v)
@@ -42,27 +50,28 @@ class ConfigItemInstance(BetterDescriptorInstance):
 
     @property
     def value(self):
-        return self._value
+        return self.get()
 
     @value.setter
     def value(self, value):
         self.set(value)
 
-    def __better_get__(self, instance, owner, parent) -> Any:
+    def __dspt_get__(self, inst, owner, parent) -> Any:
         return self.value
 
-    def __better_set__(self, instance, value, parent):
-        self.set(value)
+    def __dspt_set__(self, inst, value, parent):
+        self.value = value
 
-    def __better_del__(self, instance, parent):
+    def __dspt_del__(self, inst, parent):
         self.value = self.default
 
 
-class ConfigItem(BetterDescriptor, type=ConfigItemInstance):
-    def __init__(self, type: type | ConfigTypeBase, default: Any, *, key=None):
+class ConfigItem(Descriptor):
+    def __init__(self, type: type | ConfigTypeBase, default: Any, *, key=None, model=None):
         super().__init__()
         self.default = default
         self.key = key
+        self.model = model  # type: None | AbstractModel
 
         if isinstance(type, ConfigTypeBase):
             self.type = type
@@ -75,8 +84,12 @@ class ConfigItem(BetterDescriptor, type=ConfigItemInstance):
         if not isinstance(type, builtins.type):
             raise TypeError("type must be a ItemType")
 
-    def __better_new__(self) -> "BetterDescriptorInstance":
-        return ConfigItemInstance(self)
+    def __dspt_init__(self, name, owner):
+        self.key = self.key or name
 
-    def from_instance(self, instance) -> ConfigItemInstance:
-        return self.get_instance(instance)
+    def __dspt_get__(self, inst, owner: 'HyConfig') -> Any:
+        self.model = owner.__cfgbackend__.get_model()
+        return super().__dspt_get__(inst, owner)
+
+    def __dspt_new__(self) -> ConfigItemInstance:
+        return ConfigItemInstance()

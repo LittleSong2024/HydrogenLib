@@ -10,8 +10,9 @@ class Descriptor:
     __dspt_name__ = None
     __dspt_none_as_self__ = True
 
-    def __init_subclass__(cls, **kwargs):
-        cls.__instance_mapping__ = InstanceDict()
+    def __init__(self):
+        if self.__instance_mapping__ is None:
+            self.__instance_mapping__ = InstanceDict()
 
     def __instance__(self, inst, owner):
         if inst not in self.__instance_mapping__:

@@ -1,18 +1,22 @@
 from __future__ import annotations
 
-from typing import Type, Any
+from typing import Any
 
 from .utils.instance_dict import InstanceDict
 
 
 class Descriptor:
-    __instance_mapping__: InstanceDict = InstanceDict()
+    __instance_mapping__: InstanceDict = None
     __dspt_name__ = None
+    __dspt_none_as_self__ = True
+
+    def __init_subclass__(cls, **kwargs):
+        cls.__instance_mapping__ = InstanceDict()
 
     def __instance__(self, inst, owner):
         if inst not in self.__instance_mapping__:
             self.__instance_mapping__[inst] = x = self.__dspt_new__()
-            x.__dspt_init__(self.__dspt_name__, owner, self)
+            x.__dspt_init__(self.__dspt_name__, inst, owner, self)
         return self.__instance_mapping__[inst]
 
     def __dspt_get__(self, inst, owner) -> Any:
@@ -22,10 +26,7 @@ class Descriptor:
         :param owner: 描述符所属的类。
         :return: 描述符的值。
         """
-        try:
-            return self.__instance__(inst, owner).__dspt_get__(inst, owner, self)
-        except KeyError as e:
-            raise RuntimeError(f"Instance not found in instance_dict: {e}")
+        return self.__instance__(inst, owner).__dspt_get__(inst, owner, self)
 
     def __dspt_set__(self, inst, value):
         """
@@ -33,27 +34,21 @@ class Descriptor:
         :param inst: 访问描述符的实例。
         :param value: 要设置的值。
         """
-        try:
-            self.__instance__(inst, None).__dspt_set__(inst, value, self)
-        except KeyError as e:
-            raise RuntimeError(f"Instance not found in instance_dict: {e}")
+        self.__instance__(inst, None).__dspt_set__(inst, value, self)
 
     def __dspt_del__(self, inst):
         """
         删除描述符的值。
         :param inst: 访问描述符的实例。
         """
-        try:
-            self.__instance__(inst, None).__dspt_del__(inst, self)
-        except KeyError as e:
-            raise RuntimeError(f"Instance not found in instance_dict: {e}")
+        self.__instance__(inst, None).__dspt_del__(inst, self)
 
-    def __dspt_new__(self):
+    def __dspt_new__(self) -> DescriptorInstance:
         """
         创建一个新的 DescriptorInstance 实例。
         :return: 新的 DescriptorInstance 实例。
         """
-        ...
+        return DescriptorInstance()
 
     def __dspt_init__(self, name, owner):
         ...
@@ -65,7 +60,7 @@ class Descriptor:
         :param owner: 描述符所属的类。
         :return: 描述符的值。
         """
-        if instance is None:
+        if instance is None and self.__dspt_none_as_self__:
             return self
         else:
             return self.__dspt_get__(instance, owner)
@@ -96,8 +91,6 @@ class Descriptor:
 
 
 class DescriptorInstance:
-    name: str = None
-
     def __dspt_get__(self, instance, owner, parent) -> Any:
         """
         获取描述符的值（需子类实现）。
@@ -127,7 +120,7 @@ class DescriptorInstance:
         """
         raise NotImplementedError(f"{self.__class__.__name__} must implement __better_del__")
 
-    def __dspt_init__(self, owner, name, dspt):
+    def __dspt_init__(self, inst, owner, name, dspt):
         """
         初始化描述符(需子类实现)。
         """

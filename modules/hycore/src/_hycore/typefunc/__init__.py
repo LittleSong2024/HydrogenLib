@@ -85,3 +85,7 @@ def set_attr_by_path(obj, path, value):
 
 def get_type_name(origin_data):
     return origin_data.__class__.__name__
+
+
+def get_parameters(func):
+    return get_signature(func).parameters

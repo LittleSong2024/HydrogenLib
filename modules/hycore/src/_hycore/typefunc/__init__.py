@@ -89,3 +89,7 @@ def get_type_name(origin_data):
 
 def get_parameters(func):
     return get_signature(func).parameters
+
+
+def as_address_string(int_id: int):
+    return '0x' + format(int_id, '016X')

@@ -1,10 +1,11 @@
 import ctypes
 
-from . import pointer_type as rt
+from .pointer_type import Pointer as _Pointer, Ref as _Ref
+from .array_type import Array as _Array
 
 
 class CType:
-    __real_type__ = None
+    __real_type__: type
 
     def __init_subclass__(cls, **kwargs):
         real = kwargs.get('real')
@@ -14,23 +15,28 @@ class CType:
     def __class_getitem__(cls, *item):
         return cls(*item)
 
-    def __call__(self, *args, **kwargs) -> __real_type__:
+    def __call__(self, *args, **kwargs) -> '__real_type__':
         return self.__real_type__(*args, **kwargs)
 
 
-class TpPointer(CType, real=rt.Pointer):
+class Pointer(CType, real=_Pointer):
     def __init__(self, target_type):
         self._target_tp = target_type
 
-    def __call__(self, *args, **kwargs):
-        ptr = rt.Pointer(*args, **kwargs)
-        ptr.type = self._target_tp
-        return ptr
 
-
-class TpRef(CType, real=rt.Ref):
+class Ref(CType, real=_Ref):
     def __init__(self, target_type):
         self._target_tp = target_type
+
+
+class Array(CType, real=_Array):
+    def __init__(self, target_type, length):
+        self._target_tp = target_type
+        self._length = length
+
+    def __call__(self, *args):
+        array = _Array(self._target_tp, self._length, *args)
+        return array
 
 
 uint = ctypes.c_uint

@@ -1,18 +1,18 @@
-from abc import ABC, abstractmethod, ABCMeta
-import ctypes
+from abc import abstractmethod, ABCMeta
+
 
 class CDataMeta(ABCMeta):
-    __data__ = ...
+    __cdata__ = ...
     __ctype__ = ...
-
-    def __mul__(cls, other):
-        return cls.__ctype__ * other
 
 
 class AbstractCData(metaclass=CDataMeta):
     """
     抽象基类，代表 ctypes 数据类型的通用行为。
     """
+
+    __cdata__ = ...
+    __ctype__ = ...  # 这些都是元类属性，用于描述 ctypes 数据类型.
 
     @classmethod
     @abstractmethod
@@ -49,13 +49,13 @@ class AbstractCData(metaclass=CDataMeta):
         pass
 
     @abstractmethod
-    def convert(self):
+    def __cconvert__(self):
         """
-        将对象转换为 ctypes 可识别的类型
+        将当前实例转换为 ctypes 数据类型。
 
-        :return: ctypes 可识别的类型
+        :return: ctypes 数据类型。
         """
-        pass
+        return self.__cdata__
 
     @property
     def _b_base_(self):
@@ -73,7 +73,7 @@ class AbstractCData(metaclass=CDataMeta):
 
         :return: 布尔值，表示是否需要释放内存。
         """
-        return self.__data__._b_needsfree_
+        return self.__cdata__._b_needsfree_
 
     @property
     def _objects(self):
@@ -82,4 +82,4 @@ class AbstractCData(metaclass=CDataMeta):
 
         :return: 包含相关对象的字典。
         """
-        return self.__data__._objects
+        return self.__cdata__._objects

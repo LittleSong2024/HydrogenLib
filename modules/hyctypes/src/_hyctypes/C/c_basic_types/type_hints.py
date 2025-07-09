@@ -9,7 +9,7 @@ from typing import Sequence
 from _hycore import typefunc
 
 if typing.TYPE_CHECKING:  # 防止循环引用
-    from ..pointer import Pointer as PointerType, Ref as RefType
+    from .pointer_type import Pointer as PointerType, Ref as RefType
 
 
 class _SelfRef:

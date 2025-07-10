@@ -12,14 +12,14 @@ class aliasmode(int, _enum.Enum):
 class alias:
     mode = aliasmode
 
-    _get = lambda self, x: x
-    _set = lambda self, v: v
-    _del = lambda self: None
-
     def __init__(self, attr_path, mode=aliasmode.read, classvar_enabled=False):
         self.path = attr_path
         self.mode = mode
         self.cve = classvar_enabled
+
+        self._get = lambda self, x: x
+        self._set = lambda self, v: v
+        self._del = lambda self: None
 
     def getter(self, fnc: Callable[[Any, Any], Any]):
         self._get = fnc
@@ -36,17 +36,18 @@ class alias:
                 instance = owner
             else:
                 return self
-        if self.mode == aliasmode.read:
+        if self.mode in {aliasmode.read_write, aliasmode.read}:
             return self._get(instance, _gabp(instance, self.path))
         raise PermissionError("Can't read alias")
 
     def __set__(self, instance, value):
-        if self.mode == aliasmode.write:
+        if self.mode in {aliasmode.read_write, aliasmode.write}:
             _sabp(instance, self.path, self._set(instance, value))
+            return  # 抽象,没加return
         raise PermissionError("Can't write alias")
 
     def __delete__(self, instance):
-        if self.mode == aliasmode.write:
+        if self.mode in {aliasmode.read_write, aliasmode.write}:
             self._del(instance)
             _dabp(instance, self.path)
         raise PermissionError("Can't delete alias")

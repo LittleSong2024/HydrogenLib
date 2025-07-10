@@ -11,7 +11,7 @@ class aliasmode(int, _enum.Enum):
 
 class alias:
     """
-    声明变量别名
+    声明属性别名
 
     class myclass:
         a = ...
@@ -19,6 +19,8 @@ class alias:
         b = alias['a'](mode=alias.mode.read)  # 这将创建一个只读的别名
         c = alias['a'](mode=alias.mode.write)  # 这将创建一个只写的别名
         d = alias['a'](mode=alias.mode.read_write)  # 这将创建一个可同时读写的别名
+
+        # 当然这些声明方式都可以用原始的 alias(name, mode, classvar_enabled) 来代替
 
     你也可以自定义钩子
 

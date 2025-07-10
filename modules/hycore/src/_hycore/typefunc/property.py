@@ -1,6 +1,6 @@
 from . import get_attr_by_path as _gabp, set_attr_by_path as _sabp, del_attr_by_path as _dabp
 import enum as _enum
-from typing import Callable, Any
+from typing import Callable, Any, Self
 
 
 class aliasmode(int, _enum.Enum):
@@ -43,7 +43,9 @@ class alias:
 
 
     是不是觉得这些功能太简单了
+
     实际上,属性别名可以应用到嵌套的属性中
+
     比如:
 
     class myclass:
@@ -57,7 +59,9 @@ class alias:
     obj.b = ... # 等同于 obj.a.xxx.xxx = ...
 
     别名也可以应用在 class var 上,这要求开启 classvar_enabled, 但因为 Python 描述符本身的限制, class var 模式仅可读
+
     当你尝试以 class var 的形式为一个 alias 赋值时,会发生与你预期不同的事: alias 对象被覆盖
+
     如果不开启 classvar_enabled 那么任何以 class var 形式获取的别名都将返回 alias 对象本身
 
     class myclass:
@@ -78,14 +82,16 @@ class alias:
         self._set = lambda self, v: v
         self._del = lambda self: None
 
-    def __class_getitem__(cls, item):
+    def __class_getitem__(cls, item) -> Self:
         return cls(item)
 
-    def __call__(self, *, mode=None, classvar_enabled=None):
+    def __call__(self, *, mode=None, classvar_enabled=None) -> Self:
         if mode is not None:
             self.mode = mode
         if classvar_enabled is not None:
             self.cve = classvar_enabled
+
+        return self
 
     def getter(self, fnc: Callable[[Any, Any], Any]):
         self._get = fnc

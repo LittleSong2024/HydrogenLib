@@ -21,6 +21,15 @@ class alias:
         self._set = lambda self, v: v
         self._del = lambda self: None
 
+    def __class_getitem__(cls, item):
+        return cls(item)
+
+    def __call__(self, *, mode=None, classvar_enabled=None):
+        if mode is not None:
+            self.mode = mode
+        if classvar_enabled is not None:
+            self.cve = classvar_enabled
+
     def getter(self, fnc: Callable[[Any, Any], Any]):
         self._get = fnc
 

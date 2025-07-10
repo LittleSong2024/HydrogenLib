@@ -10,6 +10,36 @@ class aliasmode(int, _enum.Enum):
 
 
 class alias:
+    """
+    声明变量别名
+
+    class myclass:
+        a = ...
+
+        b = alias['a'](mode=alias.mode.read)  # 这将创建一个只读的别名
+        c = alias['a'](mode=alias.mode.write)  # 这将创建一个只写的别名
+        d = alias['a'](mode=alias.mode.read_write)  # 这将创建一个可同时读写的别名
+
+    你也可以自定义钩子
+
+    class myclass:
+        a = ...
+        a_alias = alias['a'](mode=alias.mode.read_write)
+
+        @a_alias.getter
+        def a_alias(self, value):
+            return value  # value 是当前属性的值,你可以进行修改,然后返回修改后的值
+
+        @a_alias.setter
+        def a_alias(self, value):
+            return value  # 这时的 value 是即将修改的值,如果不进行干涉,需要直接返回
+
+        @a_alias.deleter
+        def a_alias(self):
+            # raise AttributeError(...)  # 如果你想中断 delete 操作,你只能通过抛出异常的方式
+            pass
+
+    """
     mode = aliasmode
 
     def __init__(self, attr_path, mode=aliasmode.read, classvar_enabled=False):
@@ -32,12 +62,15 @@ class alias:
 
     def getter(self, fnc: Callable[[Any, Any], Any]):
         self._get = fnc
+        return self
 
     def setter(self, fnc: Callable[[Any, Any], Any]):
         self._set = fnc
+        return self
 
     def deleter(self, fnc: Callable[[Any], Any]):
         self._del = fnc
+        return self
 
     def __get__(self, instance, owner):
         if instance is None:

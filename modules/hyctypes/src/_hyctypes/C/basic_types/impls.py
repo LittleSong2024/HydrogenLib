@@ -1,6 +1,6 @@
 import ctypes
 
-from .base import AbstractCData
+from .base import AbstractCData, AbstractCType
 from _hycore.typefunc import as_address_string
 
 
@@ -10,7 +10,7 @@ class Pointer[T](AbstractCData):
     def __init__(self, obj):
         if isinstance(obj, AbstractCData):
             obj = ctypes.pointer(
-                AbstractCData.__cconvert__(obj)
+                AbstractCData.__as_ctype__(obj)
             )
         self.__cdata__ = obj
 
@@ -23,7 +23,7 @@ class Pointer[T](AbstractCData):
         return self.__cdata__.contents
 
     @value.setter
-    def value(self, value):
+    def value(self, value: T):
         self.__cdata__.contents = value
 
     @property
@@ -39,10 +39,10 @@ class Pointer[T](AbstractCData):
 
     @type.setter
     def type(self, tp):
-        self.__cdata__._type_ = tp
+        self.__cdata__ = ctypes.cast(self.__cdata__, )
 
-    def cast(self, tp):
-        return self.__class__(ctypes.cast(self.__cdata__, ctypes.POINTER(as_ctype(tp))))
+    def cast(self, ):
+        return self.__class__(ctypes.cast(self.__cdata__, ))
 
     @classmethod
     def from_buffer(cls, source, offset=0):
@@ -59,7 +59,7 @@ class Pointer[T](AbstractCData):
         c_ptr = cls.__ctype__(None).from_address(address)
         return cls(c_ptr)
 
-    def __cconvert__(self):
+    def __as_ctype__(self):
         return self.__cdata__
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Ref(AbstractCData):
     __ctype__ = None
 
     def __init__(self, obj: AbstractCData, offset=0):
-        self.__cdata__ = ctypes.byref(AbstractCData.__cconvert__(obj), offset)
+        self.__cdata__ = ctypes.byref(AbstractCData.__as_ctype__(obj), offset)
 
     @classmethod
     def from_buffer(cls, source, offset=0):
@@ -85,5 +85,26 @@ class Ref(AbstractCData):
     def from_address(cls, address):
         raise NotImplementedError
 
-    def __cconvert__(self):
+    def __as_ctype__(self):
         return self.__cdata__
+
+
+class Array(AbstractCData):
+    def __init__(self, *value, type, length):
+        self.__ctype__ = type * length
+        self.__cdata__ = self.__ctype__(*value)
+
+    @classmethod
+    def from_buffer(cls, source, offset=0):
+        raise NotImplementedError
+
+    @classmethod
+    def from_buffer_copy(cls, source, offset=0):
+        raise NotImplementedError
+
+    @classmethod
+    def from_address(cls, address):
+        raise NotImplementedError
+
+    def __as_ctype__(self):
+        return super().__as_ctype__()

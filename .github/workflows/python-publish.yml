@@ -3,13 +3,18 @@ name: Publish Python Package
 on:
   push:
     tags:
-      - "v-current-upload*"
-      - "v*.*.*-upload*"
-      - "v-patch-upload*"
-      - "v-major-upload*"
-      - "v-minor-upload*"
+      - "v-*-upload*"
+      - "v*-upload"
 
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to publish'
+        type: string
+        required: true
+        default: 'v-current-upload'
+
+  workflow_call:
     inputs:
       tag:
         description: 'Tag to publish'
@@ -49,6 +54,15 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         env:
           TAG: ${{ github.event.inputs.tag }}
+        run:
+          python ./scripts/upload-for-workflow.py
+
+      - name: 构建和发布 Python 包(调用模式)
+        if: github.event_name == 'workflow_call'
+        env:
+          TAG: ${{ inputs.tag }}
+          DONT_UPLOAD: 1
+
         run:
           python ./scripts/upload-for-workflow.py
 

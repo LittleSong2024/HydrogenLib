@@ -1,4 +1,8 @@
 class Visited:
+    @property
+    def visited(self) -> set:
+        return self._visited
+    
     def __init__(self):
         self._visited = set()
 

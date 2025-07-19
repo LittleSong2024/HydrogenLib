@@ -1,4 +1,4 @@
-from _hycore.type_func.function import Function
+from _hycore.typefunc.function import Function
 
 
 class Argument:

@@ -1,13 +1,13 @@
 from .type_checker import MultiSignatureMatcher
-from _hycore.type_func import Function
-from _hycore.utils import InstanceDict
+from _hycore.typefunc import Function
+from _hycore.utils.instance_dict.instance_dict import InstanceMapping
 
 
 # @Descriptor
 class OverloadMachine:
     def __init__(self):
         self.multi_matcher = MultiSignatureMatcher([])
-        self.mapping = InstanceDict()
+        self.mapping = InstanceMapping()
 
     def overload(self, __func):
         func = Function(__func)

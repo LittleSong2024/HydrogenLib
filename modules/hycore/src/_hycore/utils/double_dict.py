@@ -7,6 +7,7 @@ class DoubleDict(UserDict):
         if dct:
             for k, v in dct.items():
                 self[k] = v
+                self[v] = k
 
         self._same_values = set()
 

@@ -1,6 +1,6 @@
 from inspect import Signature, Parameter
 
-from _hycore.utils import InstanceDict
+from _hycore.utils import InstanceMapping
 from .prototype import ProtoType
 from .basic_types import convert_cdata, as_cdata
 
@@ -15,7 +15,7 @@ class WrapedArguments:
 
 
 class Function:
-    _methods = InstanceDict()
+    _methods = InstanceMapping()
 
     def __init__(self, prototype: ProtoType, signature: Signature = None, dll=None):
         self._name = prototype.name

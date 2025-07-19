@@ -1,4 +1,4 @@
-from _hycore.type_func import get_attr_by_path, set_attr_by_path
+from _hycore.typefunc import get_attr_by_path, set_attr_by_path
 from .dict_template import DictTemplateMarker
 from .list_template import ListTemplate
 from ..basic_methods import *

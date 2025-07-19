@@ -1,6 +1,0 @@
-class GeneraterError(Exception):
-    ...
-
-
-class UnpackError(Exception):
-    ...

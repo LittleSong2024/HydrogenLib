@@ -15,8 +15,8 @@ class DefaultModel(AbstractModel):
             self.changes.add(name)
         self.data[name] = value
 
-    def get(self, name):
-        return self.data[name]
+    def get(self, name, default=None):
+        return self.data.get(name, default)
 
     def delete(self, name):
         del self.data[name]

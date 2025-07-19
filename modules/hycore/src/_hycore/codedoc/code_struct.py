@@ -1,6 +1,6 @@
 from collections import deque
 
-from ..type_func import get_called_func
+from ..typefunc import get_called_func
 
 
 class _TreeHead:

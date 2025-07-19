@@ -11,10 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/hyctypes/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hydemo/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hydownloader/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/hyencrypt/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/hyfs/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hylog/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/hynet-structure/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hyoverload/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hypipe/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hypy/src" isTestSource="false" />
@@ -22,15 +19,17 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/hyre/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hyshm/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hysocket/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/hystruct/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hytemplate/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hytest/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hythreading/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hywinreg/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hyttlcache/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hycrypto/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyfilesystem/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hyserialize/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hynetwork/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/.vscode" />
-      <excludeFolder url="file://$MODULE_DIR$/.temp" />
       <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source" />
       <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source/2024.10-" />
       <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source/2024.11.13" />

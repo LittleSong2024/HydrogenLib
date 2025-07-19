@@ -1,0 +1,10 @@
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  Build-And-Publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build
+        uses: ./.github/workflows/.yml

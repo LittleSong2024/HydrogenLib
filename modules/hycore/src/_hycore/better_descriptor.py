@@ -2,21 +2,21 @@ from __future__ import annotations
 
 from typing import Any
 
-from .utils.instance_dict import InstanceDict
+from .utils.instance_dict.instance_dict import InstanceMapping
 
 
 class Descriptor:
-    __instance_mapping__: InstanceDict = None
+    __instance_mapping__: InstanceMapping = None
     __dspt_name__ = None
     __dspt_none_as_self__ = True
 
     def __init__(self):
         if self.__instance_mapping__ is None:
-            self.__instance_mapping__ = InstanceDict()
+            self.__instance_mapping__ = InstanceMapping()
 
     def __instance__(self, inst, owner):
         if inst not in self.__instance_mapping__:
-            self.__instance_mapping__[inst] = x = self.__dspt_new__()
+            self.__instance_mapping__[inst] = x = self.__dspt_new__(inst)
             x.__dspt_init__(self.__dspt_name__, inst, owner, self)
         return self.__instance_mapping__[inst]
 
@@ -44,7 +44,7 @@ class Descriptor:
         """
         self.__instance__(inst, None).__dspt_del__(inst, self)
 
-    def __dspt_new__(self) -> DescriptorInstance:
+    def __dspt_new__(self, inst) -> DescriptorInstance:
         """
         创建一个新的 DescriptorInstance 实例。
         :return: 新的 DescriptorInstance 实例。

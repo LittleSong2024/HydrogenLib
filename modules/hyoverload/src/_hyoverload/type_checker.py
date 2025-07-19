@@ -4,7 +4,7 @@ from types import *
 from typing import *
 
 from .args_temp import Temp
-from _hycore.type_func import literal_eval
+from _hycore.typefunc import literal_eval
 
 
 def get_typematch_degrees(argument, param_type):

@@ -22,11 +22,14 @@ class AbstractBackend(ABC):
         if cls.__support_types__ is None:
             raise TypeError("BackendABC subclass must have a support_types attribute.")
 
+    def __class_getitem__(cls, item) -> 'AbstractBackend':
+        return cls().set_model(item)
+
     def support(self, type):
         return self.__support_compare(type) or self.__support_check(type)
 
     @abstractmethod
-    def set_model(self, model) -> Self:
+    def set_model(self, model: 'AbstractModel') -> Self:
         ...
 
     @abstractmethod
@@ -34,9 +37,9 @@ class AbstractBackend(ABC):
         ...
 
     @abstractmethod
-    def save(self, file):
+    def save(self, fd):
         ...
 
     @abstractmethod
-    def load(self, file):
+    def load(self, fd):
         ...

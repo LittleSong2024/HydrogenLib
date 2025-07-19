@@ -79,8 +79,10 @@ def del_attr_by_path(obj, path):
     delattr(cur, path_ls[-1])
 
 
-def get_type_name(origin_data):
-    return origin_data.__class__.__name__
+def get_type_name(type_or_obj):
+    if isinstance(type_or_obj, type):
+        return type_or_obj.__name__
+    return type_or_obj.__class__.__name__
 
 
 def get_parameters(func):

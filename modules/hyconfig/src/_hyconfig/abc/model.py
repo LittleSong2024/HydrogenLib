@@ -10,7 +10,7 @@ class AbstractModel(ABC):
         ...
 
     @abstractmethod
-    def get(self, name):
+    def get(self, name, default=None):
         ...
 
     @abstractmethod

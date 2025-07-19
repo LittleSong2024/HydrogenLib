@@ -5,7 +5,6 @@ from typing import Any, Union
 class ConfigTypeBase(ABC):
     parent: Any  # 配置项的父级, 通常为ConfigContainer
     type: Any  # 配置项值的类型
-    backend: 'AbstractBackend'  # 配置项的后端实例
 
     def __init_subclass__(cls, *, type=None, **kwargs):
         cls.type = type
@@ -20,9 +19,7 @@ class ConfigTypeBase(ABC):
         return isinstance(value, self.type)
 
 
-from .backend import AbstractBackend
-
-_TypeType = Union[ConfigTypeBase, type[ConfigTypeBase]]
+_ConfigType = Union[ConfigTypeBase, type[ConfigTypeBase]]
 
 
 class ConfigTypeMapping:
@@ -32,10 +29,10 @@ class ConfigTypeMapping:
     def add_pair(self, key_type, value_type):
         self._mapping[key_type] = value_type
 
-    def add_type(self, config_type: _TypeType):
+    def add_type(self, config_type: _ConfigType):
         self.add_pair(config_type.type, config_type)
 
-    def add_types(self, *config_types: _TypeType):
+    def add_types(self, *config_types: _ConfigType):
         for config_type in config_types:
             self.add_type(config_type)
 
@@ -46,10 +43,10 @@ class ConfigTypeMapping:
         for key_type in key_types:
             self.remove_pair(key_type)
 
-    def remove_type(self, config_type: _TypeType):
+    def remove_type(self, config_type: _ConfigType):
         return self.remove_pair(config_type.type)
 
-    def get_type(self, config_type: _TypeType):
+    def get_type(self, config_type: _ConfigType):
         return self.get_pair(config_type.type)
 
     def get_pair(self, key_type):
@@ -58,7 +55,7 @@ class ConfigTypeMapping:
     def exists(self, key_type):
         return key_type in self._mapping
 
-    def exists_type(self, config_type: _TypeType):
+    def exists_type(self, config_type: _ConfigType):
         return self.exists(config_type.type)
 
     def __contains__(self, item):

@@ -1,2 +1,0 @@
-from _hynet_structure import *
-

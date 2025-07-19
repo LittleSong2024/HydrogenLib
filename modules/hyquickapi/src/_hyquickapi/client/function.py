@@ -1,9 +1,9 @@
-from _hycore.better_descriptor import BetterDescriptor, BetterDescriptorInstance
+from _hycore.better_descriptor import Descriptor, DescriptorInstance
 
 from .template import *
 
 
-class ApiFunctionInstance(BetterDescriptorInstance):
+class ApiFunctionInstance(DescriptorInstance):
     def __init__(self, request_template: RequestTemplate, response_template: ResponseTemplate,
                  parent: "ApiFunction" = None):
         super().__init__()
@@ -19,25 +19,25 @@ class ApiFunctionInstance(BetterDescriptorInstance):
 
         self.url = parent.base_url + self.target
 
-    def __better_init__(self, instance, owner, name):
+    def __dspt_init__(self, instance, owner, name):
         self.name = name
 
     def __call__(self, **kwargs):
         ...
 
 
-class ApiFunction(BetterDescriptor):
+class ApiFunction(Descriptor):
     __better_type__ = ApiFunctionInstance
 
     base_url: str = None
 
-    def __better_new__(self) -> "BetterDescriptorInstance":
+    def __dspt_new__(self) -> "DescriptorInstance":
         return ApiFunctionInstance(self.request_template, self.response_template, self)
 
-    def __better_init__(self, name, owner):
-        self.serializer = owner.backend.api_serializer
-        self.requester = owner.backend.api_requester
-        self.processor = owner.backend.api_handlers
+    def __dspt_init__(self, name, owner):
+        self.serializer = owner.backends.api_serializer
+        self.requester = owner.backends.api_requester
+        self.processor = owner.backends.api_handlers
 
     def __init__(self, target_path, request: RequestTemplate, response: ResponseTemplate, method='GET'):
         super().__init__()

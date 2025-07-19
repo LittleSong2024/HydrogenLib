@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "HydrogenLib-Hyserialize"
+name = "HydrogenLib-Serialize"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 keywords = []
 authors = [
   { name = "LittleSong2024", email = "LittleSong2024@outlook.com" },

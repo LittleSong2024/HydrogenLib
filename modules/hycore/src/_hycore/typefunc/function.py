@@ -41,9 +41,11 @@ def get_qualname(func_type_or_ins: typing.Union[types.FunctionType, type, object
     return f'{func_type_or_ins.__module__}.{func_type_or_ins.__qualname__}'
 
 
+FunctionTypes = types.FunctionType, types.MethodType, types.BuiltinFunctionType, types.BuiltinMethodType
+
+
 def is_function(obj):
-    Func_Callable_Types = typing.Union[types.FunctionType, types.BuiltinFunctionType]
-    return isinstance(obj, Func_Callable_Types)
+    return isinstance(obj, FunctionTypes)
 
 
 def get_signature(func):

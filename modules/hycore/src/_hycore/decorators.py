@@ -1,19 +1,16 @@
 def singleton_decorator(cls):
-    class wrap(cls):
-        _Instance = None
+    cls._instance = None
 
-        def __new__(cls, *args, **kwargs):
-            if wrap._Instance is None:
-                wrap._Instance = super().__new__(cls, *args, **kwargs)
-            return wrap._Instance
+    def new(cls):
+        origin_new = cls.__new__
+        if cls._instance is None:
+            cls._instance = origin_new(cls)
 
-        def __str__(self):
-            return super().__str__()
+        return cls._instance
 
-        def __repr__(self):
-            return super().__repr__()
+    cls.__new__ = new
 
-    return wrap
+    return cls
 
 
 def Instance(*args, **kwargs):

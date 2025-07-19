@@ -1,7 +1,7 @@
 import os
 from typing import Union
 
-from .type_func import get_type_name
+from .typefunc import get_type_name
 
 origin_environ = None
 

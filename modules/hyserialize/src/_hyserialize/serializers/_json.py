@@ -1,24 +1,19 @@
 import json
-from . import abc
+from . import abstract
 
 
 class Json(abc.AbstractSerializer):
-    left_delimiter = b"{["
-    right_delimiter = b"}]"
+    backend = json
+    
+    def dump(self, fp, *args, **kwargs):
+        return self.backend.dump(fp, *args, **kwargs)
 
-    quotations = b"'\""
+    def load(self, fp, *args, **kwargs):
+        return self.backend.load(fp, *args, **kwargs)
 
-    mapping = {
-        b'{': b'}',
-        b'[': b']',
-    }
+    def dumps(self, data, *args, **kwargs):
+        return self.backend.dumps(data, *args, **kwargs).encode()
 
-    def __init__(self):
-        self.stack = None
-        self.s = None
-
-    def dumps(self, data):
-        return json.dumps(data).encode()
-
-    def loads(self, data):
-        return json.loads(data)
+    def loads(self, data, *args, **kwargs):
+        return self.backend.loads(data, *args, **kwargs)
+    

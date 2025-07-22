@@ -32,6 +32,10 @@ class Combination(AbstractSerializer):
         for serializer in self._serializers:
             data = serializer.dumps(data)
         return data
+    
+    def dump(self, fp):
+        for s in self._serializers:
+             
 
     def loads(self, data) -> Any:
         for serializer in reversed(self._serializers):

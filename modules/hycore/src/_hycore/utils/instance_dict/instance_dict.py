@@ -30,7 +30,10 @@ class InstanceDictItem:
         return self.parent.to_key(self.key)
 
     def delete_callback(self, obj):
-        self.parent.delete(obj)
+        try:
+            self.parent.delete(obj)
+        except KeyError:
+            pass  # 忽略 KeyError
 
 
 class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
@@ -49,7 +52,7 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
         return id(value)
 
     def _get(self, key, item=False) -> InstanceDictItem:
-        i = self.__getitem__(key)
+        i = super().__getitem__(key)
         return i if item else i.value
 
     def _set(self, key, value) -> None:
@@ -61,20 +64,20 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
     def _delete(self, key) -> None:
         super().__delitem__(key)
 
-    def get(self, k, id=False, default=None) -> Any:
+    def get(self, k, default=None, is_key_id=False) -> Any:
         """
         从 实例字典 中获取值
         :param k: 键
-        :param id: 传入的 k 参数是否是一个 id 值
+        :param is_key_id: 传入的 k 参数是否是一个 id 值
         :param default: 返回的默认值
         """
-        if not id:  # 如果 k 不作为 id 传入
+        if not is_key_id:  # 如果 k 不作为 id 传入
             k = self.to_key(k)  # 转换为 id
 
         if not super().__contains__(k):  # 如果 k 不位于字典中
             return default  # 返回默认值
 
-        id_item = self.__getitem__(k)
+        id_item = super().__getitem__(k)
 
         event = GetEvent(id_item.key, id_item.value)
 
@@ -85,14 +88,14 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
 
         return event.result  # 找到项, 返回字典值
 
-    def set(self, k, v, id=False):
+    def set(self, k, v, is_key_id=False):
         """
         设置 实例字典 的值
         :param k: 键
         :param v: 值
-        :param id: 传入的是否是一个 id 值
+        :param is_key_id: 传入的是否是一个 id 值
         """
-        if not id:
+        if not is_key_id:
             k = self.to_key(k)
 
         event = SetEvent(super().get(k, None), v)
@@ -103,13 +106,13 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
 
         self._set(self.to_key(k), v)
 
-    def delete(self, key, id=False):
+    def delete(self, key, is_key_id=False):
         """
         删除一个 实例字典 项
         :param key: 键
-        :param id: 传入的键是否是一个 id 值
+        :param is_key_id: 传入的键是否是一个 id 值
         """
-        if not id:
+        if not is_key_id:
             key = self.to_key(key)
 
         event = DeleteEvent(key, self._get(key))
@@ -120,14 +123,14 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
 
         self._delete(key)
 
-    def pop(self, key, id=False):
+    def pop(self, key, is_key_id=False):
         """
         弹出一个 实例字典 项
         :param key: 键
-        :param id: 传入的键是否是一个 id 值
+        :param is_key_id: 传入的键是否是一个 id 值
         :return: Any
         """
-        if not id:
+        if not is_key_id:
             key = self.to_key(key)
 
         self.delete_event(DeleteEvent(key, self._get(key)))

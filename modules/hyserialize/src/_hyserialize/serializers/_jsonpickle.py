@@ -3,9 +3,5 @@ from . import _json
 
 
 class JsonPickle(_json.Json):
-    def dumps(self, data):
-        return jsonpickle.dumps(data).encode()
-
-    def loads(self, data):
-        return jsonpickle.loads(data)
+    backend = jsonpickle
 

@@ -1,4 +1,4 @@
-from .abc import AbstractSerializer
+from .abstract import AbstractSerializer
 
 # ---
 

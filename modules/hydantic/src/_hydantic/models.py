@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import enum
-from dataclasses import dataclass
+from collections import OrderedDict
+from dataclasses import dataclass, field
 from typing import TypedDict
 
 from _hycore.utils import InstanceMapping
@@ -21,7 +24,17 @@ class _FieldValidator(classmethod):
 
 @dataclass
 class ModelConfig:
-    fields: InstanceMapping[str, 'Field'] = None
+    fields: OrderedDict[str, Field] = field(default_factory=OrderedDict)
+    
+    # 位置参数可以通过区分位置来判断是否是可选参数
+    # 在后面的一定是可选参数
+    position_fields: OrderedDict[str, Field] = field(default_factory=OrderedDict)
+    
+    # 但是关键字参数是无序的,只能通过分离储存
+    keyword_optional_fields: dict[str, Field] = field(default_factory=dict)
+    keyword_required_fields: dict[str, Field] = field(default_factory=dict)
+    
+    extra_mode: ExtraMode = ExtraMode.forbid
 
 
 class Field:
@@ -35,8 +48,11 @@ class Field:
     def validator(self, value):
         self._validator = value
 
-    def has_default(self):
+    def is_optional(self):
         return self.default is not None
+    
+    def is_required(self):
+        return not self.is_optional()  # 不是可选就是必选
 
     def __init__(self, name, type, default=None):
         self.name = name

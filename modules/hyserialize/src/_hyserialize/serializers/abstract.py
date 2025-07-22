@@ -14,7 +14,15 @@ class AbstractSerializer(ABC):
     @abstractmethod
     def dumps(self, data) -> bytes:
         ...
+    
+    @abstractmethod
+    def dump(self, fp) -> None:
+        ...
 
     @abstractmethod
     def loads(self, data) -> Any:
+        ...
+    
+    @abstractmethod
+    def load(self, fp) -> Any:
         ...

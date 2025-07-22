@@ -28,6 +28,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/hyfilesystem/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hyserialize/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/hynetwork/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/hydantic/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/.vscode" />
       <excludeFolder url="file://$MODULE_DIR$/modules/hydrogenlib/_hycl/.old.source" />

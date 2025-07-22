@@ -7,7 +7,7 @@ class EventBase:
     事件基类
     """
     def __init__(self):
-        self.__accepted = False
+        self.__accepted = True
 
     def accept(self):
         self.__accepted = True

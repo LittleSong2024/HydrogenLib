@@ -21,7 +21,7 @@ async def to_coro(func, *args, **kwargs):
     return func(*args, **kwargs)
 
 
-class _Wrap:
+class FutureFunction:
     def __init__(self, func, *args, **kwargs):
         self._partial = partial(func, *args, **kwargs)
         self._future = asyncio.Future()
@@ -42,13 +42,16 @@ class _Wrap:
 
 
 def wrap(func, *args, **kwargs):
-    return _Wrap(func, *args, **kwargs)
+    return FutureFunction(func, *args, **kwargs)
 
 
 class ProtectedTask:
-    def __init__(self, loop, origin_task_instance):
+    """
+    受保护的任务对象,保证线程安全
+    """
+    def __init__(self, task, loop):
         self._loop: asyncio.AbstractEventLoop = loop
-        self._task: asyncio.Task = origin_task_instance
+        self._task: asyncio.Task = task
 
     def done(self):
         return self._task.done()
@@ -81,6 +84,9 @@ class ThreadEventLoop:
     def start(self):
         self._loop = new_event_loop()
         self._thread = run_new_thread(self.__thread_main)
+
+    def is_running(self):
+        return self._loop.is_running()
 
     def create_task(self, coro):
         task = self.__run_threadsafe(self._loop.create_task, coro)

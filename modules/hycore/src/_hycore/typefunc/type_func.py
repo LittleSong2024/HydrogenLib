@@ -43,7 +43,7 @@ def iter_annotations(obj, *, globals=None, locals=None, eval_str=False):
     """
     迭代对象中的所有注解
     """
-    for name, typ in inspect.get_annotations(obj, globals=globals, locals=locals, eval_str=eval_str):
+    for name, typ in inspect.get_annotations(obj, globals=globals, locals=locals, eval_str=eval_str).items():
         yield name, typ, getattr(obj, name, None)
 
 

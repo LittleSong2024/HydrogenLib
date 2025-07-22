@@ -71,7 +71,7 @@ class InstanceMapping[_KT, _VT](UserDict[_KT, _VT]):
         if not id:  # 如果 k 不作为 id 传入
             k = self.to_key(k)  # 转换为 id
 
-        if k not in self:  # 如果 k 不位于字典中
+        if not super().__contains__(k):  # 如果 k 不位于字典中
             return default  # 返回默认值
 
         id_item = self.__getitem__(k)

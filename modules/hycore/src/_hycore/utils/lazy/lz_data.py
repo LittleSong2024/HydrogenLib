@@ -9,6 +9,9 @@ class LazyData:
         self._kwargs = kwargs
         self._cache = None
 
+    def update_callable(self, callable: Callable):
+        self._callable = callable
+
     @ property
     def value(self):
         return self.get()

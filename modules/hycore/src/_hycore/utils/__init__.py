@@ -5,6 +5,7 @@ from .dotpath import *
 from .double_dict import *
 from .getting_path import *
 from .instance_dict import *
+from .lazy import *
 from .multi_set import *
 from .member_manager import *
 from .namespace import *

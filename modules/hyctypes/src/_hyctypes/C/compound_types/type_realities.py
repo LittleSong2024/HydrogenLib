@@ -1,7 +1,10 @@
-from inspect import get_annotations
+from inspect import get_annotations, Signature
 
-from _hycore.typefunc import get_type_name
+from _hycore.typefunc import get_type_name, get_name, get_signature
+from _hycore.utils import LazyField
 from .impls import *
+from .base import CallingConvention as CV
+from ..methods import get_types_from_signature
 
 
 class PointerType(AbstractCType, real=Pointer):
@@ -166,57 +169,45 @@ class StructureType(AbstractCType, real=Structure):
 class UnionType(StructureType, real=Structure):  # 万能的 Structure!!!
     __struct_meta__ = ctypes.Union
 
-# class Structure(ctypes.Structure):
-#     def __str__(self):
-#         head = f"struct {self.__class__.__name__}:\n"
-#         body = ''
-#         for field, type in self._fields_:
-#             value = getattr(self, field)
-#             body += f"\t{field} = {value}  # type: {type.__name__}\n"
-#
-#         return head + body
-#
-#     def __repr__(self):
-#         field_dct = {
-#             k: getattr(self, k) for k in self._fields_
-#         }
-#         return f"{self.__class__.__name__}({', '.join([f'{field}={value}' for field, value in field_dct.items()])})"
-#
-#
-# def struct(maybe_cls=None, *, pack=None, align=None):
-#     def decorator(cls):
-#         if not issubclass(cls, ctypes.Structure):
-#             raise TypeError(f"{cls.__name__} is not a subclass of Structure")
-#
-#         # 提取 annotations, 生成 fields
-#         anonymous = []  # 记录匿名属性
-#         fields = []
-#
-#         for name, type in cls.__annotations__.items():
-#             if isinstance(type, AnonymousType):
-#                 anonymous.append(name)
-#
-#             fields.append((name, as_ctype(type)))
-#
-#         # 配置结构体
-#
-#         if pack is not None:
-#             cls._pack_ = pack
-#
-#         if align is not None:
-#             cls._align_ = align
-#
-#         if anonymous:
-#             cls._anonymous_ = anonymous
-#
-#         cls._fields_ = fields
-#
-#         return cls
-#
-#     if maybe_cls is None:
-#         return decorator
-#
-#     return decorator(maybe_cls)
-#
-#
-# union = struct
+
+class ProtoType(AbstractCType, real=Function):
+    def __init__(self, restype, *argtypes, cv: CV = CV.auto, signature: Signature = None, name: str = None):
+        self.restype = restype
+        self.argtypes = argtypes
+        self.cv = cv
+        self.signature = signature
+        self.name = name
+
+    def bind(self, dll, name=None):
+        if dll.calling_convention != self.cv:
+            raise TypeError(f"Calling convention mismatch: {dll.calling_convention} != {self.cv}")
+        return Function(dll.addr(name or self.name), self, self.signature)
+
+    @classmethod
+    def define(cls, maybe_func=None, *, name: str = None, cv: CV = CV.auto):
+        def decorator(func):
+            nonlocal name
+            name = name or get_name(func)
+            signature = get_signature(func)  # 获取函数签名
+            types = get_types_from_signature(signature)
+            restype = signature.return_annotation  # 提取 argtypes 和 restype
+
+            # 构建原型
+            return cls(
+                restype, *types,
+                signature=signature, name=name,
+                cv = cv
+            )
+
+        if maybe_func is None:
+            return decorator
+        else:
+            return decorator(maybe_func)
+
+    @LazyField
+    def __real_ctype__(self):
+        return self.cv.functype(self.restype, *self.argtypes)
+
+    def __call__(self, ptr):
+        return Function(ptr, self)
+

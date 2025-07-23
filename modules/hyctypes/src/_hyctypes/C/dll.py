@@ -2,27 +2,12 @@ import ctypes
 import os
 import platform
 
-from .enums import *
-from .c_types import Pointer  # 在这里, 我们使用 PointerImpl 暴露类型时应该暴露 PointerType
-
-
-def get_system_default_calling_conv():
-    match os.name:
-        case 'nt':
-            return CallingConvention.stdcall
-        case 'posix':
-            return CallingConvention.cdecl
-        case _:
-            return CallingConvention.cdecl
-
-
-class DllPointer(Pointer):
-    def __call__(self, *args):
-        return self.ptr(*args)  # 不允许 Kwargs
+from .basic_types import CallingConvention as CV
+from .c_types import Function, ProtoType
 
 
 class Dll:
-    def __init__(self, name: str, calling_convention: CallingConvention = get_system_default_calling_conv(), load=True):
+    def __init__(self, name: str, calling_convention: CV = CV.auto, load=True):
         self._name = name
         self._calling_convention = calling_convention
         self._dll = None
@@ -32,13 +17,13 @@ class Dll:
 
     def load(self):
         match self._calling_convention:
-            case CallingConvention.stdcall:
+            case CV.stdcall:
                 self._dll = ctypes.WinDLL(self._name)
-            case CallingConvention.cdecl:
+            case CV.cdecl:
                 self._dll = ctypes.CDLL(self._name)
-            case CallingConvention.pythoncall:
+            case CV.pythoncall:
                 self._dll = ctypes.PyDLL(self._name)
-            case x if x in {CallingConvention.fastcall, CallingConvention.vectorcall}:
+            case x if x in {CV.fastcall, CV.vectorcall}:
                 match platform.system():
                     case "Windows":
                         self._dll = ctypes.WinDLL(self._name)
@@ -70,7 +55,18 @@ class Dll:
         else:
             raise TypeError("Unsupported type")
 
-        return DllPointer(ptr)
+        return ptr
 
     def attr(self, name: str, type):
         return self.addr(name).cast(type)
+
+    def __getattr__(self, name):
+        return self.addr(name)
+
+    def __call__(self, maybe_func=None, *, name: str = None):
+        def decorator(func):
+            prototype = ProtoType.define(name=name)(func)
+            func = Function(self.addr(prototype.name), prototype, prototype.signature)
+            return func
+
+        return decorator(maybe_func) if maybe_func else decorator

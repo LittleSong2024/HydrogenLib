@@ -12,10 +12,8 @@ Use:
 
 
 from . import C
-from .C.enums import CallingConvention as CallingConv
-from .C.function import Function, Method, WrapedArguments
-from .C.prototype import ProtoType
-from .C.dll import Dll, DllPointer
+from .C.basic_types import CallingConvention
+from .C.dll import Dll
 
 
 from .C.c_types import *

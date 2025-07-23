@@ -1,6 +1,8 @@
 import ctypes
 from abc import ABCMeta
 
+from .enums import *
+
 
 class CDataMeta(ABCMeta):
     __cdata__ = ...
@@ -60,6 +62,13 @@ class AbstractCData(metaclass=CDataMeta):
 
 
 class AbstractCType:
+    """
+    Properties:
+        - __real_type__: 类型在 hyctypes 类型系统中表示的真实类型, 比如 PointerType 的真实类型为 Pointer
+        - __real_ctype__: 类型在 ctypes 类型系统表示的真实类型
+
+    如果不重写 __call__ 方法,那么默认返回 __real_type__(*args, **kwargs)
+    """
     __real_type__: type = None
     __real_ctype__: type = None
 
@@ -136,3 +145,6 @@ def sizeof(obj):
 
 def cast(obj, target_type):
     return ctypes.cast(as_cdata(obj), ctypes.POINTER(as_ctype(target_type)))
+
+def as_functype(obj, prototype):
+    return prototype(as_cdata(obj))

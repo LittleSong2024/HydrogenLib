@@ -1,4 +1,3 @@
 from .dll import Dll
-from .function import Function
-from .enums import CallingConvention
-from .prototype import ProtoType
+from .basic_types import CallingConvention
+from .compound_types import ProtoType, Function

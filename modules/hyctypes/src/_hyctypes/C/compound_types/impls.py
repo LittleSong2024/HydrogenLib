@@ -1,4 +1,8 @@
+import typing
+from inspect import Signature, Parameter
+
 from _hycore.typefunc import alias
+from _hycore.utils import InstanceMapping, LazyField
 from .base import *
 from ..basic_types.type_realities import ubyte
 
@@ -86,7 +90,6 @@ class Array(AbstractCData):
 
 
 class ArrayPointer(Array):
-
     length = alias['_length']
 
     @property
@@ -159,3 +162,91 @@ class Structure(AbstractCData):
         return f"{self.__class__.__name__}({', '.join([f'{field}={value}' for field, value in field_dct.items()])})"
 
 
+class WrapedArguments:
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+    def call(self, func):
+        return func(*self.args, **self.kwargs)
+
+
+class Function:
+    _methods = InstanceMapping()
+
+    @LazyField
+    def _signature(self):
+        if self._signature_:
+            return self._signature_
+
+        if self._prototype.signature:
+            return self._prototype.signature
+
+        # 尽可能复用已有的 signature
+
+        return Signature(  # 生成 signature 来方便类型检查
+            [
+                Parameter(f'Arg__{i}', Parameter.POSITIONAL_OR_KEYWORD, annotation=tp)
+                for i, tp in enumerate(self._prototype.argtypes)
+            ],
+            return_annotation=self._prototype.restype
+        )
+
+    def __init__(self, ptr, prototype: 'ProtoType' = None, signature: Signature = None):
+        self._ptr = ptr
+        self._prototype = prototype
+        self._signature_ = signature
+
+    # @classmethod
+    # def wrap(cls, maybe_func=None, *, name: str = None, dll=None, real_prototype=None):
+    #     def decorator(func):
+    #         prototype = real_prototype or ProtoType.from_pyfunc(func, name=name)
+    #         prototype.name = prototype.name or name
+    #         fnc = cls(prototype, dll=dll, signature=prototype.py_signature)
+    #
+    #         def wrapper(*args, **kwargs):
+    #             arguments = func(*args, **kwargs)  # type: WrapedArguments
+    #             if not isinstance(arguments, WrapedArguments):
+    #                 # 必须返回 WrapedArguments
+    #                 raise TypeError("return must be WrapedArguments")
+    #             return arguments.call(fnc)
+    #
+    #         return wrapper
+    #
+    #     if maybe_func is None:
+    #         return decorator
+    #     else:
+    #         return decorator(maybe_func)
+
+    def convert_args(self, args, kwargs):
+        bound_args = self._signature.bind(*args, **kwargs).arguments.values()
+        for tp, arg in zip(self._prototype.argtypes, bound_args):
+            try:
+                yield as_cdata(convert_cdata(arg, tp))
+            except TypeError as e:
+                raise TypeError(str(e))
+
+    def __call__(self, *args, **kwargs):
+        return self._ptr(*self.convert_args(args, kwargs))  # 不要用 kwargs
+
+    def __get__(self, inst, cls):
+        if inst in self._methods:
+            return self._methods[inst]
+        else:
+            self._methods[inst] = Method(inst, self)
+            return self._methods[inst]
+
+
+class Method:
+    __self__ = None
+
+    def __init__(self, inst, func: Function):
+        self.__self__ = inst
+        self.__func__ = func
+
+    def __call__(self, *args, **kwargs):
+        return self.__func__(self.__self__, *args, **kwargs)
+
+
+if typing.TYPE_CHECKING:
+    from .type_realities import *

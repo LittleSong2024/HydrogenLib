@@ -16,9 +16,12 @@ class alias:
     mode = aliasmode
 
     def __init__(self, attr_path, mode=aliasmode.read, classvar_enabled=False):
-        self.path = attr_path
+        self.path = str(attr_path)
         self.mode = mode
         self.cve = classvar_enabled
+
+    def __str__(self):
+        return self.path
 
     def __class_getitem__(cls, item) -> 'alias':
         return cls(item)

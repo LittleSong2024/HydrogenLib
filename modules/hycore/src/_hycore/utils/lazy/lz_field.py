@@ -4,18 +4,18 @@ from .lz_data import LazyData
 from ...better_descriptor import (Descriptor, DescriptorInstance)
 
 
-class LazyFieldInstance(DescriptorInstance):
+class LazyPropertyData(DescriptorInstance):
     _lazydata = None
 
-    def __dspt_init__(self, inst, owner, name, dspt: 'LazyField'):
+    def __dspt_init__(self, inst, owner, name, dspt: 'LazyProperty'):
         self._lazydata = LazyData(dspt.loader(), inst)
 
-    def __dspt_get__(self, instance, owner, parent: 'LazyField') -> Any:
+    def __dspt_get__(self, instance, owner, parent: 'LazyProperty') -> Any:
         self._lazydata.update_callable(parent.loader())
         return self._lazydata.get(instance)  # 传递实例
 
 
-class LazyField(Descriptor):
+class LazyProperty(Descriptor):
     def __init__(self, loader: Callable = None):
         super().__init__()
         self._loader = loader
@@ -28,4 +28,4 @@ class LazyField(Descriptor):
             return self._loader
 
     def __dspt_new__(self, inst) -> DescriptorInstance:
-        return LazyFieldInstance()
+        return LazyPropertyData()

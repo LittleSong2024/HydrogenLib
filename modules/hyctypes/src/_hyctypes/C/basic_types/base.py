@@ -1,4 +1,3 @@
-import ctypes
 from abc import ABCMeta
 
 from .enums import *
@@ -6,7 +5,6 @@ from .enums import *
 
 class CDataMeta(ABCMeta):
     __cdata__ = ...
-    __ctype__ = ...
 
 
 class AbstractCData(metaclass=CDataMeta):
@@ -15,7 +13,6 @@ class AbstractCData(metaclass=CDataMeta):
     """
 
     __cdata__ = ...
-    __ctype__ = ...  # 这些都是元类属性，用于描述 ctypes 数据类型.
 
     def __as_ctype__(self):
         """
@@ -60,6 +57,9 @@ class AbstractCData(metaclass=CDataMeta):
         """
         return self.__cdata__._objects
 
+    def __eq__(self, other):
+        return self.__cdata__ == other
+
 
 class AbstractCType:
     """
@@ -77,8 +77,10 @@ class AbstractCType:
         if real:
             cls.__real_type__ = real
 
-    def __class_getitem__(cls, *item):
-        return cls(*item)
+    def __class_getitem__(cls, item):
+        if isinstance(item, tuple):
+            return cls(*item)
+        return cls(item)
 
     def __call__(self, *args, **kwargs) -> '__real_type__':
         return self.__real_type__(*args, **kwargs)
@@ -117,6 +119,11 @@ def convert_cdata(obj, tp):
             else:
                 return obj
         return convert_cdata(obj, tp)
+
+    else:
+        if isinstance(tp, AbstractCType):
+            return tp(obj)
+
     return obj
 
 
@@ -127,6 +134,8 @@ def as_ctype(tp):
 
 
 def pointer(obj):
+    if obj is None or isinstance(obj, int):
+        return 0
     return ctypes.pointer(as_cdata(obj))
 
 
@@ -146,5 +155,13 @@ def sizeof(obj):
 def cast(obj, target_type):
     return ctypes.cast(as_cdata(obj), ctypes.POINTER(as_ctype(target_type)))
 
+
 def as_functype(obj, prototype):
     return prototype(as_cdata(obj))
+
+
+def get_real_type(ctype):
+    if isinstance(ctype, AbstractCType):
+        return ctype.__real_type__
+    else:
+        return ctype

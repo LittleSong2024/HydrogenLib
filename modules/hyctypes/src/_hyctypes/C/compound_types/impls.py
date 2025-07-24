@@ -2,12 +2,12 @@ import typing
 from inspect import Signature, Parameter
 
 from _hycore.typefunc import alias
-from _hycore.utils import InstanceMapping, LazyField
+from _hycore.utils import InstanceMapping, LazyProperty
 from .base import *
 from ..basic_types.type_realities import ubyte
 
 
-class Pointer(AbstractCData):
+class Pointer[T](AbstractCData):
     __slots__ = ()
 
     ptr = alias['__cdata__'](mode=alias.mode.read_write)
@@ -18,12 +18,18 @@ class Pointer(AbstractCData):
     def cast(self, tp):
         return cast(self, tp)
 
+    def as_functype(self, prototype):
+        return ctypes.cast(
+            as_cdata(self),
+            as_ctype(prototype)
+        )
+
     @property
-    def value(self):
+    def value(self) -> T:
         return self.ptr.contents
 
     @value.setter
-    def value(self, v):
+    def value(self, v: T):
         c_obj = as_cdata(v)
         c_type = type(c_obj)
         if not issubclass(c_type, self.ptr._type_):
@@ -37,7 +43,7 @@ class Pointer(AbstractCData):
         ptr.ptr = ctypes.POINTER(type)(address)
         return ptr
 
-    def __getitem__(self, item):
+    def __getitem__(self, item) -> T:
         return self.ptr[item]
 
     def __convert_ctype__(self, target):
@@ -48,12 +54,12 @@ class Pointer(AbstractCData):
         return cast(self, as_ctype(target))
 
 
-class Ref(AbstractCData):
+class Ref[T](AbstractCData):
     __slots__ = ()
 
     ref = alias['__cdata__'](mode=alias.mode.read_write)
 
-    def __init__(self, obj):
+    def __init__(self, obj: T):
         self.ref = byref(obj)
 
     def __convert_ctype__(self, target):
@@ -123,9 +129,10 @@ class ArrayPointer(Array):
 
 
 class Structure(AbstractCData):
-    def __init__(self, struct):
-        self.__cdata__ = struct
-        self.__ctype__ = struct.__class__
+    __ctype__ = ...
+
+    def __init__(self, *args, **kwargs):
+        self.__cdata__ = self.__ctype__(*args, **kwargs)
 
     def __getattr__(self, name):
         return getattr(self.__cdata__, name)
@@ -174,7 +181,9 @@ class WrapedArguments:
 class Function:
     _methods = InstanceMapping()
 
-    @LazyField
+    _restype = alias['_prototype']['restype']
+
+    @LazyProperty
     def _signature(self):
         if self._signature_:
             return self._signature_
@@ -196,6 +205,8 @@ class Function:
         self._ptr = ptr
         self._prototype = prototype
         self._signature_ = signature
+
+        self._ptr.restype = as_ctype(self._restype)  # 只设置 restype, argtypes 不由 ctypes 检查
 
     # @classmethod
     # def wrap(cls, maybe_func=None, *, name: str = None, dll=None, real_prototype=None):
@@ -227,7 +238,16 @@ class Function:
                 raise TypeError(str(e))
 
     def __call__(self, *args, **kwargs):
-        return self._ptr(*self.convert_args(args, kwargs))  # 不要用 kwargs
+        res = self._ptr(*self.convert_args(args, kwargs))  # 不要用 kwargs
+        # 现在, 我们需要对返回值二次转换
+        # ctypes 的调用不会返回 hyctypes 中的类型
+        if self._restype is None:
+            return
+
+        real_type = self._restype
+        if isinstance(real_type, AbstractCType):
+            real_type = get_real_type(real_type)
+        return real_type(res)
 
     def __get__(self, inst, cls):
         if inst in self._methods:

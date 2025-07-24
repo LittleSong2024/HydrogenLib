@@ -4,3 +4,7 @@ from .py_types import *
 
 AnyPtr = PointerType[None]  # like ctypes.c_void_p
 AnyRef = RefType[object]  # ctypes 的 Ref 没有类型, 按照我们的类型框架, 应该用 object
+
+if typing.TYPE_CHECKING:
+    AnyPtr = Pointer
+    AnyRef = Ref

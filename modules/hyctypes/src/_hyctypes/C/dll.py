@@ -2,6 +2,7 @@ import ctypes
 import os
 import platform
 
+from _hycore import typefunc
 from .basic_types import CallingConvention as CV
 from .c_types import Function, ProtoType
 
@@ -27,7 +28,7 @@ class Dll:
                 match platform.system():
                     case "Windows":
                         self._dll = ctypes.WinDLL(self._name)
-                    case "Linux", "Darwin":
+                    case x  if x in {'Linux', 'Darwin'}:
                         self._dll = ctypes.CDLL(self._name)
                     case _:
                         raise Exception("Unsupported OS")

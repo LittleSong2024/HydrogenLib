@@ -1,7 +1,8 @@
+import ctypes
 from inspect import get_annotations, Signature
 
 from _hycore.typefunc import get_type_name, get_name, get_signature
-from _hycore.utils import LazyField
+from _hycore.utils import LazyProperty
 from .impls import *
 from .base import CallingConvention as CV
 from ..methods import get_types_from_signature
@@ -57,6 +58,8 @@ class ArrayType(AbstractCType, real=Array):
 
 
 class RefType(AbstractCType, real=Ref):
+    __real_ctype__ = ctypes.c_void_p
+
     def __init__(self, tp):
         """
         :param tp: 引用目标类型
@@ -89,7 +92,7 @@ This = _This()
 
 
 class StructureType(AbstractCType, real=Structure):
-    __struct_meta__ = None
+    __struct_base__ = None
 
     @staticmethod
     def config_structure(s, fields=None, anonymous=None, pack=None, align=None):
@@ -113,11 +116,11 @@ class StructureType(AbstractCType, real=Structure):
     def generate_structure_name(types, head='Structure'):
         return f"{head}_{''.join([get_type_name(tp).removeprefix('c_') for tp in types])}"
 
-    def __init__(self, fields, anonymous, pack, align, metaclass=None):
-        metaclass = metaclass or self.__struct_meta__ or ctypes.Structure
+    def __init__(self, *fields, anonymous, pack, align, base=None):
+        base = base or self.__struct_base__ or ctypes.Structure
         self.__real_ctype__ = s = type(
             self.generate_structure_name(map(lambda x: x[1], fields)),
-            (metaclass,), {}
+            (base,), {}
         )
 
         final_fields = []
@@ -141,21 +144,14 @@ class StructureType(AbstractCType, real=Structure):
             raise TypeError(f"{tp.__name__} is not a subclass of Structure")
         self.__real_type__ = tp
 
-    def __convert_ctype__(self, obj):
-        return self.__real_ctype__
-
-    def __call__(self, *args, **kwargs):
-        return self.__real_type__(
-            self.__real_ctype__(*args, **kwargs)
-        )
-
     @classmethod
-    def define(cls, maybe_cls, *, pack=None, align=None, anonymous=None, meta=None):
+    def define(cls, maybe_cls, *, pack=None, align=None, anonymous=None, base=None):
         def decorator(ccls):
             # 提取 annotations
             fields = get_annotations(ccls).items()
-            inst = cls(fields, pack=pack, align=align, anonymous=anonymous, metaclass=meta)
+            inst = cls(*fields, pack=pack, align=align, anonymous=anonymous, base=base)
             inst.set_real_type(ccls)
+            ccls.__ctype__ = inst.__real_ctype__
 
             return inst
 
@@ -167,13 +163,17 @@ class StructureType(AbstractCType, real=Structure):
 
 
 class UnionType(StructureType, real=Structure):  # 万能的 Structure!!!
-    __struct_meta__ = ctypes.Union
+    __struct_base__ = ctypes.Union
 
 
 class ProtoType(AbstractCType, real=Function):
+    @LazyProperty
+    def c_argtypes(self):
+        return tuple(map(as_ctype, self.argtypes))
+
     def __init__(self, restype, *argtypes, cv: CV = CV.auto, signature: Signature = None, name: str = None):
-        self.restype = restype
         self.argtypes = argtypes
+        self.restype = restype
         self.cv = cv
         self.signature = signature
         self.name = name
@@ -189,7 +189,7 @@ class ProtoType(AbstractCType, real=Function):
             nonlocal name
             name = name or get_name(func)
             signature = get_signature(func)  # 获取函数签名
-            types = get_types_from_signature(signature)
+            types = tuple(get_types_from_signature(signature))
             restype = signature.return_annotation  # 提取 argtypes 和 restype
 
             # 构建原型
@@ -204,10 +204,13 @@ class ProtoType(AbstractCType, real=Function):
         else:
             return decorator(maybe_func)
 
-    @LazyField
+    @LazyProperty
     def __real_ctype__(self):
-        return self.cv.functype(self.restype, *self.argtypes)
+        return self.cv.functype(self.restype, *self.c_argtypes)
 
     def __call__(self, ptr):
         return Function(ptr, self)
+
+    def __str__(self):
+        return f"ProtoType([{', '.join(map(str, self.argtypes))}]) -> {self.restype}"
 

@@ -5,7 +5,6 @@ from _hycore.typefunc import as_address_string
 
 
 class Pointer[T](AbstractCData):
-    __ctype__ = ctypes.POINTER
 
     def __init__(self, obj):
         if isinstance(obj, AbstractCData):
@@ -68,7 +67,6 @@ class Pointer[T](AbstractCData):
 
 
 class Ref(AbstractCData):
-    __ctype__ = None
 
     def __init__(self, obj: AbstractCData, offset=0):
         self.__cdata__ = ctypes.byref(AbstractCData.__as_ctype__(obj), offset)

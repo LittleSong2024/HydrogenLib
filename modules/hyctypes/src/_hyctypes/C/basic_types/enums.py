@@ -3,7 +3,7 @@ import platform
 from enum import *
 
 
-class CallingConvention(IntEnum):
+class CallingConvention(int, Enum):
     """
     调用约定
     """

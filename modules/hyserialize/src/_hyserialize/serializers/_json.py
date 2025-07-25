@@ -1,19 +1,23 @@
 import json
-from . import abstract
+
+from ..abstract import AbstractSerializer
 
 
-class Json(abc.AbstractSerializer):
-    backend = json
+class Json(AbstractSerializer):
+    object_hook = None
+    default = None
     
     def dump(self, fp, *args, **kwargs):
-        return self.backend.dump(fp, *args, **kwargs)
+        return json.dump(
+            fp,
+            *args,
+            **{'default': self.default, **kwargs}
+        )
 
     def load(self, fp, *args, **kwargs):
-        return self.backend.load(fp, *args, **kwargs)
-
-    def dumps(self, data, *args, **kwargs):
-        return self.backend.dumps(data, *args, **kwargs).encode()
-
-    def loads(self, data, *args, **kwargs):
-        return self.backend.loads(data, *args, **kwargs)
+        return json.load(
+            fp,
+            *args,
+            **{'object_hook': self.object_hook, **kwargs}
+        )
     

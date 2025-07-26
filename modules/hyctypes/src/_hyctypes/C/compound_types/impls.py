@@ -53,6 +53,14 @@ class Pointer[T](AbstractCData):
 
         return cast(self, as_ctype(target))
 
+    def __str__(self):
+        return f"Pointer({int(self.ptr or 0)})"
+
+    def __eq__(self, other):
+        if other == 0:
+            return self.ptr is None or self.ptr == 0
+        return self.ptr == other
+
 
 class Ref[T](AbstractCData):
     __slots__ = ()

@@ -94,6 +94,11 @@ class AbstractCType:
 
         return obj
 
+    def __instancecheck__(self, instance):
+        return \
+            isinstance(instance, self.__real_type__) or \
+            isinstance(instance, self.__real_ctype__)
+
 
 class AlwaysEquals:
     def __eq__(self, other):

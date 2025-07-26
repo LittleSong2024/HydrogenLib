@@ -24,17 +24,23 @@ class call_property:
 
         self._fget = fget
 
+        return self
+
     def setter(self, fset):
         if not callable(fset):
             raise TypeError("fset must be callable")
 
         self._fset = fset
 
+        return self
+
     def deleter(self, fdel):
         if not callable(fdel):
             raise TypeError("fdel must be callable")
 
         self._fdel = fdel
+
+        return self
 
     def __get__(self, instance, owner):
         if instance is None:

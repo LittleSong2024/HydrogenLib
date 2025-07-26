@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Protocol
 
 from .function import get_signature
 
@@ -91,3 +91,59 @@ def get_parameters(func):
 
 def as_address_string(int_id: int):
     return '0x' + format(int_id, '016X')
+
+
+class AsyncIO[T](Protocol):
+    @property
+    async def mode(self) -> str:
+        ...
+
+    @property
+    async def name(self) -> str:
+        ...
+
+    async def close(self) -> None:
+        ...
+
+    @property
+    async def closed(self) -> bool: ...
+
+    def fileno(self) -> int: ...
+
+    def isatty(self) -> bool: ...
+
+    async def read(self, n: int = -1) -> T:
+        ...
+
+    def readable(self) -> bool: ...
+
+    async def readline(self, limit: int = -1) -> T:
+        ...
+
+    async def readlines(self, hint: int = -1) -> list[T]:
+        ...
+
+    async def seek(self, offset: int, whence: int = 0) -> int:
+        ...
+
+    def seekable(self) -> bool: ...
+
+    def tell(self) -> int:
+        ...
+
+    def truncate(self, size: int = 0) -> int:
+        ...
+
+    async def write(self, b: bytes) -> int:
+        ...
+
+    def writable(self) -> bool: ...
+
+    def writelines(self, lines: list[T]) -> None:
+        ...
+
+    def __enter__(self) -> 'AsyncIO[T]':
+        ...
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        ...
